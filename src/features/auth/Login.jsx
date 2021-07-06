@@ -13,8 +13,7 @@ export default function Login() {
     const logInHandler = async() => {
         await dispatch(
             logInUserWithCredentials({
-                email,
-                password
+                email, password
             })
         )
     }
@@ -25,8 +24,6 @@ export default function Login() {
         // eslint-disable-next-line
       }, [isAuthenticated, navigate]);
 
-
-
     return (
         <div className="flex items-center h-screen bg-gray-50">
             <div className="bg-white w-96 m-auto py-10 shadow-xl rounded-md">
@@ -34,12 +31,12 @@ export default function Login() {
                 <h1 className="font-light text-4xl mt-3 text-center">Welcome Back</h1>
                 <form action="" className="mt-6">
                     <div className="my-5 text-sm">
-                        <label htmlFor="username" className="block text-black">Email</label>
+                        <label htmlFor="email" className="block text-black">Email</label>
                         <input 
                             onChange={(e) => setEmail(e.target.value)}
                             type="text" 
-                            autoFocus id="username" 
-                            className="rounded-sm font-normal px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
+                            autoFocus id="email" 
+                            className="rounded font-normal px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
                             placeholder="Email" />
                     </div>
                     <div className="my-5 text-sm">
@@ -48,13 +45,13 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             type="password" 
                             id="password" 
-                            className="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
+                            className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
                             placeholder="Password" />
                     </div>
 
                     <button 
                         onClick={(e) => {e.preventDefault(); logInHandler();}}
-                        className="block text-center text-white bg-gray-800 p-3 duration-300 rounded-sm hover:bg-black w-full">
+                        className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
                             {status === "loading" ? "Loading..." : "Login"}
                     </button>
                 </form>

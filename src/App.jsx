@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router";
-import {Login } from "./features";
+import {Login, SignUp } from "./features";
 
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
     <div>
         <Routes> 
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
     </div>
   );

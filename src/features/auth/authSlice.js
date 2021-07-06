@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { logInUser, signUpUser } from "../../services/auth.service";
 
 export const logInUserWithCredentials = createAsyncThunk(
     "auth/logInUserWithCredentials",
     async({email, password}) => {
-        const {data: {success, user, token, message}} = await logInUserWithCredentials({email, password});
+        const {data: {success, user, token, message}} = await logInUser({email, password});
         if(!success) {
             throw new Error(message);
         }
@@ -15,7 +16,7 @@ export const logInUserWithCredentials = createAsyncThunk(
 export const signUpUserWithCredentials = createAsyncThunk(
     "auth/signUpUserWithCredentials",
     async({name, username, email, password}) => {
-        const {data: {success, user, token, message}} = await signUpUserWithCredentials({name, username, email, password});
+        const {data: {success, user, token, message}} = await signUpUser({name, username, email, password});
         if(!success) {
             throw new Error(message);
         }
