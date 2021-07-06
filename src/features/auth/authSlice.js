@@ -44,6 +44,9 @@ export const authSlice = createSlice({
                 isAuthenticated: null,
                 status: "idle"
             }
+        },
+        resetStatus: (state) => {
+            state.status = "idle"
         }
     },
     extraReducers: {
@@ -85,5 +88,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const { logOutUser } = authSlice.actions;
+export const { logOutUser, resetStatus } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,11 +1,16 @@
-import React from 'react';
+import { Routes, Route } from "react-router";
+import {Login } from "./features";
+
 
 function App() {
-    return (
-      <div className="App">
-        <div className="text-2xl">Hyper</div>
-      </div>
-    );
+ 
+  return (
+    <div>
+        <Routes> 
+          <Route path="/login" element={<Login />} />
+        </Routes>
+    </div>
+  );
 }
 
 export default App;
