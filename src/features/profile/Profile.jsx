@@ -1,7 +1,14 @@
+import { useState, Fragment } from "react"
+
 export default function Profile() {
+    const [isEditBoxVisible, setEditBoxVisible] = useState(false);
+
+    const editProfileHandler = () => setEditBoxVisible((preState) => !preState)
+
     return (
-        <div className="m-auto w-full max-w-2xl">
-            <div className="border-b">
+        <Fragment>
+            <div className="m-auto w-full max-w-2xl">
+            <div className="border-b relative">
                 <div className="my-4 flex">
                     <div>
                         <img 
@@ -28,7 +35,9 @@ export default function Profile() {
                             </ul>
                         </div>
                         <div className="ml-4">
-                            <button className="border w-full">Edit</button>
+                            <button 
+                                onClick={() => editProfileHandler()}
+                                className="border w-full">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -36,6 +45,7 @@ export default function Profile() {
                     <p className="text-sm">Above. Under. Don't night were him fourth. Second them. Image lights image said created, shall blessed saw there fill days seasons there together green itself given fourth kind fifth. Earth.</p>
                 </div>
             </div>
+            {isEditBoxVisible && <EditProfile/>}
             <div>
                 <ul>
                     <li className="border rounded-md my-3">
@@ -90,6 +100,52 @@ export default function Profile() {
                         </div>
                     </li>
                 </ul>
+            </div>
+        </div>
+        </Fragment>
+    )
+}
+
+
+const EditProfile = () => {
+    return (
+        <div className="modal bg-opacity-30 bg-gray-900 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center p-2">
+            <div className="absoulate shadow-lg m-auto w-full max-w-2xl p-4 bg-white rounded">
+                <div className="flex items-center flex-col">
+                    <img 
+                        className="w-16 h-auto rounded-full"
+                        src="https://via.placeholder.com/160"
+                        alt="profile_photo"/>
+                        <button className="text-sm font-medium text-blue-500">Change Profile Pic</button>
+                </div>
+                <div>
+                    <div className="my-5 text-sm">
+                        <label htmlFor="name" className="block text-gray-600">Name</label>
+                        <input 
+                            type="text" 
+                            autoFocus id="name" 
+                            className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
+                            placeholder="Name" />
+
+                        <label htmlFor="username" className="block text-gray-600 mt-2">Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
+                            placeholder="Username" />
+
+                        <label htmlFor="bio" className="block text-gray-600 mt-2">Bio</label>
+                        <textarea 
+                            type="text" 
+                            id="bio" 
+                            className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
+                            placeholder="Bio" />
+                    </div>
+                </div>
+                <div className="flex justify-between">
+                    <button className="w-full bg-blue-100">Save</button>
+                    <button className="w-full bg-gray-100 py-2 ">Cancel</button>
+                </div>
             </div>
         </div>
     )
