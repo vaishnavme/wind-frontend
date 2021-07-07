@@ -2,6 +2,7 @@ import { useState, Fragment } from "react"
 
 export default function Profile() {
     const [isEditBoxVisible, setEditBoxVisible] = useState(false);
+    const [isProfileModel, setProfileModel] = useState(false);
 
     const editProfileHandler = () => setEditBoxVisible((preState) => !preState)
 
@@ -24,11 +25,15 @@ export default function Profile() {
                                     <span className="text-lg font-medium">15</span>
                                     <span className="font-sm">Posts</span>
                                 </li>
-                                <li className="flex flex-col items-center mx-4">
+                                <li 
+                                    onClick={() => setProfileModel((preState) => !preState)}
+                                    className="flex flex-col items-center mx-4">
                                     <span className="text-lg font-medium">348</span>
                                     <span className="font-sm">Followers</span>
                                 </li>
-                                <li className="flex flex-col items-center mx-4">
+                                <li 
+                                    onClick={() => setProfileModel((preState) => !preState)}
+                                    className="flex flex-col items-center mx-4">
                                     <span className="text-lg font-medium">356</span>
                                     <span className="font-sm">Following</span>
                                 </li>
@@ -45,6 +50,7 @@ export default function Profile() {
                     <p className="text-sm">Above. Under. Don't night were him fourth. Second them. Image lights image said created, shall blessed saw there fill days seasons there together green itself given fourth kind fifth. Earth.</p>
                 </div>
             </div>
+            {isProfileModel && <ProfileModel/>}
             {isEditBoxVisible && <EditProfile/>}
             <div>
                 <ul>
@@ -109,8 +115,9 @@ export default function Profile() {
 
 const EditProfile = () => {
     return (
-        <div className="modal bg-opacity-30 bg-gray-900 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center p-2">
-            <div className="absoulate shadow-lg m-auto w-full max-w-2xl p-4 bg-white rounded">
+        <div>
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-30 outline-none focus:outline-none">
+                <div className="relative mx-auto w-96 bg-white p-2 rounded">
                 <div className="flex items-center flex-col">
                     <img 
                         className="w-16 h-auto rounded-full"
@@ -146,7 +153,45 @@ const EditProfile = () => {
                     <button className="w-full bg-blue-100">Save</button>
                     <button className="w-full bg-gray-100 py-2 ">Cancel</button>
                 </div>
+                </div>
             </div>
+            <div className="opacity-25 fixed inset-0 z-20 bg-black"></div>
+    </div>
+    )
+}
+
+const ProfileModel = () => {
+    return (
+        <div>
+        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-30 outline-none focus:outline-none">
+            <div className="relative mx-auto w-96 bg-white p-2 rounded">
+                <div className="flex justify-between">
+                    <button className="w-full bg-blue-100">Followers</button>
+                    <button className="w-full bg-gray-100 py-2 ">Following</button>
+                </div>
+                <div className="overflow-y-scroll overscroll-y-auto max-h-64 my-1">
+                    <ul className="mx-4">
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                        <li className="py-1">Josh Smith</li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-20 bg-black"></div>
         </div>
     )
 }
+
