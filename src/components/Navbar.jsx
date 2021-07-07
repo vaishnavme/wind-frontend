@@ -48,7 +48,9 @@ export const Navbar = () => {
                                 <li className="py-1 px-2 hover:bg-blue-50">
                                     <Link to="/profile">Profile</Link>
                                 </li>
-                                <li className="py-1 px-2 hover:bg-blue-50">Account</li>
+                                <li className="py-1 px-2 hover:bg-blue-50">
+                                    <Link to="/account">Account</Link>
+                                </li>
                                 <li className="py-1 px-2 hover:bg-red-50 hover:text-red-600">
                                     <button onClick={logOutHandler}>Log Out</button>
                                 </li>
