@@ -45,7 +45,9 @@ export const Navbar = () => {
                         </button>
                         <div className={`${menuVisible ? "block" : "hidden"} origin-top-right absolute mt-3 w-28 rounded overflow-hidden shadow-md bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}>
                             <ul>
-                                <li className="py-1 px-2 hover:bg-blue-50">Profile</li>
+                                <li className="py-1 px-2 hover:bg-blue-50">
+                                    <Link to="/profile">Profile</Link>
+                                </li>
                                 <li className="py-1 px-2 hover:bg-blue-50">Account</li>
                                 <li className="py-1 px-2 hover:bg-red-50 hover:text-red-600">
                                     <button onClick={logOutHandler}>Log Out</button>
