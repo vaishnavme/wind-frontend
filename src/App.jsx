@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router";
 import { Login, SignUp } from "./features";
 import { Home } from "./pages";
-import { PrivateRoute } from "./components";
+import { PrivateRoute, Navbar } from "./components";
 
 function App() {
  
   return (
-    <div>
+    <div className="m-auto w-full max-w-6xl">
+      <Navbar/>
         <Routes> 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
