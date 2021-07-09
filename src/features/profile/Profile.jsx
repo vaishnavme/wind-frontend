@@ -8,8 +8,8 @@ export default function Profile() {
                 <div className="flex items-center justify-center md:justify-start flex-col md:flex-row">
                     <div>
                         <img 
-                            className="w-36 h-auto rounded-full"
-                            src="https://via.placeholder.com/160"
+                            className="w-36 h-auto rounded-md"
+                            src="https://avatars.githubusercontent.com/u/42497931?v=4"
                             alt="profile_photo"/>
                     </div>
                     <div className="mt-4 md:ml-12">
