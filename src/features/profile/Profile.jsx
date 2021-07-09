@@ -1,10 +1,7 @@
 import { useState, Fragment } from "react"
 
 export default function Profile() {
-    const [isEditBoxVisible, setEditBoxVisible] = useState(false);
     const [isProfileModel, setProfileModel] = useState(false);
-
-    const editProfileHandler = () => setEditBoxVisible((preState) => !preState)
 
     return (
         <Fragment>
@@ -41,7 +38,6 @@ export default function Profile() {
                         </div>
                         <div className="ml-4">
                             <button 
-                                onClick={() => editProfileHandler()}
                                 className="border w-full">Edit</button>
                         </div>
                     </div>
@@ -51,7 +47,6 @@ export default function Profile() {
                 </div>
             </div>
             {isProfileModel && <ProfileModel/>}
-            {isEditBoxVisible && <EditProfile/>}
             <div>
                 <ul>
                     <li className="border rounded-md my-3">
@@ -112,53 +107,6 @@ export default function Profile() {
     )
 }
 
-
-const EditProfile = () => {
-    return (
-        <div>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-30 outline-none focus:outline-none">
-                <div className="relative mx-auto w-96 bg-white p-2 rounded">
-                <div className="flex items-center flex-col">
-                    <img 
-                        className="w-16 h-auto rounded-full"
-                        src="https://via.placeholder.com/160"
-                        alt="profile_photo"/>
-                        <button className="text-sm font-medium text-blue-500">Change Profile Pic</button>
-                </div>
-                <div>
-                    <div className="my-5 text-sm">
-                        <label htmlFor="name" className="block text-gray-600">Name</label>
-                        <input 
-                            type="text" 
-                            autoFocus id="name" 
-                            className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
-                            placeholder="Name" />
-
-                        <label htmlFor="username" className="block text-gray-600 mt-2">Username</label>
-                        <input 
-                            type="text" 
-                            id="username" 
-                            className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
-                            placeholder="Username" />
-
-                        <label htmlFor="bio" className="block text-gray-600 mt-2">Bio</label>
-                        <textarea 
-                            type="text" 
-                            id="bio" 
-                            className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
-                            placeholder="Bio" />
-                    </div>
-                </div>
-                <div className="flex justify-between">
-                    <button className="w-full bg-blue-100">Save</button>
-                    <button className="w-full bg-gray-100 py-2 ">Cancel</button>
-                </div>
-                </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-20 bg-black"></div>
-    </div>
-    )
-}
 
 const ProfileModel = () => {
     return (

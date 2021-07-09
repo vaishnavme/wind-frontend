@@ -33,6 +33,7 @@ export const Navbar = () => {
                                 <li> <Navlinks link={"/explore"} icon={"planet"} linkName={"Explore"}/> </li>
                                 <li> <Navlinks link={"/notifications"} icon={"bell"} linkName={"Notifications"}/> </li>
                                 <li> <Navlinks link={"/profile"} icon={"user"} linkName={"Profile"}/> </li>
+                                <li> <Navlinks link={"/setting"} icon={"cog"} linkName={"Settings"}/> </li>
                             </ul>
                         </div>
                     </div>
