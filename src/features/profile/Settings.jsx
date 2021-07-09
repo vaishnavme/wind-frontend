@@ -16,8 +16,8 @@ const Profile = () => {
             <h1 className="text-2xl mt-3">Profile</h1>
             <div className="flex items-center flex-col">
                 <img 
-                    className="w-28 h-auto rounded-full"
-                    src="https://via.placeholder.com/160"
+                    className="w-28 h-auto rounded-md"
+                    src="https://avatars.githubusercontent.com/u/42497931?v=4"
                     alt="profile_photo"/>
                 <button className="text-sm font-medium text-blue-600">Change Profile Pic</button>
             </div>
