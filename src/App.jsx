@@ -6,7 +6,7 @@ import { PrivateRoute, Navbar } from "./components";
 function App() {
  
   return (
-    <div className="m-auto w-full max-w-5xl">
+    <div>
       <Navbar/>
         <div className="p-2">
           <Routes> 
