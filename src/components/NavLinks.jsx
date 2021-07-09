@@ -7,7 +7,7 @@ export const Navlinks = ({link, icon, linkName}) => {
     }
 
     return (
-        <NavLink to={link} activeStyle={activeStyle} className="flex items-center py-2 px-4 hover:bg-blue-50" end>
+        <NavLink to={link} activeStyle={activeStyle} className="flex items-center py-2 px-4" end>
             <i className={`bx bx-${icon} text-xl`}></i>
             <span className="hidden md:block text-base ml-4">{linkName}</span>
         </NavLink>

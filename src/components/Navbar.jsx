@@ -29,14 +29,18 @@ export const Navbar = () => {
 
                         <div className="bg-white rounded-xl shadow p-2">
                             <ul className="flex justify-around md:flex-col">
-                                <li> <Navlinks link={"/"} icon={"home"} linkName={"Feed"}/> </li>
-                                <li> <Navlinks link={"/explore"} icon={"planet"} linkName={"Explore"}/> </li>
-                                <li> <Navlinks link={"/notifications"} icon={"bell"} linkName={"Notifications"}/> </li>
-                                <li> <Navlinks link={"/profile"} icon={"user"} linkName={"Profile"}/> </li>
+                                <li className="hover:bg-gray-50 hover:text-blue transition duration-250 ease"> 
+                                    <Navlinks link={"/"} icon={"home"} linkName={"Feed"}/> </li>
+                                <li className="hover:bg-gray-50 hover:text-blue transition duration-250 ease"> 
+                                    <Navlinks link={"/explore"} icon={"planet"} linkName={"Explore"}/> </li>
+                                <li className="hover:bg-gray-50 hover:text-blue transition duration-250 ease"> 
+                                    <Navlinks link={"/notifications"} icon={"bell"} linkName={"Notifications"}/> </li>
+                                <li className="hover:bg-gray-50 hover:text-blue transition duration-250 ease"> 
+                                    <Navlinks link={"/profile"} icon={"user"} linkName={"Profile"}/> </li>
                             </ul>
                         </div>
                     </div>
-                    <button to="/" className="hidden md:flex items-center bg-white p-3 shadow rounded-md">
+                    <button to="/" className="hidden md:flex items-center bg-white p-3 shadow hover:text-blue rounded-md">
                         <i className="bx bx-log-out text-lg"></i>
                         <span className="text-base whitespace-nowrap ml-4">Log Out</span>
                     </button>
