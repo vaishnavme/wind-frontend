@@ -5,6 +5,7 @@ import { getUserProfile } from "./profileSlice";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);
+    const { userId } = useSelector((state) => state.auth)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { profileId } = useParams();
@@ -47,11 +48,15 @@ export default function Profile() {
                                 </li>
                             </ul>
                         </div>
-                        <button 
-                            onClick={() => navigate("/setting")}
-                            className="border flex items-center justify-center w-full rounded p-1 ml-2 hover:bg-blue-600 hover:text-white duration-300 rounded hover:bg-blue-700">
-                            <i className="bx bx-cog mx-2"></i>Edit
-                        </button>
+                        {
+                            (userId === profileId) ?
+                            <button 
+                                onClick={() => navigate("/setting")}
+                                className="border flex items-center justify-center w-full rounded p-1 ml-2 hover:bg-blue-600 hover:text-white duration-300 rounded hover:bg-blue-700">
+                                <i className="bx bx-cog mx-2"></i>Edit
+                            </button>
+                            : null
+                        }
                     </div>
                 </div>
                 <div>
