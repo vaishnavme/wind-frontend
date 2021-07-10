@@ -8,9 +8,9 @@ export const logInUser = async({email, password}) => {
     return response;
 }
 
-export const signUpUser = async ({name, email, password}) => {
+export const signUpUser = async ({name, username, email, password}) => {
     const response = await axios.post(`/user/signup`, {
-        name, email, password
+        name, username, email ,password
     })
     console.log(response)
     return response;
