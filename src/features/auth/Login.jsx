@@ -25,7 +25,7 @@ export default function Login() {
       }, [isAuthenticated, navigate]);
 
     return (
-        <div className="flex items-center h-screen bg-gray-50">
+        <div className="flex items-center bg-gray-50">
             <div className="bg-white w-96 m-auto py-10 shadow-xl rounded-md">
             <div className="py-8 px-8 rounded-xl">
                 <h1 className="font-light text-4xl mt-3 text-center">Welcome Back</h1>

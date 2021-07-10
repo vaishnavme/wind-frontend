@@ -40,8 +40,8 @@ export default function SignUp() {
 
    
     return (
-        <div className="flex items-center h-screen bg-gray-50">
-            <div className="bg-white w-96 m-auto my-10 shadow-xl rounded-md">
+        <div className="flex items-center bg-gray-50">
+            <div className="bg-white w-96 m-auto my-4 shadow-xl rounded-md">
             <div className="py-4 px-4">
                 <h1 className="font-light text-4xl mt-3 text-center">Create Account</h1>
                 <form action="" className="mt-6">
