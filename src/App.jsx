@@ -7,13 +7,13 @@ import { Home } from "./pages";
 import { PrivateRoute, Navbar } from "./components";
 
 function App() {
-  const { status, authUserToken } = useSelector((state) => state.auth);
+  const { status, userToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if(status === "tokenReceived" && authUserToken) {
-      axios.defaults.headers.common["Authorization"] = authUserToken;
+    if(status === "tokenReceived" && userToken) {
+      axios.defaults.headers.common["Authorization"] = userToken;
     }
-  },[status,authUserToken])
+  },[status,userToken])
  
   return (
     <div>
