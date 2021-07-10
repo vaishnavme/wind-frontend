@@ -2,19 +2,26 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUserWithCredentials, resetStatus } from "./authSlice";
+import { InputFields } from "../../components";
 
 export default function Login() {
     const { status, isAuthenticated } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [logInCred, setLoginCred] = useState("");
+
+    const logInCredsHandler = (e) => {
+        const value = e.target.value;
+        setLoginCred({
+            ...logInCred,
+            [e.target.name] : value
+        })
+    }
 
     const logInHandler = async() => {
+        console.log(logInCred)
         await dispatch(
-            loginUserWithCredentials({
-                email, password
-            })
+            loginUserWithCredentials(logInCred)
         )
     }
 
@@ -30,25 +37,18 @@ export default function Login() {
             <div className="py-8 px-8 rounded-xl">
                 <h1 className="font-light text-4xl mt-3 text-center">Welcome Back</h1>
                 <form action="" className="mt-6">
-                    <div className="my-5 text-sm">
-                        <label htmlFor="email" className="block text-black">Email</label>
-                        <input 
-                            onChange={(e) => setEmail(e.target.value)}
-                            type="text" 
-                            autoFocus id="email" 
-                            className="rounded font-normal px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
-                            placeholder="Email" />
-                    </div>
-                    <div className="my-5 text-sm">
-                        <label htmlFor="password" className="block text-black">Password</label>
-                        <input 
-                            onChange={(e) => setPassword(e.target.value)}
-                            type="password" 
-                            id="password" 
-                            className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
-                            placeholder="Password" />
-                    </div>
-
+                    <InputFields
+                        labelName={"Email"}
+                        name={"email"}
+                        type={"email"}
+                        onChangeOperation={logInCredsHandler}
+                    />
+                    <InputFields
+                        labelName={"Password"}
+                        name={"password"}
+                        type={"password"}
+                        onChangeOperation={logInCredsHandler}
+                    />
                     <button 
                         onClick={(e) => {e.preventDefault(); logInHandler();}}
                         className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
