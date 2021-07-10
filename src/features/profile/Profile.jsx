@@ -10,7 +10,6 @@ export default function Profile() {
     const dispatch = useDispatch();
     const { profileId } = useParams();
 
-    
     useEffect(() => {
         dispatch(getUserProfile(profileId))
     }, [dispatch, profileId])

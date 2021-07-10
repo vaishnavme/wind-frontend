@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { InputFields } from "../../components";
+import { updateUserProfile, updateUserPassword } from "./profileSlice";
 
 export default function Settings() {
+    const dispatch = useDispatch();
     const { profile } = useSelector((state) => state.profile);
     const [profileUpdates, setProfileUpdate] = useState({});
+    const [passwordUpdate, setPasswordUpdate] = useState({});
 
+    // profile 
     const profileUpdateInputs = (e) => {
         const value = e.target.value;
         setProfileUpdate({
@@ -13,23 +17,38 @@ export default function Settings() {
             [e.target.name] : value
         })
     }
-    const submitUpdates = () => {
-        console.log(profileUpdates)
+    const updateProfile = () => {
+        dispatch(updateUserProfile(profileUpdates));
     }
+
+    // password
+    const passwordUpdateInputs = (e) => {
+        const value = e.target.value;
+        setPasswordUpdate({
+            ...passwordUpdate,
+            [e.target.name] : value
+        })
+    }
+    const updatePassword = () => {
+        dispatch(updateUserPassword(passwordUpdate))
+    }
+
     return (
         <div className="p-2">
             <Profile 
                 profile={profile}
                 profileUpdateInputs={profileUpdateInputs}
-                submitUpdates={submitUpdates}
+                updateProfile={updateProfile}
             />
-            <Account/>
-            <DeleteAccount/>
+            <Account
+                passwordUpdateInputs={passwordUpdateInputs}
+                updatePassword={updatePassword}
+            />
         </div>
     )
 }
 
-const Profile = ({profile, profileUpdateInputs, submitUpdates}) => {
+const Profile = ({profile, profileUpdateInputs, updateProfile}) => {
     
     return (
         <div className="bg-white rounded-md shadow p-4">
@@ -69,64 +88,34 @@ const Profile = ({profile, profileUpdateInputs, submitUpdates}) => {
 
                 <div className="flex justify-between">
                     <button 
-                        onClick={(e) => {e.preventDefault(); submitUpdates();}}
+                        onClick={(e) => {e.preventDefault(); updateProfile();}}
                         className="text-lg text-white bg-blue-400 p-2 duration-300 rounded hover:bg-blue-700 w-full">Save</button>
-                    <button className="text-lg text-red-600 bg-red-200 p-2 duration-300 rounded hover:bg-red-500 hover:text-white w-full">Cancel</button>
                 </div>
             </form>
         </div>
     )
 }
 
-const Account = () => {
+const Account = ({passwordUpdateInputs, updatePassword}) => {
     return (
         <div className="bg-white rounded-md shadow p-4 my-8">
             <h1 className="text-2xl mt-3">Change Password</h1>
             <form className="mt-6">
                 <InputFields
                     labelName={"Current Password"}
-                    name={"currentPassword"}
+                    name={"oldPassword"}
                     type={"password"}
-                    defaultValue=""
-                    onChangeOperation=""
+                    onChangeOperation={passwordUpdateInputs}
                 />
                 <InputFields
                     labelName={"New Password"}
                     name={"newPassword"}
                     type={"password"}
-                    defaultValue=""
-                    onChangeOperation=""
+                    onChangeOperation={passwordUpdateInputs}
                 />
-                <button 
+                <button
+                    onClick={(e) => {e.preventDefault(); updatePassword();}} 
                     className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full"> Update  
-                </button>
-            </form>
-        </div>
-    )
-}
-
-const DeleteAccount = () => {
-    return (
-        <div className="bg-white rounded-md shadow p-4 my-8">
-            <h1 className="text-2xl mt-3">Delete Account</h1>
-            <p className="my-2 text-gray-600">Once account deleted cannot be, then data cannot be recovered.</p>
-            <form className="mt-4">
-                <InputFields
-                    labelName={"Email"}
-                    name={"email"}
-                    type={"email"}
-                    defaultValue=""
-                    onChangeOperation=""
-                />
-                <InputFields
-                    labelName={"Password"}
-                    name={"password"}
-                    type={"password"}
-                    defaultValue=""
-                    onChangeOperation=""
-                />
-                <button 
-                    className="text-lg text-red-600 bg-red-200 p-2 duration-300 rounded hover:bg-red-500 hover:text-white w-full"> Delete Account  
                 </button>
             </form>
         </div>
