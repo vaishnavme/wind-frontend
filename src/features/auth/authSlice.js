@@ -1,93 +1,101 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { logInUser, signUpUser } from "../../services/auth.service";
 
-export const logInUserWithCredentials = createAsyncThunk(
-    "auth/logInUserWithCredentials",
-    async({email, password}) => {
-        const {data: {success, userId, token, message}} = await logInUser({email, password})
-        if(!success) {
-            throw new Error(message);
-        }
-        return { userId, token }
+export const loginUserWithCredentials = createAsyncThunk(
+  "auth/loginUserWithCredentials",
+  async ({ email, password }) => {
+    const {data: {userId, token, message, success}} = await logInUser({ email, password });
+    if (!success) {
+      throw new Error(message);
     }
-)
+    return { token, userId };
+  }
+);
 
-export const signUpUserWithCredentials = createAsyncThunk(
-    "auth/signUpUserWithCredentials",
-    async({name, email, password}) => {
-        const {data: {success, userId, token, message}} = await signUpUser({name, email, password})
-        if(!success) {
-            throw new Error(message);
-        }
-        return {userId, token}
+export const signupUserWithCredentials = createAsyncThunk(
+  "auth/signupUserWithCredentials",
+  async (variables) => {
+    const {data: {success, message, userId, token}} = await signUpUser(variables);
+    if (!success) {
+      throw new Error(message);
     }
-)
+    return { userId, token}
+  }
+);
 
 export const authSlice = createSlice({
-    name: "auth",
-    initialState: {
-        authUserToken: JSON.parse(localStorage?.getItem("authUserToken")) || null,
-        userId: JSON.parse(localStorage?.getItem("authUser")) || null,
-        isAuthenticated: JSON.parse(localStorage?.getItem("isAuthenticated")) || null,
-        status: JSON.parse(localStorage?.getItem("authUserToken"))
-                ? "tokenReceived"
-                : "idle",
+  name: "auth",
+  initialState: {
+    userToken: JSON.parse(localStorage?.getItem("authUserToken")) || null,
+    userId: JSON.parse(localStorage?.getItem("authUserId")) || null,
+    isAuthenticated: JSON.parse(localStorage?.getItem("isAuthenticated")) || null,
+    status: JSON.parse(localStorage?.getItem("authUserToken"))
+      ? "tokenReceived"
+      : "idle",
+  },
+  reducers: {
+    logOutUser: () => {
+      console.log("here");
+      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("authUserToken");
+      localStorage.removeItem("authUserId");
+      return {
+        status: "idle",
+        userToken: null,
+        userId: null,
+        isAuthenticated: false,
+        user: null,
+      };
     },
-    reducers: {
-        logOutUser: () => {
-            localStorage.removeItem("authUserToken");
-            localStorage.removeItem("authUser");
-            localStorage.removeItem("isAuthenticated");
-            return {
-                authUserToken: null,
-                userId: null,
-                isAuthenticated: null,
-                status: "idle"
-            }
-        },
-        resetStatus: (state) => {
-            state.status = "idle"
-        }
+    resetStatus: (state) => {
+      state.status = "idle";
+      state.error = null;
     },
-    extraReducers: {
-        [logInUserWithCredentials.pending]: (state) => {
-            state.status = "loading"
-        },
-        [logInUserWithCredentials.fulfilled]: (state, action) => {
-            const {userId, token} = action.payload;
-            state.userId = userId;
-            state.authUserToken = token;
-            state.status = "tokenReceived";
-            state.isAuthenticated = true;
-            localStorage.setItem("isAuthenticated", JSON.stringify(true));
-            localStorage.setItem("authUser", JSON.stringify(userId));
-            localStorage.setItem("authUserToken", JSON.stringify(token));
-            axios.defaults.headers.common["Authorization"] = token
-        },
-        [logInUserWithCredentials.rejected]: (state) => {
-            state.status = "error"
-        },
-
-        [signUpUserWithCredentials.pending]: (state) => {
-            state.status = "loading"
-        },
-        [signUpUserWithCredentials.fulfilled]: (state, action) => {
-            const {userId, token} = action.payload;
-            state.userId = userId;
-            state.authUserToken = token;
-            state.status = "tokenReceived";
-            state.isAuthenticated = true;
-            localStorage.setItem("authUser", JSON.stringify(userId));
-            localStorage.setItem("authUserToken", JSON.stringify(token));
-            localStorage.setItem("isAuthenticated", JSON.stringify(true));
-            axios.defaults.headers.common["Authorization"] = token
-        },
-        [signUpUserWithCredentials.rejected]: (state) => {
-            state.status = "error"
-        }
+  },
+  extraReducers: {
+    [loginUserWithCredentials.pending]: (state) => {
+      state.status = "loading";
+    },
+    [loginUserWithCredentials.fulfilled]: (state, action) => {
+      const { token, userId } = action.payload;
+      state.userToken = token;
+      state.userId = userId;
+      state.isAuthenticated = true;
+      localStorage.setItem("authUserToken", JSON.stringify(token));
+      localStorage.setItem("authUserId", JSON.stringify(userId));
+      localStorage.setItem("isAuthenticated", JSON.stringify(true));
+      axios.defaults.headers.common["Authorization"] = token;
+    //   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      state.status = "tokenReceived";
+    },
+    [loginUserWithCredentials.rejected]: (state, action) => {
+      console.log("error");
+      state.status = "error";
+    },
+    [signupUserWithCredentials.pending]: (state) => {
+      state.status = "loading";
+      console.log("pending");
+    },
+    [signupUserWithCredentials.fulfilled]: (state, action) => {
+      const { token, userId } = action.payload;
+      state.userToken = token;
+      state.userId = userId;
+      state.isAuthenticated = true;
+      localStorage.setItem("authUserToken", JSON.stringify(token));
+      localStorage.setItem("authUserId", JSON.stringify(userId));
+      localStorage.setItem("isAuthenticated", JSON.stringify(true));
+      axios.defaults.headers.common["Authorization"] = token;
+    //   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      state.status = "tokenReceived";
+    },
+    [signupUserWithCredentials.rejected]: (state, action) => {
+      console.log(action);
+      state.status = "error";
     }
-})
+  },
+});
 
 export const { logOutUser, resetStatus } = authSlice.actions;
+
 export default authSlice.reducer;
