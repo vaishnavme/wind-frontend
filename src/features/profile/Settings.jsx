@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 export default function Settings() {
+    const { profile } = useSelector((state) => state.profile);
     return (
         <div className="p-2">
-            <Profile/>
+            <Profile profile={profile}/>
             <Account/>
             <DeleteAccount/>
         </div>
@@ -103,10 +104,10 @@ const DeleteAccount = () => {
             <p className="my-2 text-gray-600">Once account deleted cannot be, then data cannot be recovered.</p>
             <form className="mt-4">
                 <div className="my-5 text-sm">
-                    <label htmlFor="email" className="block text-black">Email</label>
+                    <label htmlFor="emaill" className="block text-black">Email</label>
                     <input 
                         type="email" 
-                        id="email" 
+                        id="emaill" 
                         className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
                         required={true}  
                         placeholder="Email" />

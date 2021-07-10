@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import { Login, SignUp, Profile, Settings } from "./features";
 import { Home } from "./pages";
 import { PrivateRoute, Navbar } from "./components";
 
 function App() {
+  const { status, authUserToken } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if(status === "tokenReceived" && authUserToken) {
+      axios.defaults.headers.common["Authorization"] = authUserToken;
+    }
+  },[status,authUserToken])
  
   return (
     <div>
@@ -14,7 +24,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <PrivateRoute path="/" element={<Home/>}/>
-              <PrivateRoute path="/profile" element={<Profile/>}/>
+              <PrivateRoute path="/profile/:profileId" element={<Profile/>}/>
               <PrivateRoute path="/setting" element={<Settings/>}/>
             </Routes>
           </div>

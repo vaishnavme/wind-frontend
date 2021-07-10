@@ -1,10 +1,11 @@
 import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { logOutUser } from "../features/auth/authSlice";
 import { Navlinks } from ".";
 
 export const Navbar = () => {
+    const { userId } = useSelector(state => state.auth)
     const dispatch = useDispatch();
 
     const logOutHandler = () => {
@@ -39,7 +40,7 @@ export const Navbar = () => {
                                 <li> <Navlinks link={"/"} icon={"home"} linkName={"Feed"}/> </li>
                                 <li> <Navlinks link={"/explore"} icon={"planet"} linkName={"Explore"}/> </li>
                                 <li> <Navlinks link={"/notifications"} icon={"bell"} linkName={"Notifications"}/> </li>
-                                <li> <Navlinks link={"/profile"} icon={"user"} linkName={"Profile"}/> </li>
+                                <li> <Navlinks link={`/profile/${userId}`} icon={"user"} linkName={"Profile"}/> </li>
                             </ul>
                         </div>
                     </div>
