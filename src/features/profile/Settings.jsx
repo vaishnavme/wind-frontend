@@ -6,19 +6,20 @@ export default function Settings() {
         <div className="p-2">
             <Profile profile={profile}/>
             <Account/>
-            <DeleteAccount/>
+            <DeleteAccount email={profile.email}/>
         </div>
     )
 }
 
-const Profile = () => {
+const Profile = ({profile: {profilePhoto, name, username, bio}}) => {
+    
     return (
         <div className="bg-white rounded-md shadow p-4">
             <h1 className="text-2xl mt-3">Profile</h1>
             <div className="flex items-center flex-col">
                 <img 
                     className="w-28 h-auto rounded-md"
-                    src="https://avatars.githubusercontent.com/u/42497931?v=4"
+                    src={profilePhoto}
                     alt="profile_photo"/>
                 <button className="text-sm font-medium text-blue-600">Change Profile Pic</button>
             </div>
@@ -28,6 +29,7 @@ const Profile = () => {
                         <label htmlFor="name" className="block text-gray-600">Name</label>
                         <input 
                             type="text" 
+                            defaultValue={name}
                             autoFocus id="name" 
                             className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
                             placeholder="Name" />
@@ -35,6 +37,7 @@ const Profile = () => {
                         <label htmlFor="username" className="block text-gray-600 mt-2">Username</label>
                         <input 
                             type="text" 
+                            defaultValue={username}
                             id="username" 
                             className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
                             placeholder="Username" />
@@ -43,6 +46,7 @@ const Profile = () => {
                         <textarea 
                             type="text" 
                             id="bio" 
+                            defaultValue={bio}
                             className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full" 
                             placeholder="Bio" />
                     </div>
@@ -59,17 +63,8 @@ const Profile = () => {
 const Account = () => {
     return (
         <div className="bg-white rounded-md shadow p-4 my-8">
-            <h1 className="text-2xl mt-3">Account</h1>
+            <h1 className="text-2xl mt-3">Change Password</h1>
             <form className="mt-6">
-                <div className="my-5 text-sm">
-                    <label htmlFor="email" className="block text-black">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
-                        required={true}  
-                        placeholder="Email" />
-                </div>
                 <div className="my-5 text-sm">
                     <label htmlFor="currPassword" className="block text-black">Current Password</label>
                     <input 
@@ -97,7 +92,7 @@ const Account = () => {
     )
 }
 
-const DeleteAccount = () => {
+const DeleteAccount = ({email}) => {
     return (
         <div className="bg-white rounded-md shadow p-4 my-8">
             <h1 className="text-2xl mt-3">Delete Account</h1>
@@ -107,6 +102,7 @@ const DeleteAccount = () => {
                     <label htmlFor="emaill" className="block text-black">Email</label>
                     <input 
                         type="email" 
+                        defaultValue={email}
                         id="emaill" 
                         className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
                         required={true}  
