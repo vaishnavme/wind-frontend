@@ -1,8 +1,15 @@
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../features/auth/authSlice";
 import { Navlinks } from ".";
 
 export const Navbar = () => {
+    const dispatch = useDispatch();
+
+    const logOutHandler = () => {
+        dispatch(logOutUser());
+    }
 
     return (
         <Fragment>
@@ -37,9 +44,11 @@ export const Navbar = () => {
                             </ul>
                         </div>
                     </div>
-                    <button to="/" className="hidden md:flex items-center bg-white p-3 shadow hover:text-blue rounded-md">
-                        <i className="bx bx-log-out text-lg"></i>
-                        <span className="text-base whitespace-nowrap ml-4">Log Out</span>
+                    <button 
+                        onClick={() => logOutHandler()} 
+                        className="hidden md:flex items-center bg-white p-3 shadow hover:text-blue rounded-md">
+                            <i className="bx bx-log-out text-lg"></i>
+                            <span className="text-base whitespace-nowrap ml-4">Log Out</span>
                     </button>
                 </nav>
         </Fragment>
