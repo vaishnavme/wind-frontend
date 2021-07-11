@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { logOutUser } from "../features/auth/authSlice";
-import { Navlinks } from ".";
+import { Navlinks, InitialDP } from ".";
 
 export const Navbar = () => {
     const { userId } = useSelector(state => state.auth);
@@ -12,8 +12,6 @@ export const Navbar = () => {
     const logOutHandler = () => {
         dispatch(logOutUser());
     }
-
-    const initials = profile?.name?.split(" ").map((word) => word[0]).join("").toUpperCase();
 
     return (
         <Fragment>
@@ -35,9 +33,11 @@ export const Navbar = () => {
                                     className="w-12 h-auto rounded-md"
                                     src="https://avatars.githubusercontent.com/u/42497931?v=4" alt="profile"/>
                                 :
-                                <div className="w-14 py-2 px-3 bg-blue-500 flex justify-center items-cente rounded">
-                                    <div className="text-center text-3xl text-white font-light">{initials}</div>
-                                </div>
+                                <InitialDP 
+                                    name={profile?.name}
+                                    size={14}
+                                    fontSize={"text-3xl"}
+                                />
                             }
                             <div className="">
                                 <h4 className="font-medium">{profile?.name}</h4>

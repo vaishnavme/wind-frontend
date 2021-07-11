@@ -2,6 +2,7 @@ import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { getUserProfile } from "./profileSlice";
+import { InitialDP } from "../../components";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);
@@ -22,10 +23,18 @@ export default function Profile() {
                 <div className="bg-white rounded-md shadow p-4 mt-2">
                 <div className="flex items-center justify-center md:justify-start flex-col md:flex-row">
                     <div>
-                        <img 
-                            className="w-36 h-auto rounded-md"
-                            src={profile?.profilePhoto}
-                            alt="profile_photo"/>
+                        {
+                        profile?.profilePhoto ?
+                            <img 
+                                className="w-36 h-auto rounded-md"
+                                src="https://avatars.githubusercontent.com/u/42497931?v=4" alt="profile"/>
+                            :
+                            <InitialDP 
+                                name={profile?.name}
+                                size={36}
+                                fontSize={"text-7xl"}
+                            />
+                        }
                     </div>
                     <div className="mt-4 md:ml-12">
                         <div className="text-lg font-semibold ml-4 text-center md:text-left">{profile?.name}</div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { InputFields } from "../../components";
+import { InputFields, InitialDP } from "../../components";
 import { updateUserProfile, updateUserPassword } from "./profileSlice";
 
 export default function Settings() {
@@ -49,15 +49,23 @@ export default function Settings() {
 }
 
 const Profile = ({profile, profileUpdateInputs, updateProfile}) => {
-    
+
     return (
         <div className="bg-white rounded-md shadow p-4">
             <h1 className="text-2xl mt-3">Profile</h1>
             <div className="flex items-center flex-col">
-                <img 
-                    className="w-28 h-auto rounded-md"
-                    src={profile.profilePhoto}
-                    alt="profile_photo"/>
+                {
+                    profile?.profilePhoto ?
+                        <img 
+                            className="w-36 h-auto rounded-md"
+                            src="https://avatars.githubusercontent.com/u/42497931?v=4" alt="profile"/>
+                    :
+                    <InitialDP 
+                        name={profile?.name}
+                        size={36}
+                        fontSize={"text-7xl"}
+                    />
+                }
                 <button className="text-sm font-medium text-blue-600">Change Profile Pic</button>
             </div>
             <form className="mt-6">
