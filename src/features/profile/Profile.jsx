@@ -27,7 +27,7 @@ export default function Profile() {
                         profile?.profilePhoto ?
                             <img 
                                 className="w-36 h-auto rounded-md"
-                                src="https://avatars.githubusercontent.com/u/42497931?v=4" alt="profile"/>
+                                src="https://avatars.githubusercontent.com/u/42497931?v=4" alt={profile?.name}/>
                             :
                             <InitialDP 
                                 name={profile?.name}
@@ -39,18 +39,18 @@ export default function Profile() {
                     <div className="mt-4 md:ml-12">
                         <div className="text-lg font-semibold ml-4 text-center md:text-left">{profile?.name}</div>
                         <div>
-                            <ul className="flex my-2">
-                                <li className="flex flex-col items-center mx-4">
+                            <ul className="flex items-center justify-around my-2 w-72">
+                                <li className="flex flex-col items-center">
                                     <span className="text-lg font-medium">{profile?.posts.length}</span>
                                     <span className="font-sm">Posts</span>
                                 </li>
                                 <li 
-                                    className="flex flex-col items-center mx-4">
+                                    className="flex flex-col items-center">
                                     <span className="text-lg font-medium">{profile?.followers.length}</span>
                                     <span className="font-sm">Followers</span>
                                 </li>
                                 <li 
-                                    className="flex flex-col items-center mx-4">
+                                    className="flex flex-col items-center">
                                     <span className="text-lg font-medium">{profile?.following.length}</span>
                                     <span className="font-sm">Following</span>
                                 </li>
@@ -67,7 +67,7 @@ export default function Profile() {
                         }
                     </div>
                 </div>
-                <div>
+                <div className="mt-2">
                     <h4 className="text-gray-600">Bio</h4>
                     <p>{profile?.bio}</p>
                 </div>

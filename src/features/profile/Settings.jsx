@@ -58,7 +58,7 @@ const Profile = ({profile, profileUpdateInputs, updateProfile}) => {
                     profile?.profilePhoto ?
                         <img 
                             className="w-36 h-auto rounded-md"
-                            src="https://avatars.githubusercontent.com/u/42497931?v=4" alt="profile"/>
+                            src="https://avatars.githubusercontent.com/u/42497931?v=4" alt={profile?.name}/>
                     :
                     <InitialDP 
                         name={profile?.name}
