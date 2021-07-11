@@ -5,12 +5,15 @@ import { logOutUser } from "../features/auth/authSlice";
 import { Navlinks } from ".";
 
 export const Navbar = () => {
-    const { userId } = useSelector(state => state.auth)
+    const { userId } = useSelector(state => state.auth);
+    const { profile } = useSelector(state => state.profile);
     const dispatch = useDispatch();
 
     const logOutHandler = () => {
         dispatch(logOutUser());
     }
+
+    const initials = profile?.name?.split(" ").map((word) => word[0]).join("").toUpperCase();
 
     return (
         <Fragment>
@@ -25,13 +28,20 @@ export const Navbar = () => {
 
                 <nav className="md:flex justify-between flex-col fixed bottom-2 w-full md:w-72 md:top-0 md:mt-16 p-4">  
                     <div>
-                        <div className="hidden md:flex items-center bg-white p-3 shadow rounded-md mb-8">
-                            <img 
-                                className="w-12 h-auto rounded-md"
-                                src="https://avatars.githubusercontent.com/u/42497931?v=4" alt="profile"/>
-                            <div className="ml-2">
-                                <h4 className="font-medium">Vaishnav Chandurkar</h4>
-                                <span className="text-sm text-gray-500">@vaishnav</span>
+                        <div className="hidden md:flex items-center justify-around bg-white p-3 shadow rounded-md mb-8">
+                            {
+                                profile?.profilePhoto ?
+                                <img 
+                                    className="w-12 h-auto rounded-md"
+                                    src="https://avatars.githubusercontent.com/u/42497931?v=4" alt="profile"/>
+                                :
+                                <div className="w-14 py-2 px-3 bg-blue-500 flex justify-center items-cente rounded">
+                                    <div className="text-center text-3xl text-white font-light">{initials}</div>
+                                </div>
+                            }
+                            <div className="">
+                                <h4 className="font-medium">{profile?.name}</h4>
+                                <span className="text-sm text-gray-500">@{profile?.username}</span>
                             </div>
                         </div>
 
