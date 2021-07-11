@@ -41,7 +41,7 @@ export const Navbar = () => {
                             }
                             <div className="">
                                 <h4 className="font-medium">{profile?.name}</h4>
-                                <span className="text-sm text-gray-500">@{profile?.username}</span>
+                                <span className="text-sm text-gray-400 font-medium">@{profile?.username}</span>
                             </div>
                         </div>
 
