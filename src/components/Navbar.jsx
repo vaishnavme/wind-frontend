@@ -5,8 +5,8 @@ import { logOutUser } from "../features/auth/authSlice";
 import { Navlinks, InitialDP } from ".";
 
 export const Navbar = () => {
-    const { userId } = useSelector(state => state.auth);
-    const { profile } = useSelector(state => state.profile);
+    const { userId, user } = useSelector(state => state.auth);
+
     const dispatch = useDispatch();
 
     const logOutHandler = () => {
@@ -28,20 +28,20 @@ export const Navbar = () => {
                     <div>
                         <div className="hidden md:flex items-center justify-around bg-white p-3 shadow rounded-md mb-8">
                             {
-                                profile?.profilePhoto ?
+                                user?.userPhoto ?
                                 <img 
                                     className="w-12 h-auto rounded-md"
-                                    src="https://avatars.githubusercontent.com/u/42497931?v=4" alt={profile?.name}/>
+                                    src="https://avatars.githubusercontent.com/u/42497931?v=4" alt={user?.name}/>
                                 :
                                 <InitialDP 
-                                    name={profile?.name}
+                                    name={user?.name}
                                     size={14}
                                     fontSize={"text-3xl"}
                                 />
                             }
                             <div className="">
-                                <h4 className="font-medium">{profile?.name}</h4>
-                                <span className="text-sm text-gray-400 font-medium">@{profile?.username}</span>
+                                <h4 className="font-medium">{user?.name}</h4>
+                                <span className="text-sm text-gray-400 font-medium">@{user?.username}</span>
                             </div>
                         </div>
 

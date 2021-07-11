@@ -8,10 +8,10 @@ export default function Explore() {
     const { userId } = useSelector((state) => state.auth)
     const dispatch = useDispatch();
 
-    console.log(allProfiles)
-
     useEffect(() => {
-        exploreStatus === "idle" && dispatch(getAllUserProfiles());
+        if(exploreStatus === "idle") {
+            dispatch(getAllUserProfiles())
+        }
         //eslint-disable-next-line
     }, [exploreStatus])
 

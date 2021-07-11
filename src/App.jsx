@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Login, SignUp, Profile, Settings, Explore } from "./features";
 import { PrivateRoute, Navbar } from "./components";
-import { getUserProfile } from "./features/profile/profileSlice";
+import { initializeAuthUser } from "./features/auth/authSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -13,9 +13,9 @@ function App() {
   useEffect(() => {
     if(status === "tokenReceived" && userToken) {
       axios.defaults.headers.common["Authorization"] = userToken;
+      userId && dispatch(initializeAuthUser(userId))
     }
-    userId && dispatch(getUserProfile(userId))
-  },[status,userToken, dispatch, userId])
+  },[userId, status, dispatch, userToken])
  
   return (
     <div>

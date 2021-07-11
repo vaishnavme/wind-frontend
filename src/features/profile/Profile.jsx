@@ -6,14 +6,17 @@ import { InitialDP } from "../../components";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);
-    const { userId } = useSelector((state) => state.auth)
+    const { userId, status } = useSelector((state) => state.auth)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { profileId } = useParams();
 
     useEffect(() => {
-        dispatch(getUserProfile(profileId))
-    }, [dispatch, profileId])
+        if(profileStatus === "idle" && status === "profileLoaded") {
+            dispatch(getUserProfile(profileId))
+        }
+        // eslint-disable-next-line
+    }, [profileStatus, status])
     
     return (
         <Fragment>

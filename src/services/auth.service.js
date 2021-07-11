@@ -15,3 +15,12 @@ export const signUpUser = async ({name, username, email, password}) => {
     console.log(response)
     return response;
 }
+
+export const getAuthProfile = async(profileId) => {
+    try {
+        const response = await axios.get(`/user/profile/${profileId}`);
+        return response
+    } catch(err) {
+        console.log(err);
+    }
+}

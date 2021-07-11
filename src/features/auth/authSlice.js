@@ -1,28 +1,42 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { logInUser, signUpUser } from "../../services/auth.service";
+import { getAuthProfile } from "../../services/auth.service";
 
 export const loginUserWithCredentials = createAsyncThunk(
   "auth/loginUserWithCredentials",
   async ({ email, password }) => {
-    const {data: {userId, token, message, success}} = await logInUser({ email, password });
+    const {data: {user, token, message, success}} = await logInUser({ email, password });
     if (!success) {
       throw new Error(message);
     }
+    const userId = user._id;
     return { token, userId };
   }
 );
 
 export const signupUserWithCredentials = createAsyncThunk(
   "auth/signupUserWithCredentials",
-  async (variables) => {
-    const {data: {success, message, userId, token}} = await signUpUser(variables);
+  async ({name, username, email, password}) => {
+    const {data: {user, token, message, success}} = await signUpUser({name, username, email, password});
     if (!success) {
       throw new Error(message);
     }
+    const userId = user._id;
     return { userId, token}
   }
 );
+
+export const initializeAuthUser = createAsyncThunk(
+  "auth/initializeAuthUser",
+  async(userId) => {
+    const {data: {success, profile, message}} = await getAuthProfile(userId);
+    if(!success) {
+        throw new Error(message);
+    }
+    return profile
+}
+)
 
 export const authSlice = createSlice({
   name: "auth",
@@ -33,6 +47,7 @@ export const authSlice = createSlice({
     status: JSON.parse(localStorage?.getItem("authUserToken"))
       ? "tokenReceived"
       : "idle",
+    user: null,
   },
   reducers: {
     logOutUser: () => {
@@ -92,6 +107,16 @@ export const authSlice = createSlice({
     [signupUserWithCredentials.rejected]: (state, action) => {
       console.log(action);
       state.status = "error";
+    },
+    [initializeAuthUser.pending]: (state) => {
+      state.status = "loading"
+    },
+    [initializeAuthUser.fulfilled]: (state, action) => {
+      state.user = action.payload;
+      state.status = "profileLoaded"
+    },
+    [initializeAuthUser.rejected]: (state) => {
+      state.status = "error"
     }
   },
 });
