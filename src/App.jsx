@@ -1,19 +1,21 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Login, SignUp, Profile, Settings } from "./features";
-import { Home } from "./pages";
+import { Login, SignUp, Profile, Settings, Feed } from "./features";
 import { PrivateRoute, Navbar } from "./components";
+import { getUserProfile } from "./features/profile/profileSlice";
 
 function App() {
-  const { status, userToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { status, userToken, userId } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if(status === "tokenReceived" && userToken) {
       axios.defaults.headers.common["Authorization"] = userToken;
     }
-  },[status,userToken])
+    userId && dispatch(getUserProfile(userId))
+  },[status,userToken, dispatch, userId])
  
   return (
     <div>
@@ -23,7 +25,7 @@ function App() {
             <Routes> 
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              <PrivateRoute path="/" element={<Home/>}/>
+              <PrivateRoute path="/" element={<Feed/>}/>
               <PrivateRoute path="/profile/:profileId" element={<Profile/>}/>
               <PrivateRoute path="/setting" element={<Settings/>}/>
             </Routes>
