@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Login, SignUp, Profile, Settings, Feed } from "./features";
+import { Login, SignUp, Profile, Settings, Explore } from "./features";
 import { PrivateRoute, Navbar } from "./components";
 import { getUserProfile } from "./features/profile/profileSlice";
 
@@ -25,7 +25,7 @@ function App() {
             <Routes> 
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              <PrivateRoute path="/" element={<Feed/>}/>
+              <PrivateRoute path="/explore" element={<Explore/>}/>
               <PrivateRoute path="/profile/:profileId" element={<Profile/>}/>
               <PrivateRoute path="/setting" element={<Settings/>}/>
             </Routes>
