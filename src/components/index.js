@@ -4,4 +4,5 @@ export { Navlinks } from "./NavLinks"
 export { InputFields } from "./InputFields";
 export { InitialDP } from "./InitialsDP";
 export { NewPost } from "./NewPost";
+export { PostCard } from "./PostCard";
 export { ProfileCard } from "./ProfileCard";
