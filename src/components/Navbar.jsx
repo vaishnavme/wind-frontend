@@ -28,10 +28,10 @@ export const Navbar = () => {
                     <div>
                         <div className="hidden md:flex items-center justify-around bg-white p-3 shadow rounded-md mb-8">
                             {
-                                user?.userPhoto ?
+                                user?.profilePhoto ?
                                 <img 
                                     className="w-12 h-auto rounded-md"
-                                    src="https://avatars.githubusercontent.com/u/42497931?v=4" alt={user?.name}/>
+                                    src={user.profilePhoto} alt={user?.name}/>
                                 :
                                 <InitialDP 
                                     name={user?.name}
@@ -39,7 +39,7 @@ export const Navbar = () => {
                                     fontSize={"text-3xl"}
                                 />
                             }
-                            <div className="">
+                            <div>
                                 <h4 className="font-medium">{user?.name}</h4>
                                 <span className="text-sm text-gray-400 font-medium">@{user?.username}</span>
                             </div>
