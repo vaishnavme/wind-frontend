@@ -8,7 +8,7 @@ import { initializeAuthUser } from "./features/auth/authSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const { status, userToken, userId } = useSelector((state) => state.auth);
+  const { status, userToken, userId, isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if(status === "tokenReceived" && userToken) {
@@ -19,8 +19,8 @@ function App() {
  
   return (
     <div>
-      <Navbar/>
-       <div className="md:ml-72 lg:mr-72">
+      {isAuthenticated && <Navbar/>} 
+       <div className={`md:ml-0 ${isAuthenticated && "md:ml-72 lg:mr-72"}`}>
         <div className="p-2 my-16 max-w-3xl mx-auto">
             <Routes> 
               <Route path="/login" element={<Login />} />
