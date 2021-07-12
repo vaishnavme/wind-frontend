@@ -3,3 +3,4 @@ export { default as SignUp } from "./auth/Signup";
 export { default as Profile } from "./profile/Profile";
 export { default as Settings } from "./profile/Settings";
 export { default as Explore } from "./expolre/Explore";
+export { default as Feed } from "./posts/Feed";
