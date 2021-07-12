@@ -30,3 +30,21 @@ export const updatePassword = async({oldPassword, newPassword}) => {
         console.log(err);
     }
 }
+//follow and unfollow
+export const followUserProfile = async(profileId) => {
+    try {
+        const response = await axios.post(`/activity/follow/${profileId}`);
+        return response
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const unFollowUserProfile = async(profileId) => {
+    try {
+        const response = await axios.delete(`/activity/follow/${profileId}`);
+        return response
+    } catch(err) {
+        console.log(err);
+    }
+}

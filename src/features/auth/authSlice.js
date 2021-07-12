@@ -2,6 +2,7 @@ import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { logInUser, signUpUser } from "../../services/auth.service";
 import { getAuthProfile } from "../../services/auth.service";
+import { followUserProfile, unFollowUserProfile } from "../../services/profile.service";
 
 export const loginUserWithCredentials = createAsyncThunk(
   "auth/loginUserWithCredentials",
@@ -35,7 +36,29 @@ export const initializeAuthUser = createAsyncThunk(
         throw new Error(message);
     }
     return profile
-}
+  }
+);
+
+export const followUser = createAsyncThunk(
+  "auth/followUser",
+  async(profileId) => {
+    const {data: {success, message}} = followUserProfile(profileId);
+    if(!success) {
+      throw Error(message)
+    }
+    return profileId
+  }
+)
+
+export const unFollowUser = createAsyncThunk(
+  "auth/unFollowUser",
+    async(profileId) => {
+      const {data: {success, message}} = unFollowUserProfile(profileId);
+      if(!success) {
+        throw Error(message)
+      }
+      return profileId
+    }
 )
 
 export const authSlice = createSlice({
@@ -117,6 +140,27 @@ export const authSlice = createSlice({
     },
     [initializeAuthUser.rejected]: (state) => {
       state.status = "error"
+    },
+
+    [followUser.pending]: (state) => {
+      state.status = "loading"
+    },
+    [followUser.fulfilled]: (state, action) => {
+      state.user.following.push(action.payload);
+      state.status = "Fulfilled"
+    },
+    [followUser.rejected]: (state) => {
+      state.status = "rejected"
+    },
+    [unFollowUser.pending]: (state) => {
+      state.status = "loading"
+    },
+    [unFollowUser.fulfilled]: (state, action) => {
+      state.user.following.splice(state.user.following.indexOf(action.payload), 1);
+      state.status = "Fulfilled"
+    },
+    [unFollowUser.rejected]: (state) => {
+      state.status = "rejected"
     }
   },
 });
