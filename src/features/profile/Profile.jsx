@@ -1,6 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { getUserProfile } from "./profileSlice";
 import { followUser, unFollowUser, logOutUser } from "../auth/authSlice";
 import { InitialDP, PostCard } from "../../components";
@@ -48,7 +49,12 @@ export default function Profile() {
                         <div className="flex my-2">
                             <div className="font-semibold">{profile?.posts.length} <span className="text-gray-400 text-sm">posts</span></div>
                             <div className="font-semibold ml-6">{profile?.followers.length} <span className="text-gray-400 text-sm">Followers</span></div>
-                            <div className="font-semibold ml-6">{profile?.following.length} <span className="text-gray-400 text-sm">Following</span></div>
+                            <Link to="following">
+                                <div className="font-semibold ml-6">
+                                    {profile?.following.length} 
+                                    <span className="text-gray-400 text-sm ml-1">Following</span>
+                                </div>
+                            </Link>
                         </div>
                         <p className="text-gray-600">{profile?.bio}</p>
                     </div>
