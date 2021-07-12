@@ -12,7 +12,7 @@ export default function Profile() {
     const { profileId } = useParams();
 
     useEffect(() => {
-        if(profileId !== profile?._id && "profileLoaded") {
+        if(profileId !== profile?._id && status === "profileLoaded") {
             dispatch(getUserProfile(profileId))
         }
         // eslint-disable-next-line

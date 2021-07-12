@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { InputFields, InitialDP } from "../../components";
-import { updateUserProfile, updateUserPassword } from "./profileSlice";
+import { updateUserProfile, updateUserPassword, getUserProfile } from "./profileSlice";
 
 export default function Settings() {
     const dispatch = useDispatch();
-    const { profile } = useSelector((state) => state.profile);
+    const { profile, profileStatus } = useSelector((state) => state.profile);
+    const { userId, status } = useSelector((state) => state.auth)
     const [profileUpdates, setProfileUpdate] = useState({});
     const [passwordUpdate, setPasswordUpdate] = useState({});
+
+    useEffect(() => {
+        profileStatus === "idle" && 
+        status === "profileLoaded" && dispatch(getUserProfile(userId))
+    })
 
     // profile 
     const profileUpdateInputs = (e) => {
