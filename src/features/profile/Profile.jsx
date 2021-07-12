@@ -2,81 +2,87 @@ import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { getUserProfile } from "./profileSlice";
-import { InitialDP } from "../../components";
+import { followUser, unFollowUser, logOutUser } from "../auth/authSlice";
+import { InitialDP, PostCard } from "../../components";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);
-    const { userId, status } = useSelector((state) => state.auth)
+    const { userId, status, user } = useSelector((state) => state.auth)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { profileId } = useParams();
-
     useEffect(() => {
         if(profileId !== profile?._id && status === "profileLoaded") {
             dispatch(getUserProfile(profileId))
         }
         // eslint-disable-next-line
     }, [status, profileId])
+
+    const isFollowing = (profileId) => user?.following.includes(profileId);
     
     return (
-        <Fragment>
-            {
-                profileStatus === "loading" ? <i className="animate-spin bx bx-loader-alt"></i>
-                :
-                <div className="bg-white rounded-md shadow p-4 mt-2">
-                <div className="flex items-center justify-center md:justify-start flex-col md:flex-row">
-                    <div>
-                        {
+    <Fragment>
+        {
+            profileStatus === "loading" ? <i className="animate-spin bx bx-loader-alt"></i>
+        :
+        <div>
+            <div className="rounded-md bg-white shadow py-2 px-4 flex items-center flex-col sm:flex-row sm:justify-between sm:items-start">
+                <div className="flex flex-col items-center text-center sm:flex-row sm:text-left">
+                <div className="my-2">
+                    {
                         profile?.profilePhoto ?
-                            <img 
-                                className="w-36 h-auto rounded-md"
-                                src="https://avatars.githubusercontent.com/u/42497931?v=4" alt={profile?.name}/>
-                            :
-                            <InitialDP 
-                                name={profile?.name}
-                                size={36}
-                                fontSize={"text-7xl"}
-                            />
-                        }
+                        <img 
+                            className="w-28 h-auto rounded-md"
+                            src={profile?.profilePhoto} alt={profile?.name}/>
+                        :
+                        <InitialDP 
+                            name={profile?.name}
+                            size={28}
+                            fontSize={"text-4xl"}
+                        />
+                    }
                     </div>
-                    <div className="mt-4 md:ml-12">
-                        <div className="text-lg font-semibold ml-4 text-center md:text-left">{profile?.name}</div>
-                        <div>
-                            <ul className="flex items-center justify-around my-2 w-72">
-                                <li className="flex flex-col items-center">
-                                    <span className="text-lg font-medium">{profile?.posts.length}</span>
-                                    <span className="font-sm">Posts</span>
-                                </li>
-                                <li 
-                                    className="flex flex-col items-center">
-                                    <span className="text-lg font-medium">{profile?.followers.length}</span>
-                                    <span className="font-sm">Followers</span>
-                                </li>
-                                <li 
-                                    className="flex flex-col items-center">
-                                    <span className="text-lg font-medium">{profile?.following.length}</span>
-                                    <span className="font-sm">Following</span>
-                                </li>
-                            </ul>
+                    <div className="sm:ml-12">
+                        <h4 className="text-lg font-semibold">{profile?.name}</h4>
+                        <span className="text-sm text-gray-400 font-normal">@{profile?.username}</span>
+                        <div className="flex my-2">
+                            <div className="font-semibold">{profile?.posts.length} <span className="text-gray-400 text-sm">posts</span></div>
+                            <div className="font-semibold ml-6">{profile?.followers.length} <span className="text-gray-400 text-sm">Followers</span></div>
+                            <div className="font-semibold ml-6">{profile?.following.length} <span className="text-gray-400 text-sm">Following</span></div>
                         </div>
-                        {
-                            (userId === profileId) ?
-                            <button 
-                                onClick={() => navigate("/profile/settings")}
-                                className="border flex items-center justify-center w-full rounded p-1 ml-2 hover:bg-blue-600 hover:text-white duration-300 rounded hover:bg-blue-700">
-                                <i className="bx bx-cog mx-2"></i>Edit
-                            </button>
-                            : null
-                        }
+                        <p className="text-gray-600">{profile?.bio}</p>
                     </div>
                 </div>
-                <div className="mt-2">
-                    <h4 className="text-gray-600">Bio</h4>
-                    <p>{profile?.bio}</p>
+                <div className="w-full sm:w-32 text-center my-2">
+                    {
+                        userId === profileId ?
+                        <div className="flex justify-center sm:flex-col">
+                            <button
+                                onClick={() => navigate("/profile/settings")} 
+                                className="border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white px-2 py-1 my-1 mx-2 w-32 rounded">Edit</button>
+                            <button 
+                                onClick={() => dispatch(logOutUser())}
+                                className="border-2 border-red-600 text-red-700 hover:bg-red-500 hover:text-white text-white px-2 py-1 my-1 mx-2 w-32 rounded">Log Out</button>
+                        </div>
+                        :
+                        <button
+                            onClick={() => isFollowing(profile?._id) ? dispatch(unFollowUser(profile?._id)) : dispatch(followUser(profile?._id)) } 
+                            className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
+                                {isFollowing(profile?._id) ? "Following" : "Follow"}
+                        </button>
+                    }
                 </div>
             </div>
-            }
-        </Fragment>
+            <div>
+                {
+                    profile?.posts.map((post) => (
+                        <PostCard key={post._id} post={post} profileName={profile.name}/>
+                    ))
+                }
+            </div>
+        </div>
+        }
+    </Fragment>
     )
 }
 

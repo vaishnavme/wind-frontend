@@ -7,7 +7,6 @@ export default function Feed() {
     return (
         <div>
             <NewPost/>
-            <PostCard/>
         </div>
     )
 }
