@@ -48,7 +48,12 @@ export default function Profile() {
                         <span className="text-sm text-gray-400 font-normal">@{profile?.username}</span>
                         <div className="flex my-2">
                             <div className="font-semibold">{profile?.posts.length} <span className="text-gray-400 text-sm">posts</span></div>
-                            <div className="font-semibold ml-6">{profile?.followers.length} <span className="text-gray-400 text-sm">Followers</span></div>
+                            <Link to="followers">
+                                <div className="font-semibold ml-6">
+                                    {profile?.followers.length} 
+                                    <span className="text-gray-400 text-sm ml-1">Followers</span>
+                                </div>
+                            </Link>
                             <Link to="following">
                                 <div className="font-semibold ml-6">
                                     {profile?.following.length} 

@@ -5,3 +5,4 @@ export { default as Explore } from "./expolre/Explore";
 export { default as Profile } from "./profile/Profile";
 export { default as Settings } from "./profile/Settings";
 export { default as Following} from "./profile/Following";
+export { default as Followers} from "./profile/Followers";
