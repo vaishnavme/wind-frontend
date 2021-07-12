@@ -1,10 +1,17 @@
-import { Link } from "react-router-dom"
-import { InitialDP } from "."
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { InitialDP } from ".";
+import { followUser, unFollowUser } from "../features/auth/authSlice";
 
 export const ProfileCard = ({profile}) => {
+    const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
+    const isFollowing = (profileId) => user?.following.includes(profileId);
+
     return (
-        <Link to={`/profile/${profile._id}`}>
-            <div className="rounded-md bg-white shadow py-2 px-4 flex items-center flex-col sm:flex-row sm:justify-between sm:items-start">
+        <div className="rounded-md bg-white shadow py-2 px-4 flex items-center flex-col sm:flex-row sm:justify-between sm:items-start">
+            <Link to={`/profile/${profile._id}`}>
                 <div className="flex flex-col items-center text-center sm:flex-row sm:text-left">
                     <div className="my-2">
                     {
@@ -31,10 +38,14 @@ export const ProfileCard = ({profile}) => {
                         <p className="text-gray-600">{profile.bio}</p>
                     </div>
                 </div>
-                <div className="w-32 text-center my-2">
-                    <button className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">Follow</button>
-                </div>
+            </Link>
+            <div className="w-32 text-center my-2">
+                <button
+                    onClick={() => isFollowing(profile._id) ? dispatch(unFollowUser(profile._id)) : dispatch(followUser(profile._id)) } 
+                    className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
+                        {isFollowing(profile._id) ? "Following" : "Follow"}
+                </button>
             </div>
-        </Link>
+        </div>
     )
 }
