@@ -12,11 +12,11 @@ export default function Profile() {
     const { profileId } = useParams();
 
     useEffect(() => {
-        if(profileStatus === "idle" && status === "profileLoaded") {
+        if(profileId !== profile?._id && "profileLoaded") {
             dispatch(getUserProfile(profileId))
         }
         // eslint-disable-next-line
-    }, [profileStatus, status])
+    }, [status, profileId])
     
     return (
         <Fragment>
@@ -62,7 +62,7 @@ export default function Profile() {
                         {
                             (userId === profileId) ?
                             <button 
-                                onClick={() => navigate("/setting")}
+                                onClick={() => navigate("/profile/settings")}
                                 className="border flex items-center justify-center w-full rounded p-1 ml-2 hover:bg-blue-600 hover:text-white duration-300 rounded hover:bg-blue-700">
                                 <i className="bx bx-cog mx-2"></i>Edit
                             </button>

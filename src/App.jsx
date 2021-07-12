@@ -27,7 +27,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <PrivateRoute path="/explore" element={<Explore/>}/>
               <PrivateRoute path="/profile/:profileId" element={<Profile/>}/>
-              <PrivateRoute path="/setting" element={<Settings/>}/>
+              <PrivateRoute path="/profile/settings" element={<Settings/>}/>
             </Routes>
           </div>
        </div>
