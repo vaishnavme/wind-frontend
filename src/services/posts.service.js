@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const makePost = async(post) => {
+export const createPost = async(post) => {
     try {
         const response = await axios.post(`/posts`, {post})
         return response
