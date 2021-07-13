@@ -5,22 +5,27 @@ export const PostCard = ({post}) => {
     return (
         <div className="my-4 bg-white rounded-md shadow">
             <div className="p-3 border-b">
-                <div className="flex items-center">
-                    {
-                        post.creator.profilePhoto ?
-                        <img 
-                            className="w-10 h-auto rounded-md"
-                            src={post.creator.profilePhoto} alt={post.creator.name}/>
-                        :
-                        <InitialDP 
-                            name={post.creator.name}
-                            size={10}
-                            fontSize={"text-xl"}
-                        />
-                    }
-                    <div className="ml-3 leading-4">
-                        <h4 className="font-medium">{post.creator.name}</h4>
-                        <span className="text-xs text-gray-400">{post.creator.username}</span>
+                <div className="flex justify-between">
+                    <div className="flex items-center">
+                        {
+                            post.creator.profilePhoto ?
+                            <img 
+                                className="w-10 h-auto rounded-md"
+                                src={post.creator.profilePhoto} alt={post.creator.name}/>
+                            :
+                            <InitialDP 
+                                name={post.creator.name}
+                                size={10}
+                                fontSize={"text-xl"}
+                            />
+                        }
+                        <div className="ml-3 leading-4">
+                            <h4 className="font-medium">{post.creator.name}</h4>
+                            <span className="text-xs text-gray-400">{post.creator.username}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span className="text-xs text-gray-400">{post.createdAt.substring(0,10)}</span>
                     </div>
                 </div>
                 <div className="p-1 my-1">
