@@ -1,6 +1,7 @@
 import { InitialDP } from "."
 
 export const PostCard = ({post}) => {
+
     return (
         <div className="my-4 bg-white rounded-md shadow">
             <div className="p-3 border-b">
@@ -13,8 +14,8 @@ export const PostCard = ({post}) => {
                         :
                         <InitialDP 
                             name={post.creator.name}
-                            size={12}
-                            fontSize={"text-4xl"}
+                            size={10}
+                            fontSize={"text-xl"}
                         />
                     }
                     <div className="ml-3 leading-4">
