@@ -4,10 +4,7 @@ import { createPost, getUserFeed } from "../../services/posts.service";
 export const createNewPost = createAsyncThunk(
     "posts/createNewPost",
     async(post) => {
-        const {data: {success, savedPost, message}} = await createPost(post);
-        if(!success) {
-            throw Error(message)
-        }
+        const savedPost = await createPost(post);
         return savedPost;
     }
 )

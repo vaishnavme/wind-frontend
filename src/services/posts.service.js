@@ -2,8 +2,10 @@ import axios from "axios";
 
 export const createPost = async(post) => {
     try {
-        const response = await axios.post(`/posts`, {post})
-        return response
+        const {data: {success, message, savedPost}} = await axios.post(`/posts`, {post})
+        if(success) {
+            return savedPost
+        }
     } catch(err) {
         console.log(err);
     }
