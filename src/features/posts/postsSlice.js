@@ -40,7 +40,7 @@ export const postsSlice = createSlice({
             state.postStatus = "posting"
         },
         [createNewPost.fulfilled]: (state, action) => {
-            state.allPosts.push(action.payload);
+            state.allPosts = [action.payload, ...state.allPosts]
             state.postStatus = "posted"
         },
         [createNewPost.rejected]: (state) => {
