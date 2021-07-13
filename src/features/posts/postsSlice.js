@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createPost } from "../../services/posts.service";
+import { createPost, getUserFeed } from "../../services/posts.service";
 
 export const createNewPost = createAsyncThunk(
     "posts/createNewPost",
@@ -12,7 +12,13 @@ export const createNewPost = createAsyncThunk(
     }
 )
 
-
+export const getFeed = createAsyncThunk(
+    "posts/getFeed",
+    async() => {
+        const userFeed = await getUserFeed();
+        return userFeed;
+    }
+)
 
 export const postsSlice = createSlice({
     name: "posts",
@@ -22,6 +28,17 @@ export const postsSlice = createSlice({
     },
     reducers: {},
     extraReducers: {
+        [getFeed.pending]: (state) => {
+            state.postStatus = "loading"
+        },
+        [getFeed.fulfilled]: (state, action) => {
+            state.allPosts = action.payload
+            state.postStatus = "feedLoaded"
+        },
+        [getFeed.rejected]: (state) => {
+            state.postStatus = "error"
+        },
+
         [createNewPost.pending]: (state) => {
             state.postStatus = "posting"
         },

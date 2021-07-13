@@ -8,3 +8,14 @@ export const createPost = async(post) => {
         console.log(err);
     }
 }
+
+export const getUserFeed = async() => {
+    try {
+        const {data: {success, message, userFeed}} = await axios.get(`/posts/feed`);
+        if(success) {
+            return userFeed
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}

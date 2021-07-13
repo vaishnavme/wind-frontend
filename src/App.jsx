@@ -5,17 +5,22 @@ import axios from "axios";
 import { Login, SignUp, Feed, Explore, Profile, Settings, Following, Followers } from "./features";
 import { PrivateRoute, Navbar } from "./components";
 import { initializeAuthUser } from "./features/auth/authSlice";
+import { getFeed } from "./features/posts/postsSlice";
 
 function App() {
   const dispatch = useDispatch();
   const { status, userToken, userId, isAuthenticated } = useSelector((state) => state.auth);
+  const { postStatus } = useSelector((state) => state.posts)
 
   useEffect(() => {
     if(status === "tokenReceived" && userToken) {
       axios.defaults.headers.common["Authorization"] = userToken;
       userId && dispatch(initializeAuthUser(userId))
     }
-  },[userId, status, dispatch, userToken])
+    if(postStatus === "idle") {
+      dispatch(getFeed())
+    }
+  },[userId, status, dispatch, userToken, postStatus])
  
   return (
     <div>
