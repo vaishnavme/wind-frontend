@@ -26,7 +26,7 @@ export const Navbar = () => {
 
                 <nav className="md:flex justify-between flex-col fixed bottom-2 w-full md:w-72 md:top-0 md:mt-16 p-4">  
                     <div>
-                        <div className="hidden md:flex items-center justify-around bg-white p-3 shadow rounded-md mb-8">
+                        <div className="hidden md:flex items-center bg-white p-3 shadow rounded-md mb-8">
                             {
                                 user?.profilePhoto ?
                                 <img 
@@ -39,7 +39,7 @@ export const Navbar = () => {
                                     fontSize={"text-3xl"}
                                 />
                             }
-                            <div>
+                            <div className="ml-3">
                                 <h4 className="font-medium">{user?.name}</h4>
                                 <span className="text-sm text-gray-400 font-medium">@{user?.username}</span>
                             </div>

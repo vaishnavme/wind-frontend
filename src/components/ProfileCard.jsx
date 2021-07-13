@@ -10,14 +10,14 @@ export const ProfileCard = ({profile}) => {
     const isFollowing = alreadyExist(user.following, profile._id)
 
     return (
-        <div className="rounded-md bg-white shadow py-2 px-4 flex items-center flex-col sm:flex-row sm:justify-between sm:items-start">
+        <div className="rounded-md bg-white shadow py-2 px-4 flex items-center flex-col sm:flex-row sm:justify-between sm:items-start my-4">
             <Link to={`/profile/${profile._id}`}>
                 <div className="flex flex-col items-center text-center sm:flex-row sm:text-left">
                     <div className="my-2">
                     {
                         profile.profilePhoto ?
                         <img 
-                            className="w-12 h-auto rounded-md"
+                            className="w-28 h-auto rounded-md"
                             src={profile.profilePhoto} alt={profile.name}/>
                         :
                         <InitialDP 
