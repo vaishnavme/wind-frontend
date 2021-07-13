@@ -13,13 +13,14 @@ export default function Followers() {
     useEffect(() => {
         profileStatus === "idle" && 
         status === "profileLoaded" && dispatch(getUserProfile(userId))
-    })
+         // eslint-disable-next-line
+    },[status, userId])
+
     return (
         <div>
-            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Following <span>{profile.followers.length}</span></div>
-            {
-                profile.followers && 
-                profile.followers.map((profile) => (
+            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Following <span>{profile?.followers.length}</span></div>
+            { 
+                profile?.followers.map((profile) => (
                     <Link to={`/profile/${profile._id}`} key={profile._id}>
                     <div className="rounded-md bg-white shadow py-2 px-4 my-4">
                         <div className="flex items-center">

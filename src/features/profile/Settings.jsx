@@ -13,7 +13,8 @@ export default function Settings() {
     useEffect(() => {
         profileStatus === "idle" && 
         status === "profileLoaded" && dispatch(getUserProfile(userId))
-    })
+        // eslint-disable-next-line
+    },[status, userId])
 
     // profile 
     const profileUpdateInputs = (e) => {

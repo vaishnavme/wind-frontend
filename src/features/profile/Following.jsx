@@ -13,13 +13,13 @@ export default function Following() {
     useEffect(() => {
         profileStatus === "idle" && 
         status === "profileLoaded" && dispatch(getUserProfile(userId))
-    })
+        // eslint-disable-next-line
+    },[status, userId])
     return (
         <div>
-            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Following <span>{profile.following.length}</span></div>
+            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Following <span>{profile?.following.length}</span></div>
             {
-                profile.following && 
-                profile.following.map((profile) => (
+                profile?.following.map((profile) => (
                     <Link to={`/profile/${profile._id}`} key={profile._id}>
                     <div className="rounded-md bg-white shadow py-2 px-4 my-4">
                         <div className="flex items-center">
