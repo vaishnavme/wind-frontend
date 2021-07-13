@@ -5,11 +5,12 @@ import { createNewPost } from "../features/posts/postsSlice";
 
 export const NewPost = () => {
     const { user } = useSelector((state) => state.auth);
-    const [post, setNewPost] = useState("");
+    const [newPost, setNewPost] = useState("");
     const dispatch = useDispatch();
 
     const makePostHandler = () => {
-        dispatch(createNewPost(post))
+        dispatch(createNewPost(newPost))
+        setNewPost("")
     }
 
     return (
@@ -31,6 +32,7 @@ export const NewPost = () => {
                     <textarea 
                         type="text"
                         placeholder="What's new?"
+                        value={newPost}
                         onChange={(e) => setNewPost(e.target.value)}
                         className="bg-gray-50 w-full mx-2 px-1 rounded-md"
                     />
