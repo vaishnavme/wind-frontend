@@ -16,12 +16,13 @@ export default function Explore() {
         //eslint-disable-next-line
     }, [exploreStatus, status])
 
+
     const exploreFeed = serachUser !== "" ? 
         (allProfiles.filter((profile) => 
             profile._id !== userId && (profile.name.includes(serachUser)
             || profile.username.includes(serachUser))
         )) :
-        allProfiles.filter((profile) => profile._id !== userId)
+        allProfiles.filter((profile) => profile._id !== userId);
 
     return (
         <Fragment>
@@ -36,10 +37,13 @@ export default function Explore() {
             <div className="my-8">
                 {
                     exploreFeed?.map((profile) => (
-                        <ProfileCard profile={profile} key={profile._id}/>
+                        <ProfileCard key={profile._id} profile={profile}/>
                     ))
                 }
             </div>
         </Fragment>
     )
 }
+
+
+

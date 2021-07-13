@@ -8,7 +8,7 @@ import { InitialDP, PostCard, alreadyExist } from "../../components";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);
-    const { userId, status, user } = useSelector((state) => state.auth)
+    const { userId, status } = useSelector((state) => state.auth)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { profileId } = useParams();
@@ -20,8 +20,6 @@ export default function Profile() {
         // eslint-disable-next-line
     }, [status, profileId])
 
-    const isFollowing = alreadyExist(user.following, profile._id)
-    
     return (
     <Fragment>
         {
@@ -78,9 +76,9 @@ export default function Profile() {
                         </div>
                         :
                         <button
-                            onClick={() => isFollowing ? dispatch(unFollowUser(profile?._id)) : dispatch(followUser(profile?._id)) } 
+                            onClick={() => alreadyExist(profile.following, profileId) ? dispatch(unFollowUser(profile?._id)) : dispatch(followUser(profile?._id)) } 
                             className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
-                                {isFollowing ? "Following" : "Follow"}
+                             {alreadyExist(profile.following, profileId) ? "Following" : "Follow"}
                         </button>
                     }
                 </div>
