@@ -1,3 +1,3 @@
-export const alreadyExist = (collection, itemId) => {
-    return collection.find((item) => item._id === itemId)
+export const alreadyExist = (collection, itemID) => {
+    return collection.find((item) => item._id === itemID || item === itemID)
 }

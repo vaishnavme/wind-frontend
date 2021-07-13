@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { InitialDP, alreadyExist } from ".";
 import { followUser, unFollowUser } from "../features/auth/authSlice";
+import { InitialDP, alreadyExist } from ".";
 
 export const ProfileCard = ({profile}) => {
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch();
+
+    const isFollowing = alreadyExist(user.following, profile._id)
 
     return (
         <div className="rounded-md bg-white shadow py-2 px-4 flex items-center flex-col sm:flex-row sm:justify-between sm:items-start">
@@ -39,9 +41,9 @@ export const ProfileCard = ({profile}) => {
             </Link>
             <div className="w-32 text-center my-2">
                 <button
-                    onClick={() => alreadyExist(user.following, profile._id) ? dispatch(unFollowUser(profile._id)) : dispatch(followUser(profile._id)) } 
+                    onClick={() =>isFollowing ? dispatch(unFollowUser(profile._id)) : dispatch(followUser(profile._id)) } 
                     className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
-                        {alreadyExist(user.following, profile._id) ? "Following" : "Follow"}
+                        {isFollowing ? "Following" : "Follow"}
                 </button>
             </div>
         </div>

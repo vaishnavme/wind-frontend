@@ -33,8 +33,10 @@ export const updatePassword = async({oldPassword, newPassword}) => {
 //follow and unfollow
 export const followUserProfile = async(profileId) => {
     try {
-        const response = await axios.post(`/activity/follow/${profileId}`);
-        return response
+        const {data: {success, message, followedId}} = await axios.post(`/activity/follow/${profileId}`);
+        if(success) {
+            return followedId
+        } 
     } catch(err) {
         console.log(err);
     }
@@ -42,8 +44,10 @@ export const followUserProfile = async(profileId) => {
 
 export const unFollowUserProfile = async(profileId) => {
     try {
-        const response = await axios.delete(`/activity/follow/${profileId}`);
-        return response
+        const {data: {success, message, unfollowedId}} = await axios.delete(`/activity/follow/${profileId}`);
+        if(success) {
+            return unfollowedId
+        } 
     } catch(err) {
         console.log(err);
     }

@@ -12,12 +12,15 @@ export default function Profile() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { profileId } = useParams();
+    
     useEffect(() => {
         if(profileId !== profile?._id && status === "profileLoaded") {
             dispatch(getUserProfile(profileId))
         }
         // eslint-disable-next-line
     }, [status, profileId])
+
+    const isFollowing = alreadyExist(user.following, profile._id)
     
     return (
     <Fragment>
@@ -75,9 +78,9 @@ export default function Profile() {
                         </div>
                         :
                         <button
-                            onClick={() => alreadyExist(user.following, profile._id) ? dispatch(unFollowUser(profile?._id)) : dispatch(followUser(profile?._id)) } 
+                            onClick={() => isFollowing ? dispatch(unFollowUser(profile?._id)) : dispatch(followUser(profile?._id)) } 
                             className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
-                                {alreadyExist(user.following, profile._id) ? "Following" : "Follow"}
+                                {isFollowing ? "Following" : "Follow"}
                         </button>
                     }
                 </div>

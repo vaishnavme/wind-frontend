@@ -42,22 +42,16 @@ export const initializeAuthUser = createAsyncThunk(
 export const followUser = createAsyncThunk(
   "auth/followUser",
   async(profileId) => {
-    const {data: {success, message}} = followUserProfile(profileId);
-    if(!success) {
-      throw Error(message)
-    }
-    return profileId
+    const followedId = followUserProfile(profileId);
+    return followedId
   }
 )
 
 export const unFollowUser = createAsyncThunk(
   "auth/unFollowUser",
     async(profileId) => {
-      const {data: {success, message}} = unFollowUserProfile(profileId);
-      if(!success) {
-        throw Error(message)
-      }
-      return profileId
+      const unfollowedId = unFollowUserProfile(profileId);
+      return unfollowedId
     }
 )
 
@@ -107,7 +101,7 @@ export const authSlice = createSlice({
     //   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       state.status = "tokenReceived";
     },
-    [loginUserWithCredentials.rejected]: (state, action) => {
+    [loginUserWithCredentials.rejected]: (state) => {
       console.log("error");
       state.status = "error";
     },
