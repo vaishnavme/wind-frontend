@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { getUserProfile } from "./profileSlice";
 import { followUser, unFollowUser, logOutUser } from "../auth/authSlice";
-import { InitialDP, PostCard } from "../../components";
+import { InitialDP, PostCard, alreadyExist } from "../../components";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);
@@ -18,8 +18,6 @@ export default function Profile() {
         }
         // eslint-disable-next-line
     }, [status, profileId])
-
-    const isFollowing = (profileId) => user?.following.includes(profileId);
     
     return (
     <Fragment>
@@ -77,9 +75,9 @@ export default function Profile() {
                         </div>
                         :
                         <button
-                            onClick={() => isFollowing(profile?._id) ? dispatch(unFollowUser(profile?._id)) : dispatch(followUser(profile?._id)) } 
+                            onClick={() => alreadyExist(user.following, profile._id) ? dispatch(unFollowUser(profile?._id)) : dispatch(followUser(profile?._id)) } 
                             className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
-                                {isFollowing(profile?._id) ? "Following" : "Follow"}
+                                {alreadyExist(user.following, profile._id) ? "Following" : "Follow"}
                         </button>
                     }
                 </div>

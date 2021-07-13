@@ -5,16 +5,16 @@ import { getAllUserProfiles } from "./exploreSlice";
 
 export default function Explore() {
     const { allProfiles, exploreStatus } = useSelector((state) => state.explore);
-    const { userId } = useSelector((state) => state.auth);
+    const { userId, status } = useSelector((state) => state.auth);
     const [serachUser, setSearchUser] = useState("");
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(exploreStatus === "idle") {
+        if(exploreStatus === "idle" && status === "profileLoaded"){
             dispatch(getAllUserProfiles())
         }
         //eslint-disable-next-line
-    }, [exploreStatus])
+    }, [exploreStatus, status])
 
     const exploreFeed = serachUser !== "" ? 
         (allProfiles.filter((profile) => 
