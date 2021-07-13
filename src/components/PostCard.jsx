@@ -30,10 +30,11 @@ export const PostCard = ({post}) => {
             <div className="flex items-center justify-around p-1">
                 <button className="flex items-center">
                     <i className="text-lg bx bx-heart"></i>
-                    <span className="text-gray-400 font-normal ml-1">{post.likes.length === 0 ? 12 : post.likes.length}</span>
+                    <span className="text-gray-400 font-normal ml-1">{post.likes.length === 0 ? "" : post.likes.length}</span>
                 </button>
                 <button className="flex items-center">
                     <i className="text-lg bx bx-comment"></i>
+                    <span className="text-gray-400 font-normal ml-1">{post.comments.length === 0 ? "" : post.comments.length}</span>
                 </button>
                 <button className="flex items-center">
                     <i className="text-xl bx bx-repost"></i>
