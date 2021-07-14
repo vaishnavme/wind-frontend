@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { logInUser, signUpUser } from "../../services/auth.service";
 import { getAuthProfile } from "../../services/auth.service";
 import { followUserProfile, unFollowUserProfile } from "../../services/profile.service";
+import { bookmarkPostById, unBookmarkPostById } from "../../services/posts.service";
 
 export const loginUserWithCredentials = createAsyncThunk(
   "auth/loginUserWithCredentials",
@@ -53,6 +54,23 @@ export const unFollowUser = createAsyncThunk(
       const unfollowedId = await unFollowUserProfile(profileId);
       return unfollowedId
     }
+)
+
+export const bookmarkPost = createAsyncThunk(
+  "auth/bookmarkPost",
+  async(postId) => {
+      const bookmarkId = await bookmarkPostById(postId);
+      console.log(bookmarkId);
+      return bookmarkId
+  }
+)
+
+export const unBookmarkPost = createAsyncThunk(
+  "auth/bookmarkPost",
+  async(postId) => {
+      const unBookmarkId = await unBookmarkPostById(postId);
+      return unBookmarkId
+  }
 )
 
 export const authSlice = createSlice({
@@ -155,6 +173,28 @@ export const authSlice = createSlice({
     },
     [unFollowUser.rejected]: (state) => {
       state.status = "rejected"
+    },
+
+    [bookmarkPost.pending]: (state) => {
+      state.status = "bookmarking"
+    },
+    [bookmarkPost.fulfilled]: (state, action) => {
+      state.user.bookmarks.push(action.payload);
+      state.status = "bookmarked"
+    },
+    [bookmarkPost.rejected]: (state) => {
+      state.status = "error"
+    },
+
+    [unBookmarkPost.pending]: (state) => {
+      state.status = "loading"
+    },
+    [unBookmarkPost.fulfilled]: (state, action) => {
+      state.user.bookmarks.splice(state.user.bookmarks.indexOf(action.payload), 1)
+      state.status = "Fulfilled"
+    },
+    [unBookmarkPost.rejected]: (state) => {
+      state.status = "error"
     }
   },
 });

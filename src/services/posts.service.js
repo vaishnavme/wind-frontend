@@ -24,9 +24,8 @@ export const getUserFeed = async() => {
 
 export const likePostById = async(postId) => {
     try {// eslint-disable-next-line
-        const {data: {success, message, postLiked}} = await axios.post(`/posts/like/${postId}`);
+        const {data: {success, message, postLiked}} = await axios.post(`/activity/like/${postId}`);
         if(success) {
-            console.log(postLiked);
             return postLiked
         }
     } catch(err) {
@@ -36,10 +35,31 @@ export const likePostById = async(postId) => {
 
 export const unLikePostById = async(postId) => {
     try {// eslint-disable-next-line
-        const {data: {success, message, postUnLiked}} = await axios.delete(`/posts/like/${postId}`);
+        const {data: {success, message, postUnLiked}} = await axios.delete(`/activity/like/${postId}`);
         if(success) {
-            console.log(postUnLiked);
             return postUnLiked
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const bookmarkPostById = async(postId) => {
+    try {
+        const {data: {success, message, bookmarkId}} = await axios.post(`/activity/bookmark/${postId}`);
+        if(success) {
+            return bookmarkId
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const unBookmarkPostById = async(postId) => {
+    try {
+        const {data: {success, message, unBookmarkId}} = await axios.delete(`/activity/bookmark/${postId}`);
+        if(success) {
+            return unBookmarkId
         }
     } catch(err) {
         console.log(err);
