@@ -59,6 +59,14 @@ export default function Profile() {
                                     <span className="text-gray-400 text-sm ml-1">Following</span>
                                 </div>
                             </Link>
+                            { userId === profileId &&
+                            <Link to="/profile/bookmarks">
+                                <div className="font-semibold ml-6">
+                                    {profile?.bookmarks.length} 
+                                    <span className="text-gray-400 text-sm ml-1">Bookmarks</span>
+                                </div>
+                            </Link>
+                            }
                         </div>
                         <p className="text-gray-600">{profile?.bio}</p>
                     </div>
@@ -69,10 +77,10 @@ export default function Profile() {
                         <div className="flex justify-center sm:flex-col">
                             <button
                                 onClick={() => navigate("/profile/settings")} 
-                                className="border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white px-2 py-1 my-1 mx-2 w-32 rounded">Edit</button>
+                                className="border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white px-2 py-1 my-1 mx-2 w-24 rounded">Edit</button>
                             <button 
                                 onClick={() => dispatch(logOutUser())}
-                                className="border-2 border-red-600 text-red-700 hover:bg-red-500 hover:text-white text-white px-2 py-1 my-1 mx-2 w-32 rounded">Log Out</button>
+                                className="border-2 border-red-600 text-red-700 hover:bg-red-500 hover:text-white text-white px-2 py-1 my-1 mx-2 w-24 rounded">Log Out</button>
                         </div>
                         :
                         <button
@@ -86,7 +94,7 @@ export default function Profile() {
             <div>
                 {
                     profile?.posts.map((post) => (
-                        <PostCard key={post._id} post={post} profileName={profile.name}/>
+                        <PostCard key={post._id} post={post}/>
                     ))
                 }
             </div>
