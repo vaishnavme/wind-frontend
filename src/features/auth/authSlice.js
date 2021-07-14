@@ -42,7 +42,7 @@ export const initializeAuthUser = createAsyncThunk(
 export const followUser = createAsyncThunk(
   "auth/followUser",
   async(profileId) => {
-    const followedId = followUserProfile(profileId);
+    const followedId = await followUserProfile(profileId);
     return followedId
   }
 )
@@ -50,7 +50,7 @@ export const followUser = createAsyncThunk(
 export const unFollowUser = createAsyncThunk(
   "auth/unFollowUser",
     async(profileId) => {
-      const unfollowedId = unFollowUserProfile(profileId);
+      const unfollowedId = await unFollowUserProfile(profileId);
       return unfollowedId
     }
 )
