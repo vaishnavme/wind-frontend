@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createPost, getUserFeed, likePostById, unLikePostById, deleteUserPostById, loadSinglePost, postUserComment } from "../../services/posts.service";
+import { createPost, getUserFeed, likePostById, unLikePostById, 
+    deleteUserPostById, loadSinglePost, postUserComment, deleteUserComment 
+} from "../../services/posts.service";
 
 export const createNewPost = createAsyncThunk(
     "posts/createNewPost",
@@ -55,6 +57,14 @@ export const postComment = createAsyncThunk(
     async({postId, comment}) => {
         const commented = await postUserComment({postId, comment});
         return commented;
+    }
+)
+
+export const deleteComment = createAsyncThunk(
+    "posts/deleteComment",
+    async(variable) => {
+        const commentId = await deleteUserComment(variable);
+        return commentId
     }
 )
 
@@ -147,6 +157,17 @@ export const postsSlice = createSlice({
         [postComment.rejected]: (state) => {
             state.status = "rejected"
         },
+
+        [deleteComment.pending]: (state) => {
+            state.status = "loading"
+        },
+        [deleteComment.fulfilled]: (state, action) => {
+            state.singlePost.comments.splice(state.singlePost.comments.indexOf(action.payload), 1)
+            state.status = "Fulfilled"
+        },
+        [deleteComment.rejected]: (state) => {
+            state.status = "rejected"
+        }
     }
 })
 

@@ -32,7 +32,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <PrivateRoute path="/" element={<Feed/>}/>
               <PrivateRoute path="/explore" element={<Explore/>}/>
-              <PrivateRoute path="/:postId" element={<PostDetails/>}/>
+              <PrivateRoute path="feed/:postId" element={<PostDetails/>}/>
               <PrivateRoute path="/profile/:profileId" element={<Profile/>}/>
               <PrivateRoute path="/profile/:profileId/following" element={<Following/>}/>
               <PrivateRoute path="/profile/:profileId/followers" element={<Followers/>}/>

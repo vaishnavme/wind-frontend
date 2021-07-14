@@ -56,7 +56,6 @@ export const deleteUserPostById = async(postId) => {
 }
 
 export const loadSinglePost = async(postId) => {
-    console.log(postId)
     try {
         const {data: {success, post, message}} = await axios.get(`/posts/single/${postId}`)
         if(success) {
@@ -68,12 +67,25 @@ export const loadSinglePost = async(postId) => {
 }
 
 export const postUserComment = async({postId, comment}) => {
-    console.log(comment)
     try {
         const {data: {success, commented}} = await axios.post(`/activity/comment/${postId}`, {
             comment
         })
-        return commented
+        if(success) {
+            return commented
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const deleteUserComment = async({postId, commentID}) => {
+    try {
+        const {data: {success, commentId}} = await axios.delete(`/activity/comment/${postId}/${commentID}`)
+        console.log(commentId);
+        if(success) {
+            return commentId
+        }
     } catch(err) {
         console.log(err);
     }
