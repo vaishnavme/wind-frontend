@@ -32,7 +32,7 @@ export const updatePassword = async({oldPassword, newPassword}) => {
 }
 //follow and unfollow
 export const followUserProfile = async(profileId) => {
-    try {
+    try {// eslint-disable-next-line
         const {data: {success, message, followedId}} = await axios.post(`/activity/follow/${profileId}`);
         if(success) {
             return followedId
@@ -43,7 +43,7 @@ export const followUserProfile = async(profileId) => {
 }
 
 export const unFollowUserProfile = async(profileId) => {
-    try {
+    try {// eslint-disable-next-line
         const {data: {success, message, unfollowedId}} = await axios.delete(`/activity/follow/${profileId}`);
         if(success) {
             return unfollowedId
