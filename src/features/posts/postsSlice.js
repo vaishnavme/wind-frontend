@@ -18,19 +18,17 @@ export const getFeed = createAsyncThunk(
 )
 
 export const likePost = createAsyncThunk(
-    "auth/likePost",
+    "posts/likePost",
     async(postId) => {
       const postLiked = await likePostById(postId);
-      console.log(postLiked)
       return postLiked
     }
 )
 
 export const unLikePost = createAsyncThunk(
-    "auth/unLikePost",
+    "posts/unLikePost",
     async(postId) => {
       const postLiked = await unLikePostById(postId);
-      console.log(postLiked)
       return postLiked
     }
 )
