@@ -47,7 +47,6 @@ export const getSinglePost = createAsyncThunk(
     "posts/getSinglePost",
     async(postId) => {
         const post = await loadSinglePost(postId);
-        console.log(post)
         return post;
     }
 )

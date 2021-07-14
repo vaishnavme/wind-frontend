@@ -5,13 +5,11 @@ import { getSinglePost, postComment, deleteComment } from "./postsSlice";
 import { PostCard, InitialDP } from "../../components";
 
 export default function PostDetails() {
-    const { status } = useSelector((state) => state.auth);
+    const { status, user } = useSelector((state) => state.auth);
     const { singlePost } = useSelector((state) => state.posts);
     const [comment, setComment] = useState("")
     const dispatch = useDispatch();
     const { postId } = useParams();
-
-    console.log(singlePost)
 
     useEffect(() => {
         if(status === "profileLoaded") {
@@ -81,10 +79,14 @@ export default function PostDetails() {
                                         <span className="text-sm text-gray-400 font-normal">@{item.commentBy.username}</span>
                                     </div>
                                 </div>
-                                <button
-                                    onClick={() => deleteCommentHandler(item._id)}
-                                    className="text-xs font-semibold border-2 border-red-600 text-red-700 hover:bg-red-600 hover:text-white px-2 py-1 my-1 mx-2 rounded"
-                                >Delete</button>
+                                {   
+                                    item.commentBy._id === user._id &&
+                                    <button
+                                        onClick={() => deleteCommentHandler(item._id)}
+                                        className="text-xs font-semibold border-2 border-red-600 text-red-700 hover:bg-red-600 hover:text-white px-2 py-1 my-1 mx-2 rounded">
+                                            Delete
+                                    </button>
+                                }
                             </div>
                             <div className="mt-4">
                                 <p>{item.comment}</p>
