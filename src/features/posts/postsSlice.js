@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createPost, getUserFeed, likePostById, unLikePostById } from "../../services/posts.service";
+import { createPost, getUserFeed, likePostById, unLikePostById, deleteUserPostById } from "../../services/posts.service";
 
 export const createNewPost = createAsyncThunk(
     "posts/createNewPost",
@@ -33,10 +33,19 @@ export const unLikePost = createAsyncThunk(
     }
 )
 
+export const deletePost = createAsyncThunk(
+    "auth/deletePost",
+    async(postId) => {
+      const deletedId = await deleteUserPostById(postId);
+      return deletedId
+    }
+  )
+
 export const postsSlice = createSlice({
     name: "posts",
     initialState: {
         allPosts: [],
+        bookmarkedPosts: [],
         postStatus: "idle"
     },
     reducers: {},
@@ -87,6 +96,17 @@ export const postsSlice = createSlice({
         },
         [unLikePost.rejected]: (state) => {
             state.postStatus = "error";
+        },
+
+        [deletePost.pending]: (state) => {
+            state.status = "loading"
+        },
+        [deletePost.fulfilled]: (state, action) => {
+            state.allPosts.splice(state.allPosts.indexOf(action.payload), 1);
+            state.status = "Fulfilled"
+        },
+        [deletePost.rejected]: (state) => {
+            state.status = "rejected"
         }
     }
 })

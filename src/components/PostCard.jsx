@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { InitialDP } from "."
-import { likePost, unLikePost} from "../features/posts/postsSlice";
-import { bookmarkPost, unBookmarkPost } from "../features/auth/authSlice";
+import { likePost, unLikePost, deletePost} from "../features/posts/postsSlice";
 import { alreadyExist } from "./utility";
 
 export const PostCard = ({post}) => {
@@ -9,7 +8,6 @@ export const PostCard = ({post}) => {
     const dispatch = useDispatch();
 
     const isLiked = alreadyExist(post.likes, user._id);
-    const isBookmarked = alreadyExist(user.bookmarks, post._id);
     
     return (
         <div className="my-4 bg-white rounded-md shadow">
@@ -56,16 +54,14 @@ export const PostCard = ({post}) => {
                     <i className="text-lg bx bx-comment"></i>
                     <span className="text-gray-400 font-normal ml-1">{post.comments.length > 0 && post.comments.length}</span>
                 </button>
-                <button className="flex items-center">
-                    <i className="text-xl bx bx-repost"></i>
-                </button>
-                <button
-                    onClick={() => isBookmarked ? 
-                        dispatch(unBookmarkPost(post._id)) 
-                        : dispatch(bookmarkPost(post._id))} 
-                    className="flex items-center">
-                        <i className={`text-lg bx ${isBookmarked ? "bxs-bookmark text-blue-500" : "bx-bookmark"}`}></i>
-                </button>
+                {
+                    user._id === post.creator._id &&
+                    <button 
+                        onClick={() => dispatch(deletePost(post._id))}
+                        className="flex items-center">
+                        <i className="text-lg bx bx-trash"></i>
+                    </button>
+                }
             </div>
         </div>
     )

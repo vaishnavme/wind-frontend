@@ -6,4 +6,3 @@ export { default as Profile } from "./profile/Profile";
 export { default as Settings } from "./profile/Settings";
 export { default as Following } from "./profile/Following";
 export { default as Followers } from "./profile/Followers";
-export { default as Bookmarks } from "./profile/Bookmarks";

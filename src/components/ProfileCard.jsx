@@ -34,11 +34,13 @@ export const ProfileCard = ({profile}) => {
                 </div>
             </Link>
             <div>
+               { user._id !== profile._id &&
                 <button
-                    onClick={() => isFollowing ? dispatch(unFollowUser(profile._id)) : dispatch(followUser(profile._id)) } 
-                    className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
-                    {isFollowing ? "Following" : "Follow"}
+                        onClick={() => isFollowing ? dispatch(unFollowUser(profile._id)) : dispatch(followUser(profile._id)) } 
+                        className="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white">
+                        {isFollowing ? "Following" : "Follow"}
                 </button>
+               }
             </div>
         </div>
     )

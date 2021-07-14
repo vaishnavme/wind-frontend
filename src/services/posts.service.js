@@ -65,3 +65,14 @@ export const unBookmarkPostById = async(postId) => {
         console.log(err);
     }
 }
+
+export const deleteUserPostById = async(postId) => {
+    try {
+        const { data: {success, message, deletedId}} = await axios.delete(`/posts/${postId}`);
+        if(success) {
+            return deletedId
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
