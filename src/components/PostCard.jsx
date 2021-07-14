@@ -1,13 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { InitialDP } from "."
-import { likePost, unLikePost } from "../features/posts/postsSlice";
+import { likePost, unLikePost} from "../features/posts/postsSlice";
+import { bookmarkPost, unBookmarkPost } from "../features/auth/authSlice";
 import { alreadyExist } from "./utility";
 
 export const PostCard = ({post}) => {
     const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch();
 
-    const isLiked = alreadyExist(post.likes, user._id)
+    const isLiked = alreadyExist(post.likes, user._id);
+    const isBookmarked = alreadyExist(user.bookmarks, post._id);
     
     return (
         <div className="my-4 bg-white rounded-md shadow">
@@ -41,12 +43,14 @@ export const PostCard = ({post}) => {
             </div>
             <div className="flex items-center justify-around p-1">
                 <button
-                    onClick={() => isLiked ? dispatch(unLikePost(post._id)) : dispatch(likePost(post._id))} 
+                    onClick={() => isLiked ? 
+                        dispatch(unLikePost(post._id)) 
+                        : dispatch(likePost(post._id))} 
                     className="flex items-center">
-                    <i className={`text-lg bx ${isLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
-                    <span className="text-gray-400 font-normal ml-1">
-                        {post.likes.length > 0 && post.likes.length}
-                    </span>
+                        <i className={`text-lg bx ${isLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
+                        <span className="text-gray-400 font-normal ml-1">
+                            {post.likes.length > 0 && post.likes.length}
+                        </span>
                 </button>
                 <button className="flex items-center">
                     <i className="text-lg bx bx-comment"></i>
@@ -54,6 +58,13 @@ export const PostCard = ({post}) => {
                 </button>
                 <button className="flex items-center">
                     <i className="text-xl bx bx-repost"></i>
+                </button>
+                <button
+                    onClick={() => isBookmarked ? 
+                        dispatch(unBookmarkPost(post._id)) 
+                        : dispatch(bookmarkPost(post._id))} 
+                    className="flex items-center">
+                        <i className={`text-lg bx ${isBookmarked ? "bxs-bookmark text-blue-500" : "bx-bookmark"}`}></i>
                 </button>
             </div>
         </div>

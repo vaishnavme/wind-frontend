@@ -3,7 +3,6 @@ import { NewPost, PostCard } from "../../components"
 
 export default function Feed() {
     const { allPosts } = useSelector((state) => state.posts);
-    
     return (
         <div>
             <NewPost/>
