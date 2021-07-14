@@ -1,7 +1,14 @@
+import { useSelector, useDispatch } from "react-redux";
 import { InitialDP } from "."
+import { likePost, unLikePost } from "../features/posts/postsSlice";
+import { alreadyExist } from "./utility";
 
 export const PostCard = ({post}) => {
+    const { user } = useSelector((state) => state.auth)
+    const dispatch = useDispatch();
 
+    const isLiked = alreadyExist(post.likes, user._id)
+    
     return (
         <div className="my-4 bg-white rounded-md shadow">
             <div className="p-3 border-b">
@@ -33,13 +40,17 @@ export const PostCard = ({post}) => {
                 </div>
             </div>
             <div className="flex items-center justify-around p-1">
-                <button className="flex items-center">
-                    <i className="text-lg bx bx-heart"></i>
-                    <span className="text-gray-400 font-normal ml-1">{post.likes.length === 0 ? "" : post.likes.length}</span>
+                <button
+                    onClick={() => isLiked ? dispatch(unLikePost(post._id)) : dispatch(likePost(post._id))} 
+                    className="flex items-center">
+                    <i className={`text-lg bx ${isLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
+                    <span className="text-gray-400 font-normal ml-1">
+                        {post.likes.length > 0 && post.likes.length}
+                    </span>
                 </button>
                 <button className="flex items-center">
                     <i className="text-lg bx bx-comment"></i>
-                    <span className="text-gray-400 font-normal ml-1">{post.comments.length === 0 ? "" : post.comments.length}</span>
+                    <span className="text-gray-400 font-normal ml-1">{post.comments.length > 0 && post.comments.length}</span>
                 </button>
                 <button className="flex items-center">
                     <i className="text-xl bx bx-repost"></i>
