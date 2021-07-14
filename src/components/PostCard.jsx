@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { InitialDP } from "."
 import { likePost, unLikePost, deletePost} from "../features/posts/postsSlice";
 import { alreadyExist } from "./utility";
@@ -6,6 +7,7 @@ import { alreadyExist } from "./utility";
 export const PostCard = ({post}) => {
     const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const isLiked = alreadyExist(post.likes, user._id);
     
@@ -47,12 +49,14 @@ export const PostCard = ({post}) => {
                     className="flex items-center">
                         <i className={`text-lg bx ${isLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
                         <span className="text-gray-400 font-normal ml-1">
-                            {post.likes.length > 0 && post.likes.length}
+                            {post?.likes.length > 0 && post?.likes.length}
                         </span>
                 </button>
-                <button className="flex items-center">
+                <button 
+                    onClick={() => navigate(`/${post._id}`)}
+                    className="flex items-center">
                     <i className="text-lg bx bx-comment"></i>
-                    <span className="text-gray-400 font-normal ml-1">{post.comments.length > 0 && post.comments.length}</span>
+                    <span className="text-gray-400 font-normal ml-1">{post?.comments.length > 0 && post?.comments.length}</span>
                 </button>
                 {
                     user._id === post.creator._id &&

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createPost, getUserFeed, likePostById, unLikePostById, deleteUserPostById } from "../../services/posts.service";
+import { createPost, getUserFeed, likePostById, unLikePostById, deleteUserPostById, loadSinglePost, postUserComment } from "../../services/posts.service";
 
 export const createNewPost = createAsyncThunk(
     "posts/createNewPost",
@@ -34,18 +34,35 @@ export const unLikePost = createAsyncThunk(
 )
 
 export const deletePost = createAsyncThunk(
-    "auth/deletePost",
+    "posts/deletePost",
     async(postId) => {
       const deletedId = await deleteUserPostById(postId);
       return deletedId
     }
-  )
+)
+
+export const getSinglePost = createAsyncThunk(
+    "posts/getSinglePost",
+    async(postId) => {
+        const post = await loadSinglePost(postId);
+        console.log(post)
+        return post;
+    }
+)
+
+export const postComment = createAsyncThunk(
+    "posts/postComment",
+    async({postId, comment}) => {
+        const commented = await postUserComment({postId, comment});
+        return commented;
+    }
+)
 
 export const postsSlice = createSlice({
     name: "posts",
     initialState: {
         allPosts: [],
-        bookmarkedPosts: [],
+        singlePost: null,
         postStatus: "idle"
     },
     reducers: {},
@@ -58,6 +75,17 @@ export const postsSlice = createSlice({
             state.postStatus = "feedLoaded"
         },
         [getFeed.rejected]: (state) => {
+            state.postStatus = "error"
+        },
+
+        [getSinglePost.pending]: (state) => {
+            state.postStatus = "loading"
+        },
+        [getSinglePost.fulfilled]: (state, action) => {
+            state.singlePost = action.payload
+            state.postStatus = "postLoaded"
+        },
+        [getSinglePost.rejected]: (state) => {
             state.postStatus = "error"
         },
 
@@ -107,7 +135,18 @@ export const postsSlice = createSlice({
         },
         [deletePost.rejected]: (state) => {
             state.status = "rejected"
-        }
+        },
+
+        [postComment.pending]: (state) => {
+            state.status = "loading"
+        },
+        [postComment.fulfilled]: (state, action) => {
+            state.singlePost.comments.push(action.payload)
+            state.status = "Fulfilled"
+        },
+        [postComment.rejected]: (state) => {
+            state.status = "rejected"
+        },
     }
 })
 

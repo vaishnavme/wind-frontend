@@ -44,34 +44,36 @@ export const unLikePostById = async(postId) => {
     }
 }
 
-export const bookmarkPostById = async(postId) => {
-    try {
-        const {data: {success, message, bookmarkId}} = await axios.post(`/activity/bookmark/${postId}`);
-        if(success) {
-            return bookmarkId
-        }
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-export const unBookmarkPostById = async(postId) => {
-    try {
-        const {data: {success, message, unBookmarkId}} = await axios.delete(`/activity/bookmark/${postId}`);
-        if(success) {
-            return unBookmarkId
-        }
-    } catch(err) {
-        console.log(err);
-    }
-}
-
 export const deleteUserPostById = async(postId) => {
     try {
         const { data: {success, message, deletedId}} = await axios.delete(`/posts/${postId}`);
         if(success) {
             return deletedId
         }
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const loadSinglePost = async(postId) => {
+    console.log(postId)
+    try {
+        const {data: {success, post, message}} = await axios.get(`/posts/single/${postId}`)
+        if(success) {
+            return post
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const postUserComment = async({postId, comment}) => {
+    console.log(comment)
+    try {
+        const {data: {success, commented}} = await axios.post(`/activity/comment/${postId}`, {
+            comment
+        })
+        return commented
     } catch(err) {
         console.log(err);
     }
