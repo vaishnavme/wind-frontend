@@ -56,7 +56,27 @@ export const profileSlice = createSlice({
         },
         [getUserProfile.rejected]: (state) => {
             state.profileStatus = "error"
-        }
+        },
+
+        [updateUserProfile.pending]: (state) => {
+            state.profileStatus = "updating"
+        },
+        [updateUserProfile.fulfilled]: (state) => {
+            state.profileStatus = "Fulfilled"
+        },
+        [updateUserProfile.rejected]: (state) => {
+            state.profileStatus = "error"
+        },
+
+        [updateUserPassword.pending]: (state) => {
+            state.profileStatus = "updating password"
+        },
+        [updateUserPassword.fulfilled]: (state) => {
+            state.profileStatus = "Fulfilled"
+        },
+        [updateUserPassword.pending]: (state) => {
+            state.profileStatus = "error"
+        },
     }
 })
 

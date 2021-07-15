@@ -46,16 +46,18 @@ export default function Settings() {
                 profile={profile}
                 profileUpdateInputs={profileUpdateInputs}
                 updateProfile={updateProfile}
+                profileStatus={profileStatus}
             />
             <Account
                 passwordUpdateInputs={passwordUpdateInputs}
                 updatePassword={updatePassword}
+                profileStatus={profileStatus}
             />
         </div>
     )
 }
 
-const Profile = ({profile, profileUpdateInputs, updateProfile}) => {
+const Profile = ({profile, profileUpdateInputs, updateProfile, profileStatus}) => {
 
     return (
         <div className="bg-white rounded-md shadow p-4">
@@ -104,14 +106,16 @@ const Profile = ({profile, profileUpdateInputs, updateProfile}) => {
                 <div className="flex justify-between">
                     <button 
                         onClick={(e) => {e.preventDefault(); updateProfile();}}
-                        className="text-lg text-white bg-blue-400 p-2 duration-300 rounded hover:bg-blue-700 w-full">Save</button>
+                        className="text-lg text-white bg-blue-400 p-2 duration-300 rounded hover:bg-blue-700 w-full">
+                            {profileStatus === "updating" ? <i className="animate-spin bx bx-loader-alt font-thin"></i> : "Update"}
+                        </button>
                 </div>
             </form>
         </div>
     )
 }
 
-const Account = ({passwordUpdateInputs, updatePassword}) => {
+const Account = ({passwordUpdateInputs, updatePassword, profileStatus}) => {
     return (
         <div className="bg-white rounded-md shadow p-4 my-8">
             <h1 className="text-2xl mt-3">Change Password</h1>
@@ -130,7 +134,8 @@ const Account = ({passwordUpdateInputs, updatePassword}) => {
                 />
                 <button
                     onClick={(e) => {e.preventDefault(); updatePassword();}} 
-                    className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full"> Update  
+                    className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
+                        {profileStatus === "updating password" ? <i className="animate-spin bx bx-loader-alt font-thin"></i> : "Update"}  
                 </button>
             </form>
         </div>
