@@ -19,35 +19,48 @@ export default function Notifications() {
             {   notifyStatus === "loading" && <Loader/>  }
             {
                 notifications &&
-                notifications.map(({sourceUser, _id, time}) => (
-                    <div key={_id} className="rounded-md bg-white shadow py-2 px-4 my-4 flex items-center justify-between">
-                        <Link to={`/profile/${sourceUser._id}`}>
-                        <div className="flex items-center">
-                            <div className="my-2">
-                                {
-                                sourceUser.profilePhoto ?
-                                    <img 
-                                        className="w-12 h-auto rounded-md"
-                                        src={sourceUser.profilePhoto} alt={sourceUser.name}/>
-                                :
-                                    <InitialDP 
-                                        name={sourceUser.name}
-                                        size={12}
-                                        fontSize={"text-xl"}
-                                    />
-                                }
-                            </div>
-                            <div className="ml-6">
-                                <h4 className="text-lg font-semibold">{sourceUser.name}</h4>
-                                <span className="text-sm text-gray-400 font-normal">@{sourceUser.username}</span>
-                            </div>
+                notifications.map(({sourceUser, _id, time, notificationType}) => {
+                    const notifyType = () => {
+                        switch(notificationType){
+                            case "LIKE":
+                                return " recently like your post."
+                            case "COMMENT":
+                                return " commented on your post."
+                            case "NEW POST":
+                                return " made a new post."
+                            case "FOLLOWED":
+                                return " followed you."
+                            default:
+                                return ""
+                        }
+                    }
+                    return (
+                    <div key={_id} className="rounded-md bg-white shadow py-2 px-4 my-4 flex">
+                        <div>
+                        {
+                            sourceUser.profilePhoto ?
+                            <img 
+                                className="w-10 h-auto rounded-md"
+                                src={sourceUser.profilePhoto} alt={sourceUser.name}/>
+                            :
+                            <InitialDP 
+                                name={sourceUser.name}
+                                size={10}
+                                fontSize={"text-xl"}
+                            />
+                        }
                         </div>
-                    </Link>
-                </div>
-                ))
-            }
-        </div>
+                        <div className="ml-2">
+                            <p><Link className="font-medium hover:underline" to={`/profile/${sourceUser._id}`}>{sourceUser.name}
+                            </Link>
+                            {notifyType()}</p>
+                            <p className="text-xs font-medium text-gray-600">{time.substring(0,10)}</p>
+                        </div>
+                    </div> 
+                )   
+            })
+        }
+    </div>
     )
 }
-
 
