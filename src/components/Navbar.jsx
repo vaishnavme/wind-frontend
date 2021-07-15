@@ -49,7 +49,7 @@ export const Navbar = () => {
                             <ul className="flex justify-around md:flex-col">
                                 <li> <Navlinks link={"/"} icon={"home"} linkName={"Feed"}/> </li>
                                 <li> <Navlinks link={"/explore"} icon={"planet"} linkName={"Explore"}/> </li>
-                                <li> <Navlinks link={"/notifications"} icon={"bell"} linkName={"Notifications"}/> </li>
+                                <li> <Navlinks link={"/notify"} icon={"bell"} linkName={"Notifications"}/> </li>
                                 <li> <Navlinks link={`/profile/${userId}`} icon={"user"} linkName={"Profile"}/> </li>
                             </ul>
                         </div>

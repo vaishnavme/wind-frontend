@@ -1,8 +1,8 @@
 import axios from "axios"
 
-export const getProfile = async(profileId) => {
+export const getProfile = async(username) => {
     try {
-        const response = await axios.get(`/user/profile/${profileId}`);
+        const response = await axios.get(`/user/profile/${username}`);
         return response
     } catch(err) {
         console.log(err);
