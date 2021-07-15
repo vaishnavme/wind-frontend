@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { InitialDP } from "."
 import { likePost, unLikePost, deletePost} from "../features/posts/postsSlice";
-import { alreadyExist } from "./utility";
+import { alreadyExist, getTimeAgo } from "./utility";
 
 export const PostCard = ({post}) => {
     const { user } = useSelector((state) => state.auth)
@@ -34,7 +34,7 @@ export const PostCard = ({post}) => {
                         </div>
                     </div>
                     <div>
-                        <span className="text-xs text-gray-400">{post.createdAt.substring(0,10)}</span>
+                        <span className="text-xs font-medium text-gray-600">{getTimeAgo(post.createdAt)} ago</span>
                     </div>
                 </div>
                 <div className="p-1 my-1">

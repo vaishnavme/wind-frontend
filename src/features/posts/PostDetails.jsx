@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { getSinglePost, postComment, deleteComment } from "./postsSlice";
-import { PostCard, InitialDP, Loader } from "../../components";
+import { PostCard, InitialDP, Loader, getTimeAgo } from "../../components";
 
 export default function PostDetails() {
     const { status, user } = useSelector((state) => state.auth);
@@ -24,6 +24,7 @@ export default function PostDetails() {
             postId
         }
         dispatch(postComment(variable));
+        setComment("")
     }
 
     const deleteCommentHandler = (commentID) => {
@@ -90,6 +91,7 @@ export default function PostDetails() {
                                                 Delete
                                         </button>
                                     }
+                                    <span className="text-xs font-medium text-gray-600">{getTimeAgo(item.createdAt)} ago</span>
                                 </div>
                                 <div className="mt-2 mb-6">
                                     <p>{item.comment}</p>

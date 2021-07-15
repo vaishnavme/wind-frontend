@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserNotifications } from "./notifySlice";
-import { Loader, InitialDP } from "../../components";
+import { Loader, InitialDP, getTimeAgo } from "../../components";
 
 export default function Notifications() {
     const { status } = useSelector(state => state.auth);
@@ -23,19 +23,19 @@ export default function Notifications() {
                     const notifyType = () => {
                         switch(notificationType){
                             case "LIKE":
-                                return " recently like your"
+                                return " recently like your "
                             case "COMMENT":
-                                return " commented on your"
+                                return " commented on your "
                             case "NEW POST":
                                 return " made a new"
-                            case "FOLLOWED":
+                            case "NEW FOLLOWER":
                                 return " followed you."
                             default:
                                 return ""
                         }
                     }
                     return (
-                    <div key={_id} className="rounded-md bg-white shadow py-2 px-4 my-4 flex">
+                    <div key={_id} className="rounded-md bg-white shadow py-2 px-4 my-2 flex">
                         <div>
                         {
                             sourceUser.profilePhoto ?
@@ -51,11 +51,14 @@ export default function Notifications() {
                         }
                         </div>
                         <div className="ml-2 text-gray-800">
-                            <p><Link className="font-medium hover:underline text-black" to={`/profile/${sourceUser._id}`}>{sourceUser.name}
-                            </Link>
-                            {notifyType()} <Link className="font-medium hover:underline" to={`/feed/${post}`}>post</Link>
+                            <p>
+                                <Link className="font-medium hover:underline text-black" to={`/profile/${sourceUser._id}`}>
+                                    {sourceUser.name}
+                                </Link>
+                                {notifyType()} 
+                                {post && <Link className="font-medium hover:underline" to={`/feed/${post}`}>post</Link>}
                             </p>
-                            <p className="text-xs font-medium text-gray-600">{time.substring(0,10)}</p>
+                            <p className="text-xs font-medium text-gray-600">{getTimeAgo(time)} ago</p>
                         </div>
                     </div> 
                 )   

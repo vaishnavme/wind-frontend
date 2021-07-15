@@ -6,5 +6,6 @@ export { InitialDP } from "./InitialsDP";
 export { NewPost } from "./NewPost";
 export { PostCard } from "./PostCard";
 export { ProfileCard } from "./ProfileCard";
+export { Loader } from "./Loader";
 export { alreadyExist } from "./utility";
-export  { Loader } from "./Loader";
+export { getTimeAgo } from "./utility";
