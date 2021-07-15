@@ -19,7 +19,6 @@ export default function Login() {
     }
 
     const logInHandler = async() => {
-        console.log(logInCred)
         await dispatch(
             loginUserWithCredentials(logInCred)
         )

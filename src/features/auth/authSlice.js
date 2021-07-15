@@ -68,7 +68,6 @@ export const authSlice = createSlice({
   },
   reducers: {
     logOutUser: () => {
-      console.log("here");
       localStorage.removeItem("isAuthenticated");
       localStorage.removeItem("authUserToken");
       localStorage.removeItem("authUserId");
