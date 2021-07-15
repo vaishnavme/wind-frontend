@@ -19,15 +19,15 @@ export default function Notifications() {
             {   notifyStatus === "loading" && <Loader/>  }
             {
                 notifications &&
-                notifications.map(({sourceUser, _id, time, notificationType}) => {
+                notifications.map(({sourceUser, _id, time, notificationType, post}) => {
                     const notifyType = () => {
                         switch(notificationType){
                             case "LIKE":
-                                return " recently like your post."
+                                return " recently like your"
                             case "COMMENT":
-                                return " commented on your post."
+                                return " commented on your"
                             case "NEW POST":
-                                return " made a new post."
+                                return " made a new"
                             case "FOLLOWED":
                                 return " followed you."
                             default:
@@ -50,10 +50,11 @@ export default function Notifications() {
                             />
                         }
                         </div>
-                        <div className="ml-2">
-                            <p><Link className="font-medium hover:underline" to={`/profile/${sourceUser._id}`}>{sourceUser.name}
+                        <div className="ml-2 text-gray-800">
+                            <p><Link className="font-medium hover:underline text-black" to={`/profile/${sourceUser._id}`}>{sourceUser.name}
                             </Link>
-                            {notifyType()}</p>
+                            {notifyType()} <Link className="font-medium hover:underline" to={`/feed/${post}`}>post</Link>
+                            </p>
                             <p className="text-xs font-medium text-gray-600">{time.substring(0,10)}</p>
                         </div>
                     </div> 
