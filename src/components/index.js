@@ -7,3 +7,4 @@ export { NewPost } from "./NewPost";
 export { PostCard } from "./PostCard";
 export { ProfileCard } from "./ProfileCard";
 export { alreadyExist } from "./utility";
+export  { Loader } from "./Loader";
