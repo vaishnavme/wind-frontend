@@ -30,7 +30,7 @@ export const PostCard = ({post}) => {
                         }
                         <div className="ml-3 leading-4">
                             <h4 className="font-medium">{post.creator.name}</h4>
-                            <span className="text-sm text-gray-400 font-medium">@{post.creator.username}</span>
+                            <span className="text-sm font-medium text-gray-500">@{post.creator.username}</span>
                         </div>
                     </div>
                     <div>

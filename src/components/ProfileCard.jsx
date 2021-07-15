@@ -29,7 +29,7 @@ export const ProfileCard = ({profile}) => {
                     </div>
                     <div className="ml-6">
                         <h4 className="text-lg font-semibold">{profile.name}</h4>
-                        <span className="text-sm text-gray-400 font-normal">@{profile.username}</span>
+                        <span className="text-sm font-medium text-gray-500">@{profile.username}</span>
                     </div>
                 </div>
             </Link>
