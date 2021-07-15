@@ -7,5 +7,5 @@ export { NewPost } from "./NewPost";
 export { PostCard } from "./PostCard";
 export { ProfileCard } from "./ProfileCard";
 export { Loader } from "./Loader";
-export { alreadyExist } from "./utility";
-export { getTimeAgo } from "./utility";
+export { alreadyExist, getTimeAgo } from "./utility";
+export { axiosInstance } from "./axiosInstance";
