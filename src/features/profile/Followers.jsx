@@ -16,9 +16,9 @@ export default function Followers() {
 
     return (
         <div>
-            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Following <span>{profile?.followers.length}</span></div>
+            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Followers <span>{profile?.followers?.length}</span></div>
             {
-                profile?.following.map((profile) => (
+                profile?.followers?.map((profile) => (
                     <ProfileCard key={profile._id} profile={profile}/>
                 ))
             }

@@ -13,11 +13,12 @@ export default function Following() {
         status === "profileLoaded" && dispatch(getUserProfile(userId))
         // eslint-disable-next-line
     },[status, userId])
+
     return (
         <div>
-            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Following <span>{profile?.following.length}</span></div>
+            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Following <span>{profile?.following?.length}</span></div>
             {
-                profile?.following.map((profile) => (
+                profile?.following?.map((profile) => (
                     <ProfileCard key={profile._id} profile={profile}/>
                 ))
             }
