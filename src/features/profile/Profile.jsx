@@ -2,12 +2,13 @@ import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { getUserProfile } from "./profileSlice";
-import { Loader } from "../../components";
+import { PostCard, Loader } from "../../components";
 import ProfileHeader from "./ProfileHeader";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);
-    const { status } = useSelector((state) => state.auth)
+    const { allPosts } = useSelector((state) => state.posts)
+    const { status } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { profileId } = useParams();
     
@@ -17,6 +18,8 @@ export default function Profile() {
         }
         // eslint-disable-next-line
     }, [status, profileId])
+
+    const userPost = allPosts?.filter((post) => post?.creator._id === profileId);
     
     return (
     <Fragment>
@@ -25,6 +28,11 @@ export default function Profile() {
             (profileStatus === "dataReceived" && profile) &&
             <div>
                 <ProfileHeader profile={profile}/>
+                {
+                    userPost.map((post) => (
+                        <PostCard key={post._id} post={post}/>
+                    ))
+                }
             </div>
         }
     </Fragment>
@@ -33,9 +41,5 @@ export default function Profile() {
 
 
         
-                // {
-                //     profile?.posts.map((post) => (
-                //         <PostCard key={post._id} post={post}/>
-                //     ))
-                // }
+                
 

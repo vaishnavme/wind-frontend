@@ -40,7 +40,12 @@ export const profileSlice = createSlice({
         profileStatus: "idle",
         profile: null
     },
-    reducers: {},
+    reducers: {
+        resetProfile: (state) => {
+            state.profile = null;
+            state.profileStatus = "idle";
+        }
+    },
     extraReducers: {
         [getUserProfile.pending]: (state) => {
             state.profileStatus = "loading"
