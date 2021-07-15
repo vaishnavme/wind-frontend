@@ -50,7 +50,7 @@ export default function PostDetails() {
                             className="bg-gray-50 w-full p-2 rounded"
                             placeholder="Comment..."
                         />
-                        <div className="flex justify-end">
+                        <div className="flex justify-end border-b">
                             <button
                                 onClick={() => makeCommentHandler()}
                                 className="border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white px-2 py-1 my-1 mx-2 w-24 rounded">
@@ -67,12 +67,12 @@ export default function PostDetails() {
                                             {
                                             item.commentBy.profilePhoto ?
                                                 <img 
-                                                    className="w-12 h-auto rounded-md"
+                                                    className="w-10 h-auto rounded-md"
                                                     src={item.commentBy.profilePhoto} alt={item.commentBy.name}/>
                                             :
                                                 <InitialDP 
                                                     name={item.commentBy.name}
-                                                    size={12}
+                                                    size={10}
                                                     fontSize={"text-xl"}
                                                 />
                                             }
@@ -91,7 +91,7 @@ export default function PostDetails() {
                                         </button>
                                     }
                                 </div>
-                                <div className="mt-4">
+                                <div className="mt-2 mb-6">
                                     <p>{item.comment}</p>
                                 </div>
                             </div>

@@ -82,7 +82,6 @@ export const postUserComment = async({postId, comment}) => {
 export const deleteUserComment = async({postId, commentID}) => {
     try {
         const {data: {success, commentId}} = await axios.delete(`/activity/comment/${postId}/${commentID}`)
-        console.log(commentId);
         if(success) {
             return commentId
         }
