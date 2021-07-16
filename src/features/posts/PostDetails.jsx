@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { getSinglePost, postComment, deleteComment } from "./postsSlice";
 import { PostCard, InitialDP, Loader, getTimeAgo } from "../../components";
 
@@ -9,6 +9,7 @@ export default function PostDetails() {
     const { singlePost, postStatus } = useSelector((state) => state.posts);
     const [comment, setComment] = useState("")
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { postId } = useParams();
 
     useEffect(() => {
@@ -33,12 +34,15 @@ export default function PostDetails() {
             commentID
         }
         dispatch(deleteComment(variable))
+        if(postStatus === "Deleted") {
+            navigate("/")
+        }
     }
 
     return (
         <div>
             {
-                postStatus === "loading" ?
+                postStatus === "post-loading" ?
                 <Loader/>
                 :
                 singlePost &&
@@ -55,7 +59,7 @@ export default function PostDetails() {
                             <button
                                 onClick={() => makeCommentHandler()}
                                 className="border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white px-2 py-1 my-1 mx-2 w-24 rounded">
-                                    Comment
+                                    {postStatus === "commenting" ? <i className="animate-spin bx bx-loader-alt font-thin"></i> : "Comment"}
                             </button>
                         </div>
                         <div>
@@ -83,15 +87,17 @@ export default function PostDetails() {
                                             <span className="text-sm text-gray-400 font-normal">@{item.commentBy.username}</span>
                                         </div>
                                     </div>
-                                    {   
-                                        item.commentBy._id === user._id &&
-                                        <button
-                                            onClick={() => deleteCommentHandler(item._id)}
-                                            className="text-xs font-semibold border-2 border-red-600 text-red-700 hover:bg-red-600 hover:text-white px-2 py-1 my-1 mx-2 rounded">
-                                                Delete
-                                        </button>
-                                    }
-                                    <span className="text-xs font-medium text-gray-600">{getTimeAgo(item.createdAt)} ago</span>
+                                    <div className="flex flex-col">
+                                        {   
+                                            item.commentBy._id === user._id &&
+                                            <button
+                                                onClick={() => deleteCommentHandler(item._id)}
+                                                className="text-xs w-16 font-semibold border-2 border-red-600 text-red-700 hover:bg-red-600 hover:text-white px-2 py-1 my-1 mx-2 rounded">
+                                                    Delete
+                                            </button>
+                                        }
+                                        <span className="text-xs font-medium text-gray-600">{getTimeAgo(item.createdAt)} ago</span>
+                                    </div>
                                 </div>
                                 <div className="mt-2 mb-6">
                                     <p>{item.comment}</p>

@@ -12,7 +12,7 @@ export default function Notifications() {
     useEffect(() => {
         status === "profileLoaded" && dispatch(getUserNotifications())
         // eslint-disable-next-line
-    },[status])
+    },[])
     return (
         <div>
             <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Notifications </div>
@@ -27,7 +27,7 @@ export default function Notifications() {
                             case "COMMENT":
                                 return " commented on your "
                             case "NEW POST":
-                                return " made a new"
+                                return " made a new "
                             case "NEW FOLLOWER":
                                 return " followed you."
                             default:

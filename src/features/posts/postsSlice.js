@@ -88,7 +88,7 @@ export const postsSlice = createSlice({
         },
 
         [getSinglePost.pending]: (state) => {
-            state.postStatus = "loading"
+            state.postStatus = "post-loading"
         },
         [getSinglePost.fulfilled]: (state, action) => {
             state.singlePost = action.payload
@@ -136,36 +136,36 @@ export const postsSlice = createSlice({
         },
 
         [deletePost.pending]: (state) => {
-            state.status = "loading"
+            state.postStatus = "loading"
         },
         [deletePost.fulfilled]: (state, action) => {
             state.allPosts.splice(state.allPosts.indexOf(action.payload), 1);
-            state.status = "Fulfilled"
+            state.postStatus = "Deleted"
         },
         [deletePost.rejected]: (state) => {
-            state.status = "rejected"
+            state.postStatus = "rejected"
         },
 
         [postComment.pending]: (state) => {
-            state.status = "loading"
+            state.postStatus = "commenting"
         },
         [postComment.fulfilled]: (state, action) => {
             state.singlePost.comments.push(action.payload)
-            state.status = "Fulfilled"
+            state.postStatus = "Fulfilled"
         },
         [postComment.rejected]: (state) => {
-            state.status = "rejected"
+            state.postStatus = "rejected"
         },
 
         [deleteComment.pending]: (state) => {
-            state.status = "loading"
+            state.postStatus = "loading"
         },
         [deleteComment.fulfilled]: (state, action) => {
             state.singlePost.comments.splice(state.singlePost.comments.indexOf(action.payload), 1)
-            state.status = "Fulfilled"
+            state.postStatus = "Fulfilled"
         },
         [deleteComment.rejected]: (state) => {
-            state.status = "rejected"
+            state.postStatus = "rejected"
         }
     }
 })
