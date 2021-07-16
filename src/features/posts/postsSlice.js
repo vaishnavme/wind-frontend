@@ -140,7 +140,7 @@ export const postsSlice = createSlice({
         },
         [deletePost.fulfilled]: (state, action) => {
             state.allPosts.splice(state.allPosts.indexOf(action.payload), 1);
-            state.postStatus = "Deleted"
+            state.postStatus = "Fulfilled"
         },
         [deletePost.rejected]: (state) => {
             state.postStatus = "rejected"

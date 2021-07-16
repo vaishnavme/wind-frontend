@@ -20,12 +20,14 @@ export default function PostDetails() {
     }, [postId, status])
 
     const makeCommentHandler = () => {
-        let variable = {
-            comment,
-            postId
+        if(comment) {
+            let variable = {
+                comment,
+                postId
+            }
+            dispatch(postComment(variable));
+            setComment("")
         }
-        dispatch(postComment(variable));
-        setComment("")
     }
 
     const deleteCommentHandler = (commentID) => {
