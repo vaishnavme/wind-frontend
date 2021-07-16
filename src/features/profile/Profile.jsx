@@ -29,7 +29,7 @@ export default function Profile() {
             <div>
                 <ProfileHeader profile={profile}/>
                 {
-                    userPost.map((post) => (
+                    userPost?.map((post) => (
                         <PostCard key={post._id} post={post}/>
                     ))
                 }
