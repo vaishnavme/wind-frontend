@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BASE_URI } from "../api";
 
 export const logInUser = async({email, password}) => {
-    const response = await axios.post(`/user/login`, {
+    const response = await axios.post(`${BASE_URI}/user/login`, {
             email, 
             password
     });
@@ -9,7 +10,7 @@ export const logInUser = async({email, password}) => {
 }
 
 export const signUpUser = async ({name, username, email, password}) => {
-    const response = await axios.post(`/user/signup`, {
+    const response = await axios.post(`${BASE_URI}/user/signup`, {
         name, username, email ,password
     })
     console.log(response)
@@ -18,7 +19,7 @@ export const signUpUser = async ({name, username, email, password}) => {
 
 export const getAuthProfile = async(profileId) => {
     try {
-        const response = await axios.get(`/user/profile/${profileId}`);
+        const response = await axios.get(`${BASE_URI}/user/profile/${profileId}`);
         return response
     } catch(err) {
         console.log(err);

@@ -1,8 +1,9 @@
 import axios from "axios";
+import { BASE_URI } from "../api";
 
 export const createPost = async(post) => {
     try {// eslint-disable-next-line
-        const {data: {success, message, savedPost}} = await axios.post(`/posts`, {post})
+        const {data: {success, message, savedPost}} = await axios.post(`${BASE_URI}/posts`, {post})
         if(success) {
             return savedPost
         }
@@ -13,7 +14,7 @@ export const createPost = async(post) => {
 
 export const getUserFeed = async() => {
     try {// eslint-disable-next-line
-        const {data: {success, message, userFeed}} = await axios.get(`/posts/feed`);
+        const {data: {success, message, userFeed}} = await axios.get(`${BASE_URI}/posts/feed`);
         if(success) {
             return userFeed
         }
@@ -24,7 +25,7 @@ export const getUserFeed = async() => {
 
 export const likePostById = async(postId) => {
     try {// eslint-disable-next-line
-        const {data: {success, message, postLiked}} = await axios.post(`/activity/like/${postId}`);
+        const {data: {success, message, postLiked}} = await axios.post(`${BASE_URI}/activity/like/${postId}`);
         if(success) {
             return postLiked
         }
@@ -35,7 +36,7 @@ export const likePostById = async(postId) => {
 
 export const unLikePostById = async(postId) => {
     try {// eslint-disable-next-line
-        const {data: {success, message, postUnLiked}} = await axios.delete(`/activity/like/${postId}`);
+        const {data: {success, message, postUnLiked}} = await axios.delete(`${BASE_URI}/activity/like/${postId}`);
         if(success) {
             return postUnLiked
         }
@@ -46,7 +47,7 @@ export const unLikePostById = async(postId) => {
 
 export const deleteUserPostById = async(postId) => {
     try {
-        const { data: {success, message, deletedId}} = await axios.delete(`/posts/${postId}`);
+        const { data: {success, message, deletedId}} = await axios.delete(`${BASE_URI}/posts/${postId}`);
         if(success) {
             return deletedId
         }
@@ -57,7 +58,7 @@ export const deleteUserPostById = async(postId) => {
 
 export const loadSinglePost = async(postId) => {
     try {
-        const {data: {success, post, message}} = await axios.get(`/posts/single/${postId}`)
+        const {data: {success, post, message}} = await axios.get(`${BASE_URI}/posts/single/${postId}`)
         if(success) {
             return post
         }
@@ -68,7 +69,7 @@ export const loadSinglePost = async(postId) => {
 
 export const postUserComment = async({postId, comment}) => {
     try {
-        const {data: {success, commented}} = await axios.post(`/activity/comment/${postId}`, {
+        const {data: {success, commented}} = await axios.post(`${BASE_URI}/activity/comment/${postId}`, {
             comment
         })
         if(success) {
@@ -81,7 +82,7 @@ export const postUserComment = async({postId, comment}) => {
 
 export const deleteUserComment = async({postId, commentID}) => {
     try {
-        const {data: {success, commentId}} = await axios.delete(`/activity/comment/${postId}/${commentID}`)
+        const {data: {success, commentId}} = await axios.delete(`${BASE_URI}/activity/comment/${postId}/${commentID}`)
         if(success) {
             return commentId
         }
