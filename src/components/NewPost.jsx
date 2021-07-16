@@ -28,13 +28,15 @@ export const NewPost = () => {
     }
 
     const makePostHandler = () => {
-        let post = {
-            content: content,
-            postMedia: postMedia
+        if(content || postMedia) {
+            let post = {
+                content: content,
+                postMedia: postMedia
+            }
+            dispatch(createNewPost(post))
+            setContent("")
+            setPostMedia("")
         }
-        dispatch(createNewPost(post))
-        setContent("")
-        setPostMedia("")
     }
 
     return (
