@@ -46,7 +46,7 @@ export const unLikePostById = async(postId) => {
 }
 
 export const deleteUserPostById = async(postId) => {
-    try {
+    try {// eslint-disable-next-line
         const { data: {success, message, deletedId}} = await axios.delete(`${BASE_URI}/posts/${postId}`);
         if(success) {
             return deletedId
@@ -57,7 +57,7 @@ export const deleteUserPostById = async(postId) => {
 }
 
 export const loadSinglePost = async(postId) => {
-    try {
+    try {// eslint-disable-next-line
         const {data: {success, post, message}} = await axios.get(`${BASE_URI}/posts/single/${postId}`)
         if(success) {
             return post
