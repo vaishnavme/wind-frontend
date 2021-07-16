@@ -9,3 +9,4 @@ export { ProfileCard } from "./ProfileCard";
 export { Loader } from "./Loader";
 export { alreadyExist, getTimeAgo } from "./utility";
 export { axiosInstance } from "./axiosInstance";
+export { getImageLink } from "./getImageLink";
