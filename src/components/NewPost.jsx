@@ -34,6 +34,7 @@ export const NewPost = () => {
         }
         dispatch(createNewPost(post))
         setContent("")
+        setPostMedia("")
     }
 
     return (
