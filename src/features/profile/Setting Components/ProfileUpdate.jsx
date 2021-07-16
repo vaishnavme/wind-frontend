@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { InitialDP, axiosInstance } from "../../../components";
+import { InitialDP, getImageLink } from "../../../components";
 import { updateUserProfile } from "../profileSlice";
 
-const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME
-const CLOUD_URL = process.env.REACT_APP_CLOUDIN
-const PRESET = process.env.REACT_APP_PRESET
 
 export const ProfileUpdate = () => {
     const { profile, profileStatus } = useSelector((state) => state.profile);
@@ -17,15 +14,11 @@ export const ProfileUpdate = () => {
     const [profilePhoto, setProfilePhoto] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const getImageLink = async() => {
+    const uploadImage = async() => {
         try {
             setLoading(true)
-            const data = new FormData();
-            data.append("file", image);
-            data.append("upload_preset", PRESET);
-            data.append("cloud_name", CLOUD_NAME);
-            const response = await axiosInstance.post(CLOUD_URL, data);
-            setProfilePhoto(response.data.secure_url);
+            const link = await getImageLink(image)
+            setProfilePhoto(link)
             setLoading(false)
         } catch(err) {
             console.log(err)
@@ -70,9 +63,9 @@ export const ProfileUpdate = () => {
                 </div>
 
                 <button 
-                    onClick={() => getImageLink()}
+                    onClick={() => uploadImage()}
                     className="text-sm px-4 py-1 font-medium text-blue-600 rounded border border-blue cursor-pointer">
-                        {loading ?  <i className="animate-spin bx bx-loader-alt font-thin"></i> : "Set Profile Photo"}
+                        {loading ?  <i className="animate-spin bx bx-loader-alt font-thin"></i> : "Upload Image"}
                     </button>
             </div>
             <form className="mt-6">

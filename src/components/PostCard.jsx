@@ -37,8 +37,16 @@ export const PostCard = ({post}) => {
                         <span className="text-xs font-medium text-gray-600">{getTimeAgo(post.createdAt)} ago</span>
                     </div>
                 </div>
-                <div className="p-1 my-1">
-                    <p>{post.content}</p>
+                <div className="p-2 my-1">
+                    <p className="mt-2 mb-4">{post.content}</p>
+                    {
+                        post.postMedia && 
+                        <img 
+                            className="w-full h-auto rounded"
+                            src={post.postMedia} 
+                            alt={post.content.substring(0,15)}
+                        />
+                    }
                 </div>
             </div>
             <div className="flex items-center justify-around p-1">
