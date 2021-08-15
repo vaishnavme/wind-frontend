@@ -15,7 +15,7 @@ export default function Notifications() {
     },[])
     return (
         <div>
-            <div className="rounded-md bg-white shadow py-2 px-4 mb-4 text-2xl text-gray-600">Notifications </div>
+            <div className="rounded-md bg-white py-2 px-4 mb-4 text-2xl text-gray-600">Notifications </div>
             {   notifyStatus === "loading" && <Loader/>  }
             {
                 notifications &&

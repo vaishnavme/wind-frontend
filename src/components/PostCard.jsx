@@ -12,7 +12,7 @@ export const PostCard = ({post}) => {
     const isLiked = alreadyExist(post.likes, user._id);
     
     return (
-        <div className="my-4 bg-white rounded-md shadow">
+        <div className="my-4 bg-white rounded-md">
             <div className="p-3 border-b">
                 <div className="flex justify-between">
                     <div className="flex items-center">

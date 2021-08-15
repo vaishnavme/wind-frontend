@@ -26,7 +26,7 @@ export default function Explore() {
 
     return (
         <Fragment>
-            <div className="bg-white rounded-md shadow px-4 py-2">
+            <div className="bg-white rounded-md px-4 py-2">
                 <div className="text-gray-600 font-medium">Explore</div>
                 <input
                     onChange={(e) => setSearchUser(e.target.value)}

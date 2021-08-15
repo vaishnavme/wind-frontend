@@ -38,7 +38,7 @@ export const ProfileUpdate = () => {
     }
 
     return (
-        <div className="bg-white rounded-md shadow p-4">
+        <div className="bg-white rounded-md p-4">
             <h1 className="text-2xl mt-3">Profile</h1>
             <div className="flex items-center flex-col">
                 {

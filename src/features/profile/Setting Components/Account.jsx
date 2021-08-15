@@ -2,7 +2,7 @@ import { InputFields } from "../../../components";
 
 export const Account = ({passwordUpdateInputs, updatePassword, profileStatus}) => {
     return (
-        <div className="bg-white rounded-md shadow p-4 my-8">
+        <div className="bg-white rounded-md p-4 my-8">
             <h1 className="text-2xl mt-3">Change Password</h1>
             <form className="mt-6">
                 <InputFields

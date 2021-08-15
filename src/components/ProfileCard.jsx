@@ -10,7 +10,7 @@ export const ProfileCard = ({profile}) => {
     const isFollowing = alreadyExist(user?.following, profile._id)
 
     return (
-        <div className="rounded-md bg-white shadow py-2 px-4 my-4 flex items-center justify-between">
+        <div className="rounded-md bg-white py-2 px-4 my-4 flex items-center justify-between">
             <Link to={`/profile/${profile._id}`}>
                 <div className="flex items-center">
                     <div className="my-2">

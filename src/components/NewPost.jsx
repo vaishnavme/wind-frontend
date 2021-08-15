@@ -41,7 +41,7 @@ export const NewPost = () => {
 
     return (
         <div>
-            <div className="bg-white shadow rounded-md p-4">
+            <div className="bg-white rounded-md p-4">
                 <div className="flex items-center justify-between px-2">
                     {
                     user?.profilePhoto ?

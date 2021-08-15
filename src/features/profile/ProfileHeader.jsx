@@ -12,7 +12,7 @@ export default function ProfileHeader({profile}) {
     const isFollowing = alreadyExist(user?.following, profile._id);
     
     return (
-        <div className="rounded-md bg-white shadow py-2 px-4 text-center sm:text-left">
+        <div className="rounded-md bg-white py-2 px-4 text-center sm:text-left">
             <div className=" flex items-center flex-col sm:flex-row sm:justify-between sm:items-start">
                 <div className="flex flex-col items-center text-center sm:flex-row sm:text-left">
                     <div className="my-2">

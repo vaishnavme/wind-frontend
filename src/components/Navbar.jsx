@@ -15,7 +15,7 @@ export const Navbar = () => {
 
     return (
         <Fragment>
-            <header className="fixed top-0 left-0 w-full shadow bg-white px-4 z-20">
+            <header className="fixed top-0 left-0 w-full bg-white px-4 z-20">
                 <div className="flex items-center justify-center md:justify-start h-12 py-2">
                     <NavLink to="/" className="flex items-center text-xl to-blue-500">
                         <i className="bx bx-wind text-2xl transform -rotate-90 mx-4"></i>
@@ -26,7 +26,7 @@ export const Navbar = () => {
 
                 <nav className="md:flex justify-between flex-col fixed bottom-2 w-full md:w-72 md:top-0 md:mt-16 p-4">  
                     <div>
-                        <div className="hidden md:flex items-center bg-white p-3 shadow rounded-md mb-8">
+                        <div className="hidden md:flex items-center bg-white p-3 rounded-md mb-8">
                             {
                                 user?.profilePhoto ?
                                 <img 
@@ -45,7 +45,7 @@ export const Navbar = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow p-2">
+                        <div className="bg-white rounded-xl p-2">
                             <ul className="flex justify-around md:flex-col">
                                 <li> <Navlinks link={"/"} icon={"home"} linkName={"Feed"}/> </li>
                                 <li> <Navlinks link={"/explore"} icon={"planet"} linkName={"Explore"}/> </li>
@@ -56,7 +56,7 @@ export const Navbar = () => {
                     </div>
                     <button 
                         onClick={() => logOutHandler()} 
-                        className="hidden md:flex items-center bg-white p-3 shadow hover:text-blue rounded-md">
+                        className="hidden md:flex items-center bg-white p-3 hover:text-blue rounded-md">
                             <i className="bx bx-log-out text-lg"></i>
                             <span className="text-base whitespace-nowrap ml-4">Log Out</span>
                     </button>
