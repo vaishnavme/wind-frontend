@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserProfile, updateUserPassword } from "./request";
-import { ProfileUpdate, Account } from "./Setting Components";
+import { getUserProfile, updateUserPassword } from "../request";
+import { ProfileUpdate, Account } from "../shared";
 
 export default function Settings() {
     const dispatch = useDispatch();
