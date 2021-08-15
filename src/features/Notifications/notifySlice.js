@@ -1,11 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getNotifications } from "../../services/notify.service";
+import axios from "axios";
+import { BASE_URI } from "../../api";
 
 export const getUserNotifications = createAsyncThunk(
     "notify.getUserNotifications",
-    async() => {
-        const allNotifications = await getNotifications();
-        return allNotifications;
+    async({ rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${BASE_URI}/activity/notify`);
+            return response.data;
+        } catch(error) {
+            return rejectWithValue(error.response.data)
+        }
     }
 )
 
@@ -13,7 +18,8 @@ export const notifySlice = createSlice({
     name: "notify",
     initialState: {
         notifyStatus: "idle",
-        notifications: []
+        notifications: [],
+        error: null
     },
     reducers: {},
     extraReducers: {
@@ -21,10 +27,12 @@ export const notifySlice = createSlice({
             state.notifyStatus = "loading"
         },
         [getUserNotifications.fulfilled]: (state, action) => {
-            state.notifications = action.payload;
+            const { allNotifications } = action.payload
+            state.notifications = allNotifications;
             state.notifyStatus = "Fulfilled"
         },
-        [getUserNotifications.pending]: (state) => {
+        [getUserNotifications.pending]: (state, action) => {
+            state.error = action.payload
             state.notifyStatus = "error"
         },
     }
