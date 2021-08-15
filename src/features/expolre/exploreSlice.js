@@ -1,14 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllProfiles } from "../../services/explore.service";
+import axios from "axios";
+import { BASE_URI } from "../../api";
 
 export const getAllUserProfiles = createAsyncThunk(
     "explore/getAllUserProfiles",
     async() => {
-        const {data: {success, allUsers, message}} = await getAllProfiles();
-        if(!success) {
-            throw new Error(message);
+        try {
+            const response = await axios.get(`${BASE_URI}/user/profiles`);
+            return response.data
+        } catch(error) {
+            return error.response.data
         }
-        return allUsers
     }
 )
 
@@ -24,7 +26,8 @@ export const exploreSlice = createSlice({
             state.exploreStatus = "loading"
         },
         [getAllUserProfiles.fulfilled]: (state, action) => {
-            state.allProfiles = action.payload;
+            const { allUsers } = action.payload;
+            state.allProfiles = allUsers;
             state.exploreStatus = "dataReceived"
         },
         [getAllUserProfiles.rejected]: (state) => {
