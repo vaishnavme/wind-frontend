@@ -4,12 +4,12 @@ import { BASE_URI } from "../../api";
 
 export const getUserNotifications = createAsyncThunk(
     "notify.getUserNotifications",
-    async({ rejectWithValue }) => {
+    async() => {
         try {
             const response = await axios.get(`${BASE_URI}/activity/notify`);
             return response.data;
         } catch(error) {
-            return rejectWithValue(error.response.data)
+            return error.response.data
         }
     }
 )
