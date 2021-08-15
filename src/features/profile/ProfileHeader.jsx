@@ -32,7 +32,6 @@ export default function ProfileHeader({profile}) {
                     <div className="sm:ml-12">
                         <h4 className="text-lg font-semibold">{profile?.name}</h4>
                         <span className="text-sm text-gray-400 font-normal">@{profile?.username}</span>
-                        <p className="text-gray-600">{profile?.bio}</p>
                         
                         <div className="flex my-2">
                             <div className="font-semibold">
