@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { followUser, unFollowUser, logOutUser } from "../auth/authSlice";
+import { logOutUser } from "../auth/authSlice";
+import { followUser, unFollowUser } from "../auth/request";
 import { InitialDP, alreadyExist } from "../../components";
 
 export default function ProfileHeader({profile}) {

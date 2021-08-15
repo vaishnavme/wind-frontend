@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUserWithCredentials, resetStatus } from "./authSlice"
+import { resetStatus } from "../authSlice";
+import { signupUserWithCredentials } from "../request";
 
 export default function SignUp() {
     const { status, isAuthenticated } = useSelector((state) => state.auth);
@@ -26,9 +27,9 @@ export default function SignUp() {
         return true
     }
 
-    const signupHandler = async() => {
+    const signupHandler =() => {
         validate() && (
-            await dispatch(signupUserWithCredentials({name, username,email, password}))
+            dispatch(signupUserWithCredentials({name, username,email, password}))
         )
     }
 

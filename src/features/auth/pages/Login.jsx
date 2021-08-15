@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { loginUserWithCredentials, resetStatus } from "./authSlice";
-import { InputFields } from "../../components";
+import { resetStatus } from "../authSlice";
+import { loginUserWithCredentials } from "../request";
+import { InputFields } from "../../../components";
 
 export default function Login() {
     const { status, isAuthenticated } = useSelector((state) => state.auth);
@@ -18,10 +19,15 @@ export default function Login() {
         })
     }
 
-    const logInHandler = async() => {
-        await dispatch(
-            loginUserWithCredentials(logInCred)
-        )
+    const logInHandler = () => {
+        dispatch(loginUserWithCredentials(logInCred))
+    }
+
+    const loginAsGuest = () => {
+        dispatch(loginUserWithCredentials({
+            email: "testing@dev.com",
+            password: "Password@123"
+        }))
     }
 
     useEffect(() => {
@@ -50,8 +56,13 @@ export default function Login() {
                     />
                     <button 
                         onClick={(e) => {e.preventDefault(); logInHandler();}}
-                        className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
+                        className="my-2 block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
                             {status === "loading" ? "Loading..." : "Login"}
+                    </button>
+                    <button 
+                        onClick={(e) => {e.preventDefault(); loginAsGuest();}}
+                        className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
+                            {status === "loading" ? "Loading..." : "Login as Guest"}
                     </button>
                 </form>
                 <p className="mt-12 text-sm text-center font-normal text-gray-900"> Don't have an account? <Link to="/signup" className="text-black font-medium"> Create One </Link>  </p> 

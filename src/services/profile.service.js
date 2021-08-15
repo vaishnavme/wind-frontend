@@ -31,25 +31,3 @@ export const updatePassword = async({oldPassword, newPassword}) => {
         console.log(err);
     }
 }
-//follow and unfollow
-export const followUserProfile = async(profileId) => {
-    try {// eslint-disable-next-line
-        const {data: {success, message, followedId}} = await axios.post(`${BASE_URI}/activity/follow/${profileId}`);
-        if(success) {
-            return followedId
-        } 
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-export const unFollowUserProfile = async(profileId) => {
-    try {// eslint-disable-next-line
-        const {data: {success, message, unfollowedId}} = await axios.delete(`${BASE_URI}/activity/follow/${profileId}`);
-        if(success) {
-            return unfollowedId
-        } 
-    } catch(err) {
-        console.log(err);
-    }
-}

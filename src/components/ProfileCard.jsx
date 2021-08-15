@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { followUser, unFollowUser } from "../features/auth/authSlice";
+import { followUser, unFollowUser } from "../features/auth/request";
 import { InitialDP, alreadyExist } from ".";
 
 export const ProfileCard = ({profile}) => {

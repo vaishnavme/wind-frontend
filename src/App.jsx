@@ -15,15 +15,13 @@ import {
     Notifications
 } from './features';
 import { PrivateRoute, Navbar } from './components';
-import { initializeAuthUser, logOutUser } from './features/auth/authSlice';
+import { logOutUser } from './features/auth/authSlice';
+import { initializeAuthUser } from "./features/auth/request";
 import { getFeed } from './features/posts/postsSlice';
 
 function App() {
     const dispatch = useDispatch();
-    const { status, userToken, userId, isAuthenticated } = useSelector(
-        (state) => state.auth
-    );
-    const { postStatus } = useSelector((state) => state.posts);
+    const { userToken, userId, isAuthenticated } = useSelector((state) => state.auth);
 
     axios.interceptors.request.use(
         function (config) {
@@ -47,11 +45,12 @@ function App() {
     );
 
     useEffect(() => {
-        if (postStatus === 'idle') {
+        if(isAuthenticated) {
+            dispatch(initializeAuthUser(userId))
             dispatch(getFeed());
         }
         // eslint-disable-next-line
-    }, [status]);
+    }, [isAuthenticated]);
 
     return (
         <div>
