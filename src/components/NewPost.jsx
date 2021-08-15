@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { InitialDP, getImageLink } from "."
-import { createNewPost } from "../features/posts/postsSlice";
+import { createNewPost } from "../features/posts/request";
 
 export const NewPost = () => {
     const { user } = useSelector((state) => state.auth);

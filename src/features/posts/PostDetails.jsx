@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router";
-import { getSinglePost, postComment, deleteComment } from "./postsSlice";
+import { getSinglePost, postComment, deleteComment } from "./request"
 import { PostCard, InitialDP, Loader, getTimeAgo } from "../../components";
 
 export default function PostDetails() {

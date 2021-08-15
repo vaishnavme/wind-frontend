@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { InitialDP } from "."
-import { likePost, unLikePost, deletePost} from "../features/posts/postsSlice";
 import { alreadyExist, getTimeAgo } from "./utility";
+import { likePost, unLikePost, deletePost } from "../features/posts/request";
 
 export const PostCard = ({post}) => {
     const { user } = useSelector((state) => state.auth)

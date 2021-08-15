@@ -17,7 +17,7 @@ import {
 import { PrivateRoute, Navbar } from './components';
 import { logOutUser } from './features/auth/authSlice';
 import { initializeAuthUser } from "./features/auth/request";
-import { getFeed } from './features/posts/postsSlice';
+import { getFeed } from "./features/posts/request";
 
 function App() {
     const dispatch = useDispatch();

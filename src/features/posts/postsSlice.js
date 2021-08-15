@@ -1,78 +1,22 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createPost, getUserFeed, likePostById, unLikePostById, 
-    deleteUserPostById, loadSinglePost, postUserComment, deleteUserComment 
-} from "../../services/posts.service";
-
-export const createNewPost = createAsyncThunk(
-    "posts/createNewPost",
-    async(post) => {
-        const savedPost = await createPost(post);
-        return savedPost;
-    }
-)
-
-export const getFeed = createAsyncThunk(
-    "posts/getFeed",
-    async() => {
-        const userFeed = await getUserFeed();
-        return userFeed;
-    }
-)
-
-export const likePost = createAsyncThunk(
-    "posts/likePost",
-    async(postId) => {
-      const postLiked = await likePostById(postId);
-      return postLiked
-    }
-)
-
-export const unLikePost = createAsyncThunk(
-    "posts/unLikePost",
-    async(postId) => {
-      const postLiked = await unLikePostById(postId);
-      return postLiked
-    }
-)
-
-export const deletePost = createAsyncThunk(
-    "posts/deletePost",
-    async(postId) => {
-      const deletedId = await deleteUserPostById(postId);
-      return deletedId
-    }
-)
-
-export const getSinglePost = createAsyncThunk(
-    "posts/getSinglePost",
-    async(postId) => {
-        const post = await loadSinglePost(postId);
-        return post;
-    }
-)
-
-export const postComment = createAsyncThunk(
-    "posts/postComment",
-    async({postId, comment}) => {
-        const commented = await postUserComment({postId, comment});
-        return commented;
-    }
-)
-
-export const deleteComment = createAsyncThunk(
-    "posts/deleteComment",
-    async(variable) => {
-        const commentId = await deleteUserComment(variable);
-        return commentId
-    }
-)
+import { createSlice } from "@reduxjs/toolkit";
+import { 
+    getFeed,
+    createNewPost,
+    likePost,
+    unLikePost,
+    deletePost,
+    getSinglePost,
+    postComment,
+    deleteComment
+} from "./request";
 
 export const postsSlice = createSlice({
     name: "posts",
     initialState: {
         allPosts: [],
         singlePost: null,
-        postStatus: "idle"
+        postStatus: "idle",
+        error: null
     },
     reducers: {},
     extraReducers: {
@@ -80,21 +24,12 @@ export const postsSlice = createSlice({
             state.postStatus = "loading"
         },
         [getFeed.fulfilled]: (state, action) => {
-            state.allPosts = action.payload
+            const { userFeed } = action.payload
+            state.allPosts = userFeed;
             state.postStatus = "feedLoaded"
         },
-        [getFeed.rejected]: (state) => {
-            state.postStatus = "error"
-        },
-
-        [getSinglePost.pending]: (state) => {
-            state.postStatus = "post-loading"
-        },
-        [getSinglePost.fulfilled]: (state, action) => {
-            state.singlePost = action.payload
-            state.postStatus = "postLoaded"
-        },
-        [getSinglePost.rejected]: (state) => {
+        [getFeed.rejected]: (state, action) => {
+            state.error = action.payload;
             state.postStatus = "error"
         },
 
@@ -102,10 +37,25 @@ export const postsSlice = createSlice({
             state.postStatus = "posting"
         },
         [createNewPost.fulfilled]: (state, action) => {
-            state.allPosts = [action.payload, ...state.allPosts]
+            const { savedPost } = action.payload;
+            state.allPosts = [savedPost, ...state.allPosts]
             state.postStatus = "posted"
         },
-        [createNewPost.rejected]: (state) => {
+        [createNewPost.rejected]: (state, action) => {
+            state.error = action.payload;
+            state.postStatus = "error"
+        },
+
+        [getSinglePost.pending]: (state) => {
+            state.postStatus = "post-loading"
+        },
+        [getSinglePost.fulfilled]: (state, action) => {
+            const { post } = action.payload
+            state.singlePost = post
+            state.postStatus = "postLoaded"
+        },
+        [getSinglePost.rejected]: (state, action) => {
+            state.error = action.payload;
             state.postStatus = "error"
         },
 
@@ -113,12 +63,13 @@ export const postsSlice = createSlice({
             state.postStatus = "liking post"
         },
         [likePost.fulfilled]: (state, action) => {
-            const { postId, likedBy } = action.payload;
-            const requiredPost = state.allPosts.find((post) => post._id === postId)
-            requiredPost.likes.push(likedBy)
+            const { postLiked } = action.payload;
+            const requiredPost = state.allPosts.find((post) => post._id === postLiked.postId)
+            requiredPost.likes.push(postLiked.likedBy)
             state.postStatus ="liked"
         },
-        [likePost.rejected]: (state) => {
+        [likePost.rejected]: (state, action) => {
+            state.error = action.payload;
             state.postStatus = "error";
         },
 
@@ -126,12 +77,13 @@ export const postsSlice = createSlice({
             state.postStatus = "unliking post"
         },
         [unLikePost.fulfilled]: (state, action) => {
-            const { postId, unlikedBy } = action.payload;
-            const requiredPost = state.allPosts.find((post) => post._id === postId)
-            requiredPost.likes.splice(requiredPost.likes.indexOf(unlikedBy), 1);
-            state.postStatus ="liked"
+            const { postUnLiked } = action.payload;
+            const requiredPost = state.allPosts.find((post) => post._id === postUnLiked.postId)
+            requiredPost.likes.splice(requiredPost.likes.indexOf(postUnLiked.unlikedBy), 1);
+            state.postStatus ="unliked"
         },
-        [unLikePost.rejected]: (state) => {
+        [unLikePost.rejected]: (state, action) => {
+            state.error = action.payload;
             state.postStatus = "error";
         },
 
@@ -139,10 +91,12 @@ export const postsSlice = createSlice({
             state.postStatus = "loading"
         },
         [deletePost.fulfilled]: (state, action) => {
-            state.allPosts.splice(state.allPosts.indexOf(action.payload), 1);
+            const { deletedPost } = action.payload;
+            state.allPosts = state.allPosts.filter((post) => post._id !== deletedPost._id)
             state.postStatus = "Fulfilled"
         },
-        [deletePost.rejected]: (state) => {
+        [deletePost.rejected]: (state, action) => {
+            state.error = action.payload;
             state.postStatus = "rejected"
         },
 
@@ -150,10 +104,12 @@ export const postsSlice = createSlice({
             state.postStatus = "commenting"
         },
         [postComment.fulfilled]: (state, action) => {
-            state.singlePost.comments.push(action.payload)
+            const { commented } = action.payload;
+            state.singlePost.comments.push(commented);
             state.postStatus = "Fulfilled"
         },
-        [postComment.rejected]: (state) => {
+        [postComment.rejected]: (state, action) => {
+            state.error = action.payload;
             state.postStatus = "rejected"
         },
 
@@ -161,10 +117,12 @@ export const postsSlice = createSlice({
             state.postStatus = "loading"
         },
         [deleteComment.fulfilled]: (state, action) => {
-            state.singlePost.comments.splice(state.singlePost.comments.indexOf(action.payload), 1)
+            const { commentId } = action.payload;
+            state.singlePost.comments = state.singlePost.comments.filter((comment) => comment._id !== commentId)
             state.postStatus = "Fulfilled"
         },
-        [deleteComment.rejected]: (state) => {
+        [deleteComment.rejected]: (state, action) => {
+            state.error = action.payload;
             state.postStatus = "rejected"
         }
     }
