@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import { getUserProfile } from "./profileSlice";
+import { getUserProfile } from "./request";
 import { PostCard, Loader } from "../../components";
 import ProfileHeader from "./ProfileHeader";
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUserPassword, getUserProfile } from "./profileSlice";
+import { getUserProfile, updateUserPassword } from "./request";
 import { ProfileUpdate, Account } from "./Setting Components";
 
 export default function Settings() {

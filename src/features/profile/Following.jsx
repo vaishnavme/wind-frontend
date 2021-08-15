@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserProfile } from "./profileSlice";
+import { getUserProfile } from "./request";
 import { ProfileCard } from "../../components";
 
 export default function Following() {

@@ -1,44 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getProfile, updateProfile, updatePassword } from "../../services/profile.service";
-
-export const getUserProfile = createAsyncThunk(
-    "profile/getUserProfile",
-    async(profileId) => {
-        const {data: {success, profile, message}} = await getProfile(profileId);
-        if(!success) {
-            throw new Error(message);
-        }
-        return profile
-    }
-)
-
-export const updateUserProfile = createAsyncThunk(
-    "profile/updateUserProfile",
-    async(profileUpdates) => {
-        const {data: {success, updatedUserProfile, message}} = await updateProfile(profileUpdates);
-        if(!success) {
-            throw new Error(message);
-        }
-        console.log(updatedUserProfile)
-    }
-)
-
-export const updateUserPassword = createAsyncThunk(
-    "profile/updateUserPassword",
-    async(passwordUpdate) => {
-        const {data: {success, message, updateAccount}} = await updatePassword(passwordUpdate);
-        if(!success) {
-            throw new Error(message);
-        }
-        console.log(updateAccount)
-    }
-)
+import { createSlice } from "@reduxjs/toolkit";
+import {
+    getUserProfile,
+    updateUserProfile,
+    updateUserPassword
+} from "./request";
 
 export const profileSlice = createSlice({
     name: "profile",
     initialState: {
         profileStatus: "idle",
-        profile: null
+        profile: null,
+        error: null
     },
     reducers: {
         resetProfile: (state) => {
@@ -51,10 +23,12 @@ export const profileSlice = createSlice({
             state.profileStatus = "loading"
         },
         [getUserProfile.fulfilled]: (state, action) => {
-            state.profile = action.payload;
+            const { profile } = action.payload;
+            state.profile = profile;
             state.profileStatus = "dataReceived"
         },
-        [getUserProfile.rejected]: (state) => {
+        [getUserProfile.rejected]: (state, action) => {
+            state.error = action.payload
             state.profileStatus = "error"
         },
 
