@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ProfileCard } from "../../components";
-import { getAllUserProfiles } from "./exploreSlice";
+import { ProfileCard } from "../components";
+import { getAllUserProfiles } from "../features/expolre/exploreSlice";
 
 export default function Explore() {
     const { allProfiles, exploreStatus } = useSelector((state) => state.explore);

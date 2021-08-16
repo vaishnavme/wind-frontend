@@ -35,7 +35,12 @@ export const profileSlice = createSlice({
         [updateUserProfile.pending]: (state) => {
             state.profileStatus = "updating"
         },
-        [updateUserProfile.fulfilled]: (state) => {
+        [updateUserProfile.fulfilled]: (state, action) => {
+            const { updatedUserProfile } = action.payload;
+            state.profile = {
+                ...state.profile,
+                ...updatedUserProfile
+            }
             state.profileStatus = "Fulfilled"
         },
         [updateUserProfile.rejected]: (state) => {

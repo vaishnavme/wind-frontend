@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { resetStatus } from "../authSlice";
-import { loginUserWithCredentials } from "../request";
-import { InputFields } from "../../../components";
+import { resetStatus } from "../features/auth/authSlice";
+import { loginUserWithCredentials } from "../features/auth/request";
+import { InputFields } from "../components";
 
 export default function Login() {
     const { status, isAuthenticated } = useSelector((state) => state.auth);

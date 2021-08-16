@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { InitialDP, getImageLink } from "../../../components";
-import { updateUserProfile } from "../request";
-
+import { updateUserProfile } from "../features/profile/request";
+import { InitialDP, getImageLink } from ".";
 
 export const ProfileUpdate = () => {
     const { profile, profileStatus } = useSelector((state) => state.profile);

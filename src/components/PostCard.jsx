@@ -1,15 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { InitialDP } from "."
-import { alreadyExist, getTimeAgo } from "./utility";
 import { likePost, unLikePost, deletePost } from "../features/posts/request";
+import { InitialDP, alreadyExist, getTimeAgo } from ".";
 
 export const PostCard = ({post}) => {
     const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isLiked = alreadyExist(post.likes, user._id);
+    const isLiked = alreadyExist(post.likes, user?._id);
     
     return (
         <div className="my-4 bg-white rounded-md">

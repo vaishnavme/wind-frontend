@@ -1,4 +1,4 @@
-import { InputFields } from "../../../components";
+import { InputFields } from ".";
 
 export const Account = ({passwordUpdateInputs, updatePassword, profileStatus}) => {
     return (

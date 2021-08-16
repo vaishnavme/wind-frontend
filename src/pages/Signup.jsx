@@ -1,25 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetStatus } from "../authSlice";
-import { signupUserWithCredentials } from "../request";
+import { resetStatus } from "../features/auth/authSlice";
+import { signupUserWithCredentials } from "../features/auth/request";
 
 export default function SignUp() {
     const { status, isAuthenticated } = useSelector((state) => state.auth);
     const navigate = useNavigate();
-    const [name, setName] = useState("");
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [newUserInfo, setNewUserInfo] = useState({});
     const [errorMessage, setErrorMessage] = useState("")
     const dispatch = useDispatch();
 
     const validate = () => {
-        if(!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/i.test(email)) {
+        if(!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/i.test(newUserInfo.email)) {
             setErrorMessage("Invalid Email address!")
             return false
         }
-        if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/i.test(password)) {
+        if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/i.test(newUserInfo.password)) {
             setErrorMessage("Must be atleast 8 characters long and contain 1 uppercase, lowercase letter and number.")
             return false
         }
@@ -27,9 +24,17 @@ export default function SignUp() {
         return true
     }
 
+    const signUpCredHandler = (e) => {
+        const value = e.target.value;
+        setNewUserInfo({
+            ...newUserInfo,
+            [e.target.name] : value
+        })
+    }
+
     const signupHandler =() => {
         validate() && (
-            dispatch(signupUserWithCredentials({name, username,email, password}))
+            dispatch(signupUserWithCredentials(newUserInfo))
         )
     }
 
@@ -49,9 +54,10 @@ export default function SignUp() {
                 <div className="my-5 text-sm">
                         <label htmlFor="name" className="block text-black">Name</label>
                         <input 
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => signUpCredHandler(e)}
                             type="text" 
-                            autoFocus id="name" 
+                            autoFocus 
+                            name="name" 
                             className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
                             required={true} 
                             placeholder="Name" />
@@ -59,9 +65,9 @@ export default function SignUp() {
                     <div className="my-5 text-sm">
                         <label htmlFor="username" className="block text-black">Username</label>
                         <input 
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => signUpCredHandler(e)}
                             type="text" 
-                            id="username" 
+                            name="username" 
                             className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
                             required={true}  
                             placeholder="Username" />
@@ -69,9 +75,9 @@ export default function SignUp() {
                     <div className="my-5 text-sm">
                         <label htmlFor="email" className="block text-black">Email</label>
                         <input 
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => signUpCredHandler(e)}
                             type="email" 
-                            id="email" 
+                            name="email" 
                             className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
                             required={true} 
                             placeholder="Email" />
@@ -79,9 +85,9 @@ export default function SignUp() {
                     <div className="my-5 text-sm">
                         <label htmlFor="password" className="block text-black">Password</label>
                         <input 
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => signUpCredHandler(e)}
                             type="password" 
-                            id="password" 
+                            name="password" 
                             className="rounded px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" 
                             required={true} 
                             placeholder="Password" />

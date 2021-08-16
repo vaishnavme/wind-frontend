@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router";
-import { getSinglePost, postComment, deleteComment } from "../request"
-import { PostCard, InitialDP, Loader, getTimeAgo } from "../../../components";
+import { getSinglePost, postComment, deleteComment } from "../features/posts/request"
+import { PostCard, InitialDP, Loader, getTimeAgo } from "../components";
 
 export default function PostDetails() {
     const { status, user } = useSelector((state) => state.auth);

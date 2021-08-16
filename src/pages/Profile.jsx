@@ -1,9 +1,8 @@
 import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import { getUserProfile } from "../request";
-import { PostCard, Loader } from "../../../components";
-import { ProfileHeader } from "../shared";
+import { getUserProfile } from "../features/profile/request";
+import { PostCard, ProfileHeader,Loader } from "../components";
 
 export default function Profile() {
     const { profile, profileStatus } = useSelector((state) => state.profile);

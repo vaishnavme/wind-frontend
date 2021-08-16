@@ -91,7 +91,7 @@ export const authSlice = createSlice({
         },
 
         [followUser.pending]: (state) => {
-            state.status = 'loading';
+            state.status = "loadinguser";
         },
         [followUser.fulfilled]: (state, action) => {
             const { followedId } = action.payload
@@ -103,7 +103,7 @@ export const authSlice = createSlice({
             state.status = 'rejected';
         },
         [unFollowUser.pending]: (state) => {
-            state.status = 'loading';
+            state.status = "loadinguser";
         },
         [unFollowUser.fulfilled]: (state, action) => {
             const { unfollowedId } = action.payload

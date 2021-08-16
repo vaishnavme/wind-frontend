@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logOutUser } from "../../auth/authSlice";
-import { followUser, unFollowUser } from "../../auth/request";
-import { InitialDP, alreadyExist } from "../../../components";
+import { logOutUser } from "../features/auth/authSlice";
+import { followUser, unFollowUser } from "../features/auth/request";
+import { InitialDP, alreadyExist } from ".";
 
 export const ProfileHeader = ({profile}) => {
     const { user } = useSelector((state) => state.auth);

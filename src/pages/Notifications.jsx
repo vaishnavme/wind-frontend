@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getUserNotifications } from "./notifySlice";
-import { Loader, InitialDP, getTimeAgo } from "../../components";
+import { getUserNotifications } from "../features/Notifications/notifySlice";
+import { Loader, InitialDP, getTimeAgo } from "../components";
 
 export default function Notifications() {
     const { status } = useSelector(state => state.auth);

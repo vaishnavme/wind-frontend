@@ -2,6 +2,11 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { PrivateRoute, Navbar } from './components';
+import { logOutUser } from './features/auth/authSlice';
+import { initializeAuthUser } from "./features/auth/request";
+import { getFeed } from "./features/posts/request";
+import { getUserNotifications } from "./features/Notifications/notifySlice";
 import {
     Login,
     SignUp,
@@ -13,11 +18,7 @@ import {
     Followers,
     PostDetails,
     Notifications
-} from './features';
-import { PrivateRoute, Navbar } from './components';
-import { logOutUser } from './features/auth/authSlice';
-import { initializeAuthUser } from "./features/auth/request";
-import { getFeed } from "./features/posts/request";
+} from "./pages";
 
 function App() {
     const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
         if(isAuthenticated) {
             dispatch(initializeAuthUser(userId))
             dispatch(getFeed());
+            dispatch(getUserNotifications())
         }
         // eslint-disable-next-line
     }, [isAuthenticated]);
