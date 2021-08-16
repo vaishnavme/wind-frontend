@@ -26,7 +26,7 @@ export const Navbar = () => {
 
                 <nav className="md:flex justify-between flex-col fixed bottom-2 w-full md:w-72 md:top-0 md:mt-16 p-4">  
                     <div>
-                        <div className="hidden md:flex items-center bg-white p-3 rounded-md mb-8">
+                        <div className="hidden shadow md:flex items-center bg-white p-3 rounded-md mb-8">
                             {
                                 user?.profilePhoto ?
                                 <img 
@@ -45,7 +45,7 @@ export const Navbar = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl p-2">
+                        <div className="bg-white shadow rounded-xl p-2">
                             <ul className="flex justify-around md:flex-col">
                                 <li> <Navlinks link={"/"} icon={"home"} linkName={"Feed"}/> </li>
                                 <li> <Navlinks link={"/explore"} icon={"planet"} linkName={"Explore"}/> </li>
@@ -56,7 +56,7 @@ export const Navbar = () => {
                     </div>
                     <button 
                         onClick={() => logOutHandler()} 
-                        className="hidden md:flex items-center bg-white p-3 hover:text-blue rounded-md">
+                        className="hidden shadow md:flex items-center bg-white p-3 hover:text-blue rounded-md">
                             <i className="bx bx-log-out text-lg"></i>
                             <span className="text-base whitespace-nowrap ml-4">Log Out</span>
                     </button>
