@@ -9,7 +9,7 @@ export const PostCard = ({post}) => {
     const navigate = useNavigate();
 
     const isLiked = alreadyExist(post.likes, user?._id);
-    
+
     return (
         <div className="my-4 bg-white rounded-md">
             <div className="p-3 border-b">
@@ -17,9 +17,9 @@ export const PostCard = ({post}) => {
                     <div className="flex items-center">
                         {
                             post.creator.profilePhoto ?
-                            <img 
-                                className="w-10 h-auto rounded-md"
-                                src={post.creator.profilePhoto} alt={post.creator.name}/>
+                                <img 
+                                    className="w-10 h-auto rounded-md"
+                                    src={post.creator.profilePhoto} alt={post.creator.name}/>
                             :
                             <InitialDP 
                                 name={post.creator.name}
@@ -37,7 +37,7 @@ export const PostCard = ({post}) => {
                     </div>
                 </div>
                 <div className="p-2 my-1">
-                    <p className="mt-2 mb-4">{post.content}</p>
+                    <p className="mt-2 mb-4">{post.content}</p> 
                     {
                         post.postMedia && 
                         <img 
@@ -45,28 +45,28 @@ export const PostCard = ({post}) => {
                             src={post.postMedia} 
                             alt={post.content.substring(0,15)}
                         />
-                    }
+                    }           
                 </div>
             </div>
             <div className="flex items-center justify-around p-1">
                 <button
-                    onClick={() => isLiked ? 
-                        dispatch(unLikePost(post._id)) 
-                        : dispatch(likePost(post._id))} 
+                    onClick={() => isLiked ?
+                        dispatch(unLikePost(post._id))
+                        :   dispatch(likePost(post._id))}
                     className="flex items-center">
-                        <i className={`text-lg bx ${isLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
+                    <i className={`text-lg bx ${isLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
                         <span className="text-gray-400 font-normal ml-1">
                             {post?.likes.length > 0 && post?.likes.length}
                         </span>
                 </button>
-                <button 
-                    onClick={() => navigate(`/feed/${post._id}`)}
+                <button
+                    onClick={() => navigate(`feed/${post._id}`)}
                     className="flex items-center">
                     <i className="text-lg bx bx-comment"></i>
                     <span className="text-gray-400 font-normal ml-1">{post?.comments.length > 0 && post?.comments.length}</span>
                 </button>
                 {
-                    user._id === post.creator._id &&
+                    user?._id === post.creator._id &&
                     <button 
                         onClick={() => dispatch(deletePost(post._id))}
                         className="flex items-center">

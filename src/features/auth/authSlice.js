@@ -53,13 +53,11 @@ export const authSlice = createSlice({
             state.status = 'tokenReceived';
         },
         [loginUserWithCredentials.rejected]: (state, action) => {
-            console.log('error');
             state.error = action.payload
             state.status = 'error';
         },
         [signupUserWithCredentials.pending]: (state) => {
             state.status = 'loading';
-            console.log('pending');
         },
         [signupUserWithCredentials.fulfilled]: (state, action) => {
             const { token, user } = action.payload;
@@ -73,7 +71,6 @@ export const authSlice = createSlice({
             state.status = 'tokenReceived';
         },
         [signupUserWithCredentials.rejected]: (state, action) => {
-            console.log(action);
             state.error = action.payload
             state.status = 'error';
         },

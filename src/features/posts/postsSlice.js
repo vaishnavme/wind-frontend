@@ -13,7 +13,7 @@ import {
 export const postsSlice = createSlice({
     name: "posts",
     initialState: {
-        allPosts: [],
+        feedPosts: [],
         singlePost: null,
         postStatus: "idle",
         error: null
@@ -24,8 +24,9 @@ export const postsSlice = createSlice({
             state.postStatus = "loading"
         },
         [getFeed.fulfilled]: (state, action) => {
-            const { userFeed } = action.payload
-            state.allPosts = userFeed;
+            const { feedPosts } = action.payload
+            state.feedPosts = feedPosts;
+            console.log(state.feedPosts)
             state.postStatus = "feedLoaded"
         },
         [getFeed.rejected]: (state, action) => {
@@ -38,7 +39,7 @@ export const postsSlice = createSlice({
         },
         [createNewPost.fulfilled]: (state, action) => {
             const { savedPost } = action.payload;
-            state.allPosts = [savedPost, ...state.allPosts]
+            state.feedPosts = [savedPost, ...state.feedPosts]
             state.postStatus = "posted"
         },
         [createNewPost.rejected]: (state, action) => {
@@ -64,7 +65,7 @@ export const postsSlice = createSlice({
         },
         [likePost.fulfilled]: (state, action) => {
             const { postLiked } = action.payload;
-            const requiredPost = state.allPosts.find((post) => post._id === postLiked.postId)
+            const requiredPost = state.feedPosts.find((post) => post._id === postLiked.postId)
             requiredPost.likes.push(postLiked.likedBy)
             state.postStatus ="liked"
         },
@@ -78,7 +79,7 @@ export const postsSlice = createSlice({
         },
         [unLikePost.fulfilled]: (state, action) => {
             const { postUnLiked } = action.payload;
-            const requiredPost = state.allPosts.find((post) => post._id === postUnLiked.postId)
+            const requiredPost = state.feedPosts.find((post) => post._id === postUnLiked.postId)
             requiredPost.likes.splice(requiredPost.likes.indexOf(postUnLiked.unlikedBy), 1);
             state.postStatus ="unliked"
         },
@@ -92,7 +93,7 @@ export const postsSlice = createSlice({
         },
         [deletePost.fulfilled]: (state, action) => {
             const { deletedPost } = action.payload;
-            state.allPosts = state.allPosts.filter((post) => post._id !== deletedPost._id)
+            state.feedPosts = state.feedPosts.filter((post) => post._id !== deletedPost._id)
             state.postStatus = "Fulfilled"
         },
         [deletePost.rejected]: (state, action) => {

@@ -21,7 +21,6 @@ export const signupUserWithCredentials = createAsyncThunk(
             const response = await axios.post(`${BASE_URI}/user/signup`, {
                 name, username, email ,password
             })
-            console.log(response)
             return response.data
         } catch(error) {
             return rejectWithValue(error.response.data)

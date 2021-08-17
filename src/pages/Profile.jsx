@@ -18,7 +18,9 @@ export default function Profile() {
         // eslint-disable-next-line
     }, [status, profileId])
 
-    const userPost = allPosts?.filter((post) => post?.creator._id === profileId);
+    console.log(profile)
+
+    const userPost = profile?.posts;
     
     return (
     <Fragment>
