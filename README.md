@@ -1,44 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Wind - Social Media site - (Twitter Clone)
 
-## Available Scripts
+#### [Live](https://wind-frontend-git-develop-vaishnavme.vercel.app/)  https://wind-frontend-git-develop-vaishnavme.vercel.app 
+OneNotion
 
-In the project directory, you can run:
+### Frontend
 
-### `npm start`
+**Tech Stack**
+- ReactJS Redux-Toolkit
+- React Router Dom ~ v6 beta
+- React Toastify ~ v7+
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Features**
+- Auth and Creat Account
+- Follow and Unfollow and Discover people
+- User Feed with people you follow
+- Create post with image support
+- Like comment
+- Notificcations for follow, post, comment and like
+- Update name, password, bio, profile photo
+- responsive design
+- cloudinary for image support
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Backend
 
-### `npm test`
+**Tech Stack**
+- Express
+- MongoDB
+- Mongoose
+- JWT (Json Web Tokens)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> ### Dummy Login Creds
+>
+> **Email**: `testing@dev.com`
+> **Password**: `Password@123`
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Source Code and Hosting
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Vercel**
+[Frontend Source Code](https://github.com/vaishnavme/wind-frontend/tree/develop)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Heroku**
+[Backend Source Code](https://github.com/vaishnavme/wind-backend/tree/develop)
 
-### `npm run eject`
+![Mobile](https://github.com/vaishnavme/wind-frontend/blob/develop/template/mobile.png)
+![Desktop](https://github.com/vaishnavme/wind-frontend/blob/develop/template/desktop.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Getting Started with Backend
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Clone project.
+- Install all packages `npm install`.
+- Run `npm start`
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
