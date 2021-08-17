@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { likePost, unLikePost, deletePost } from "../features/posts/request";
+import { updateLikesOnFeed } from "../features/posts/postsSlice"
 import { InitialDP, alreadyExist, getTimeAgo } from ".";
 
 export const PostCard = ({post}) => {
@@ -8,7 +9,25 @@ export const PostCard = ({post}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isLiked = alreadyExist(post.likes, user?._id);
+    const isPostAlreadyLiked = alreadyExist(post.likes, user?._id);
+
+    const likePostOnFeed = (userId) => {
+        // create copy of post
+        let clonedPost = JSON.parse(JSON.stringify(post));
+        
+        if(isPostAlreadyLiked) {
+            let updatedLikes = clonedPost.likes.filter((like) => like !== userId)
+            clonedPost.likes = updatedLikes
+            // update in db
+            dispatch(unLikePost(post._id))
+        } else {
+            clonedPost.likes.push(userId);
+            // update in db
+            dispatch(likePost(post._id))
+        }
+        // update in localState
+        dispatch(updateLikesOnFeed(clonedPost))
+    }
 
     return (
         <div className="my-4 bg-white rounded-md">
@@ -50,11 +69,9 @@ export const PostCard = ({post}) => {
             </div>
             <div className="flex items-center justify-around p-1">
                 <button
-                    onClick={() => isLiked ?
-                        dispatch(unLikePost(post._id))
-                        :   dispatch(likePost(post._id))}
+                    onClick={() => likePostOnFeed(user?._id)}
                     className="flex items-center">
-                    <i className={`text-lg bx ${isLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
+                    <i className={`text-lg bx ${isPostAlreadyLiked ? "bxs-heart text-red-600" : "bx-heart"}`}></i>
                         <span className="text-gray-400 font-normal ml-1">
                             {post?.likes.length > 0 && post?.likes.length}
                         </span>

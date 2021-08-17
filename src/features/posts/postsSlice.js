@@ -15,10 +15,17 @@ export const postsSlice = createSlice({
     initialState: {
         feedPosts: [],
         singlePost: null,
+        post: null,
         postStatus: "idle",
         error: null
     },
-    reducers: {},
+    reducers: {
+        updateLikesOnFeed: (state, action) => {
+            const updatedPost = action.payload;
+            let indexOfPostInFeed = state.feedPosts.findIndex((post) => post._id === updatedPost._id);
+            state.feedPosts[indexOfPostInFeed] = updatedPost;
+        }
+    },
     extraReducers: {
         [getFeed.pending]: (state) => {
             state.postStatus = "loading"
@@ -26,7 +33,6 @@ export const postsSlice = createSlice({
         [getFeed.fulfilled]: (state, action) => {
             const { feedPosts } = action.payload
             state.feedPosts = feedPosts;
-            console.log(state.feedPosts)
             state.postStatus = "feedLoaded"
         },
         [getFeed.rejected]: (state, action) => {
@@ -65,8 +71,7 @@ export const postsSlice = createSlice({
         },
         [likePost.fulfilled]: (state, action) => {
             const { postLiked } = action.payload;
-            const requiredPost = state.feedPosts.find((post) => post._id === postLiked.postId)
-            requiredPost.likes.push(postLiked.likedBy)
+            state.post = postLiked
             state.postStatus ="liked"
         },
         [likePost.rejected]: (state, action) => {
@@ -79,8 +84,7 @@ export const postsSlice = createSlice({
         },
         [unLikePost.fulfilled]: (state, action) => {
             const { postUnLiked } = action.payload;
-            const requiredPost = state.feedPosts.find((post) => post._id === postUnLiked.postId)
-            requiredPost.likes.splice(requiredPost.likes.indexOf(postUnLiked.unlikedBy), 1);
+            state.post = postUnLiked;
             state.postStatus ="unliked"
         },
         [unLikePost.rejected]: (state, action) => {
@@ -128,5 +132,7 @@ export const postsSlice = createSlice({
         }
     }
 })
+
+export const { updateLikesOnFeed } = postsSlice.actions;
 
 export default postsSlice.reducer;
