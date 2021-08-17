@@ -57,12 +57,14 @@ export default function Login() {
                     <button 
                         onClick={(e) => {e.preventDefault(); logInHandler();}}
                         className="my-2 block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
-                            {status === "loading" ? "Loading..." : "Login"}
+                            {status === "loading" ? 
+                                <i className="bx bx-loader-alt animate-spin"></i>
+                            : "Login"}
                     </button>
                     <button 
                         onClick={(e) => {e.preventDefault(); loginAsGuest();}}
                         className="block text-center text-white bg-gray-800 p-3 duration-300 rounded hover:bg-black w-full">
-                            {status === "loading" ? "Loading..." : "Login as Guest"}
+                            Login as Guest
                     </button>
                 </form>
                 <p className="mt-12 text-sm text-center font-normal text-gray-900"> Don't have an account? <Link to="/signup" className="text-black font-medium"> Create One </Link>  </p> 
