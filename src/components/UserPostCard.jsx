@@ -77,7 +77,7 @@ export const UserPostCard = ({post}) => {
                         </span>
                 </button>
                 <button
-                    onClick={() => navigate(`feed/${post._id}`)}
+                    onClick={() => navigate(`/feed/${post._id}`)}
                     className="flex items-center">
                     <i className="text-lg bx bx-comment"></i>
                     <span className="text-gray-400 font-normal ml-1">{post?.comments.length > 0 && post?.comments.length}</span>
