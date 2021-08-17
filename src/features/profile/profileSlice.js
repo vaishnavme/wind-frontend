@@ -16,6 +16,13 @@ export const profileSlice = createSlice({
         resetProfile: (state) => {
             state.profile = null;
             state.profileStatus = "idle";
+        },
+        updateLikesOnProfile: (state, action) => {
+            const updatedPost = action.payload;
+            let indexOfPostInProfile = state.profile.posts.findIndex(
+                (post) => post._id === updatedPost._id
+            )
+            state.profile.posts[indexOfPostInProfile] = updatedPost;
         }
     },
     extraReducers: {
@@ -59,6 +66,6 @@ export const profileSlice = createSlice({
     }
 })
 
-export const { resetProfile } = profileSlice.actions;
+export const { resetProfile, updateLikesOnProfile } = profileSlice.actions;
 
 export default profileSlice.reducer;

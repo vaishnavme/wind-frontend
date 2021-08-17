@@ -4,6 +4,7 @@ export { Navlinks } from "./NavLinks"
 export { InputFields } from "./InputFields";
 export { NewPost } from "./NewPost";
 export { PostCard } from "./PostCard";
+export { UserPostCard } from "./UserPostCard";
 export { Account } from "./Account";
 export { ProfileHeader } from "./ProfileHeader";
 export { ProfileUpdate } from "./ProfileUpdate";
