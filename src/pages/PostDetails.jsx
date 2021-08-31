@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router';
 import { updatePostOnFeed } from '../features/posts/postsSlice';
+import { updatePostOnProfile } from '../features/profile/profileSlice';
 import {
     getSinglePost,
     postComment,
@@ -37,6 +38,8 @@ export default function PostDetails() {
             dispatch(postComment(variable));
             // update in local
             dispatch(updatePostOnFeed(clonedPost));
+            // update in profile
+            dispatch(updatePostOnProfile(clonedPost));
             setComment('');
         }
     };

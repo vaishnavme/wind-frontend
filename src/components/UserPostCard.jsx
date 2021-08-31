@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { likePost, unLikePost, deletePost } from '../features/posts/request';
-import { updateLikesOnProfile } from '../features/profile/profileSlice';
+import { updatePostOnProfile } from '../features/profile/profileSlice';
 import { InitialDP, alreadyExist, getTimeAgo } from '.';
 
 export const UserPostCard = ({ post }) => {
@@ -28,7 +28,7 @@ export const UserPostCard = ({ post }) => {
             dispatch(likePost(post._id));
         }
         // update in localState
-        dispatch(updateLikesOnProfile(clonedPost));
+        dispatch(updatePostOnProfile(clonedPost));
     };
 
     return (
