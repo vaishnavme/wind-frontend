@@ -1,71 +1,71 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
     getUserProfile,
     updateUserProfile,
     updateUserPassword
-} from "./request";
+} from './request';
 
 export const profileSlice = createSlice({
-    name: "profile",
+    name: 'profile',
     initialState: {
-        profileStatus: "idle",
+        profileStatus: 'idle',
         profile: null,
         error: null
     },
     reducers: {
         resetProfile: (state) => {
             state.profile = null;
-            state.profileStatus = "idle";
+            state.profileStatus = 'idle';
         },
-        updateLikesOnProfile: (state, action) => {
+        updatePostOnProfile: (state, action) => {
             const updatedPost = action.payload;
             let indexOfPostInProfile = state.profile.posts.findIndex(
                 (post) => post._id === updatedPost._id
-            )
+            );
             state.profile.posts[indexOfPostInProfile] = updatedPost;
         }
     },
     extraReducers: {
         [getUserProfile.pending]: (state) => {
-            state.profileStatus = "loading"
+            state.profileStatus = 'loading';
         },
         [getUserProfile.fulfilled]: (state, action) => {
             const { profile } = action.payload;
             state.profile = profile;
-            state.profileStatus = "dataReceived"
+            state.profileStatus = 'dataReceived';
         },
         [getUserProfile.rejected]: (state, action) => {
-            state.error = action.payload
-            state.profileStatus = "error"
+            state.error = action.payload;
+            state.profileStatus = 'error';
         },
 
         [updateUserProfile.pending]: (state) => {
-            state.profileStatus = "updating"
+            state.profileStatus = 'updating';
         },
         [updateUserProfile.fulfilled]: (state, action) => {
             const { updatedUserProfile } = action.payload;
             state.profile = {
                 ...state.profile,
                 ...updatedUserProfile
-            }
-            state.profileStatus = "Fulfilled"
+            };
+            state.profileStatus = 'Fulfilled';
         },
         [updateUserProfile.rejected]: (state) => {
-            state.profileStatus = "error"
+            state.profileStatus = 'error';
         },
 
         [updateUserPassword.pending]: (state) => {
-            state.profileStatus = "updating password"
+            state.profileStatus = 'updating password';
         },
         [updateUserPassword.fulfilled]: (state) => {
-            state.profileStatus = "Fulfilled"
+            state.profileStatus = 'Fulfilled';
         },
         [updateUserPassword.pending]: (state) => {
-            state.profileStatus = "error"
-        },
+            state.profileStatus = 'error';
+        }
     }
-})
+});
 
-export const { resetProfile, updateLikesOnProfile } = profileSlice.actions;
+export const { resetProfile, updatePostOnProfile } = profileSlice.actions;
 
 export default profileSlice.reducer;

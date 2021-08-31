@@ -1,12 +1,11 @@
-import { parseJSON, formatDistanceToNow } from "date-fns";
+import { parseJSON, formatDistanceToNow } from 'date-fns';
 
 export const getTimeAgo = (timestamp) => {
-  const parsedTime = parseJSON(timestamp);
-  const timePeriod = formatDistanceToNow(parsedTime);
-  return timePeriod;
+    const parsedTime = parseJSON(timestamp);
+    const timePeriod = formatDistanceToNow(parsedTime);
+    return timePeriod;
 };
 
-
 export const alreadyExist = (collection, itemID) => {
-    return collection.find((item) => item._id === itemID || item === itemID)
-}
+    return !!collection.find((item) => item._id === itemID || item === itemID);
+};

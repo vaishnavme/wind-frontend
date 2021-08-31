@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { PrivateRoute, Navbar } from './components';
 import { logOutUser } from './features/auth/authSlice';
-import { initializeAuthUser } from "./features/auth/request";
-import { getFeed } from "./features/posts/request";
-import { getUserNotifications } from "./features/Notifications/notifySlice";
+import { initializeAuthUser } from './features/auth/request';
+import { getFeed } from './features/posts/request';
+import { getUserNotifications } from './features/Notifications/notifySlice';
 import {
     Login,
     SignUp,
@@ -18,11 +18,13 @@ import {
     Followers,
     PostDetails,
     Notifications
-} from "./pages";
+} from './pages';
 
 function App() {
     const dispatch = useDispatch();
-    const { userToken, userId, isAuthenticated } = useSelector((state) => state.auth);
+    const { userToken, userId, isAuthenticated } = useSelector(
+        (state) => state.auth
+    );
 
     axios.interceptors.request.use(
         function (config) {
@@ -36,20 +38,21 @@ function App() {
             return Promise.reject(err);
         }
     );
-    axios.interceptors.response.use((response) => response,
+    axios.interceptors.response.use(
+        (response) => response,
         (error) => {
             if (error?.response?.status === 401) {
-                dispatch(logOutUser())
+                dispatch(logOutUser());
             }
             return Promise.reject(error);
-        }       
+        }
     );
 
     useEffect(() => {
-        if(isAuthenticated) {
-            dispatch(initializeAuthUser(userId))
+        if (isAuthenticated) {
+            dispatch(initializeAuthUser(userId));
             dispatch(getFeed());
-            dispatch(getUserNotifications())
+            dispatch(getUserNotifications());
         }
         // eslint-disable-next-line
     }, [isAuthenticated]);
