@@ -1,6 +1,6 @@
 # Wind - Social Media site - (Twitter Clone)
 
-#### [Live](https://wind-frontend-git-develop-vaishnavme.vercel.app/)  https://wind-frontend-git-develop-vaishnavme.vercel.app 
+#### [Live](https://windsm.vercel.app/)  https://windsm.vercel.app/ 
 OneNotion
 
 ### Frontend
