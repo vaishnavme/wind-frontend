@@ -55,7 +55,7 @@ export const profileSlice = createSlice({
                 ...state.profile,
                 ...updatedUserProfile
             };
-            state.profileStatus = 'Fulfilled';
+            state.profileStatus = 'dataReceived';
         },
         [updateUserProfile.rejected]: (state) => {
             state.profileStatus = 'error';

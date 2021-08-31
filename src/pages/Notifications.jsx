@@ -19,9 +19,12 @@ export default function Notifications() {
     return (
         <div>
             <div className="rounded-md bg-white py-2 px-4 mb-4 text-2xl text-gray-600">
-                Notifications{' '}
+                Notifications
             </div>
             {notifyStatus === 'loading' && <Loader />}
+            {notifications.length === 0 && (
+                <div className="text-center">You have no notifications.</div>
+            )}
             {notifications &&
                 notifications.map(
                     ({ sourceUser, _id, time, notificationType, post }) => {
