@@ -1,7 +1,7 @@
 # Wind - Social Media site - (Twitter Clone)
 
 #### [Live](https://windsm.vercel.app/)  https://windsm.vercel.app/ 
-OneNotion
+Wind-Social Media App
 
 ### Frontend
 
