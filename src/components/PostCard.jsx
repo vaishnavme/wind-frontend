@@ -33,6 +33,10 @@ export const PostCard = ({ post }) => {
         dispatch(updatePostOnFeed(clonedPost));
     };
 
+    const deleteHandler = (postId) => {
+        dispatch(deletePost(postId));
+    };
+
     return (
         <div className="my-4 bg-white rounded-md">
             <div className="p-3 border-b">
@@ -111,7 +115,7 @@ export const PostCard = ({ post }) => {
                 </button>
                 {user?._id === post.creator._id && (
                     <button
-                        onClick={() => dispatch(deletePost(post._id))}
+                        onClick={() => deleteHandler(post._id)}
                         className="flex items-center"
                         title="Delete"
                     >
