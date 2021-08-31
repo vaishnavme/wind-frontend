@@ -20,7 +20,7 @@ export const postsSlice = createSlice({
         error: null
     },
     reducers: {
-        updateLikesOnFeed: (state, action) => {
+        updatePostOnFeed: (state, action) => {
             const updatedPost = action.payload;
             let indexOfPostInFeed = state.feedPosts.findIndex(
                 (post) => post._id === updatedPost._id
@@ -139,6 +139,6 @@ export const postsSlice = createSlice({
     }
 });
 
-export const { updateLikesOnFeed } = postsSlice.actions;
+export const { updatePostOnFeed } = postsSlice.actions;
 
 export default postsSlice.reducer;

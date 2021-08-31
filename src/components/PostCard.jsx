@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { likePost, unLikePost, deletePost } from '../features/posts/request';
-import { updateLikesOnFeed } from '../features/posts/postsSlice';
+import { updatePostOnFeed } from '../features/posts/postsSlice';
 import { InitialDP, alreadyExist, getTimeAgo } from '.';
 
 export const PostCard = ({ post }) => {
@@ -22,7 +22,6 @@ export const PostCard = ({ post }) => {
                 (like) => like !== userId
             );
             clonedPost.likes = updatedLikes;
-
             // update in db
             dispatch(unLikePost(post._id));
         } else {
@@ -34,7 +33,7 @@ export const PostCard = ({ post }) => {
         }
         // update in localState
         console.log(clonedPost);
-        dispatch(updateLikesOnFeed(clonedPost));
+        dispatch(updatePostOnFeed(clonedPost));
     };
 
     return (
