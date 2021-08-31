@@ -10,14 +10,13 @@ export const PostCard = ({ post }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isPostAlreadyLiked = alreadyExist(post.likes, user?._id);
+    const isPostAlreadyLiked = alreadyExist(post.likes, user._id);
 
     const likePostOnFeed = (userId) => {
         // create copy of post
         let clonedPost = JSON.parse(JSON.stringify(post));
 
         if (isPostAlreadyLiked) {
-            console.log('unliked');
             let updatedLikes = clonedPost.likes.filter(
                 (like) => like !== userId
             );
@@ -25,14 +24,12 @@ export const PostCard = ({ post }) => {
             // update in db
             dispatch(unLikePost(post._id));
         } else {
-            console.log('liked');
             clonedPost.likes.push(userId);
-
             // update in db
             dispatch(likePost(post._id));
         }
         // update in localState
-        console.log(clonedPost);
+
         dispatch(updatePostOnFeed(clonedPost));
     };
 
