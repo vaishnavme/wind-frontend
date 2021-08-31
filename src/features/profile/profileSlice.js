@@ -17,6 +17,13 @@ export const profileSlice = createSlice({
             state.profile = null;
             state.profileStatus = 'idle';
         },
+        updateUserProfile: (state, action) => {
+            const { profileUpdates } = action.payload;
+            state.profile = {
+                ...state.profile,
+                profileUpdates
+            };
+        },
         updatePostOnProfile: (state, action) => {
             const updatedPost = action.payload;
             let indexOfPostInProfile = state.profile.posts.findIndex(
