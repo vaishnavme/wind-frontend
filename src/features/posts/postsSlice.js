@@ -14,7 +14,7 @@ export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         feedPosts: [],
-        singlePost: null,
+        singlePost: {},
         post: null,
         postStatus: 'idle',
         error: null
@@ -22,7 +22,7 @@ export const postsSlice = createSlice({
     reducers: {
         resetFeed: (state) => {
             state.feedPosts = [];
-            state.singlePost = null;
+            state.singlePost = {};
             state.post = null;
             state.postStatus = 'idle';
             state.error = null;
@@ -109,7 +109,7 @@ export const postsSlice = createSlice({
             state.feedPosts = state.feedPosts.filter(
                 (post) => post._id !== deletedPost._id
             );
-            state.postStatus = 'Fulfilled';
+            state.postStatus = 'Deleted';
         },
         [deletePost.rejected]: (state, action) => {
             state.error = action.payload;

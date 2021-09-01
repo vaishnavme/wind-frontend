@@ -9,3 +9,7 @@ export const getTimeAgo = (timestamp) => {
 export const alreadyExist = (collection, itemID) => {
     return !!collection.find((item) => item._id === itemID || item === itemID);
 };
+
+export const isAlreadyLiked = (likeArray, userId) => {
+    return !!likeArray.find((like) => like === userId);
+};

@@ -2,14 +2,17 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../features/profile/request';
 import { InitialDP, getImageLink } from '.';
+import { resetProfile } from '../features/profile/profileSlice';
 
 export const ProfileUpdate = ({ profile, profileStatus }) => {
     const dispatch = useDispatch();
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
-    const [bio, setBio] = useState('');
+    const [name, setName] = useState('' || profile?.name);
+    const [username, setUsername] = useState('' || profile?.username);
+    const [bio, setBio] = useState('' || profile?.bio);
     const [image, setImage] = useState('');
-    const [profilePhoto, setProfilePhoto] = useState('');
+    const [profilePhoto, setProfilePhoto] = useState(
+        '' || profile?.profilePhoto
+    );
     const [loading, setLoading] = useState(false);
 
     const uploadImage = async () => {
@@ -25,14 +28,17 @@ export const ProfileUpdate = ({ profile, profileStatus }) => {
         }
     };
 
-    const updateProfile = () => {
+    const updateProfile = async () => {
         let profileUpdates = {
-            name: name || profile?.name,
-            username: username || profile?.username,
-            bio: bio || profile?.bio,
-            profilePhoto: profilePhoto || profile?.profilePhoto
+            name: name,
+            username: username,
+            bio: bio,
+            profilePhoto: profilePhoto
         };
-        dispatch(updateUserProfile(profileUpdates));
+        const response = await dispatch(updateUserProfile(profileUpdates));
+        if (response) {
+            dispatch(resetProfile());
+        }
     };
 
     return (

@@ -9,15 +9,20 @@ export const profileSlice = createSlice({
     name: 'profile',
     initialState: {
         profileStatus: 'idle',
-        profile: null,
+        profile: {},
+        profilePosts: [],
         error: null
     },
     reducers: {
         resetProfile: (state) => {
-            state.profile = null;
+            state.profile = {};
+            state.profilePosts = [];
             state.profileStatus = 'idle';
         },
-        updateUserProfile: (state, action) => {
+        addNewPostToProfile: (state, action) => {
+            state.profilePosts.unshift(action.payload);
+        },
+        updateLocalUserProfile: (state, action) => {
             const { profileUpdates } = action.payload;
             state.profile = {
                 ...state.profile,
@@ -26,10 +31,16 @@ export const profileSlice = createSlice({
         },
         updatePostOnProfile: (state, action) => {
             const updatedPost = action.payload;
-            let indexOfPostInProfile = state.profile.posts.findIndex(
+            let indexOfPostInProfile = state.profilePosts.findIndex(
                 (post) => post._id === updatedPost._id
             );
-            state.profile.posts[indexOfPostInProfile] = updatedPost;
+            state.profilePosts[indexOfPostInProfile] = updatedPost;
+        },
+        deletePostOnProfile: (state, action) => {
+            const postId = action.payload;
+            state.profilePosts = state.profilePosts.filter(
+                (post) => post._id !== postId
+            );
         }
     },
     extraReducers: {
@@ -37,8 +48,9 @@ export const profileSlice = createSlice({
             state.profileStatus = 'loading';
         },
         [getUserProfile.fulfilled]: (state, action) => {
-            const { profile } = action.payload;
+            const { profile, posts } = action.payload;
             state.profile = profile;
+            state.profilePosts = posts;
             state.profileStatus = 'dataReceived';
         },
         [getUserProfile.rejected]: (state, action) => {
@@ -73,6 +85,12 @@ export const profileSlice = createSlice({
     }
 });
 
-export const { resetProfile, updatePostOnProfile } = profileSlice.actions;
+export const {
+    resetProfile,
+    addNewPostToProfile,
+    updatePostOnProfile,
+    updateLocalUserProfile,
+    deletePostOnProfile
+} = profileSlice.actions;
 
 export default profileSlice.reducer;

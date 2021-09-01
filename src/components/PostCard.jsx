@@ -3,16 +3,20 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { likePost, unLikePost, deletePost } from '../features/posts/request';
 import { updatePostOnFeed } from '../features/posts/postsSlice';
-import { InitialDP, alreadyExist, getTimeAgo } from '.';
+import {
+    deletePostOnProfile,
+    updatePostOnProfile
+} from '../features/profile/profileSlice';
+import { InitialDP, isAlreadyLiked, getTimeAgo } from '.';
 
 export const PostCard = ({ post }) => {
     const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isPostAlreadyLiked = alreadyExist(post.likes, user?._id);
+    const isPostAlreadyLiked = isAlreadyLiked(post.likes, user._id);
 
-    const likePostOnFeed = (userId) => {
+    const likePostOnFeed = async (userId) => {
         // create copy of post
         let clonedPost = JSON.parse(JSON.stringify(post));
 
@@ -29,12 +33,15 @@ export const PostCard = ({ post }) => {
             dispatch(likePost(post?._id));
         }
         // update in localState
-
         dispatch(updatePostOnFeed(clonedPost));
+        dispatch(updatePostOnProfile(clonedPost));
     };
 
-    const deleteHandler = (postId) => {
-        dispatch(deletePost(postId));
+    const deleteHandler = async (postId) => {
+        const response = dispatch(deletePost(postId));
+        if (response) {
+            dispatch(deletePostOnProfile(postId));
+        }
     };
 
     return (

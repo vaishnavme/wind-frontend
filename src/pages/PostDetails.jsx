@@ -50,24 +50,26 @@ export default function PostDetails() {
             commentID
         };
         dispatch(deleteComment(variable));
-        if (postStatus === 'Deleted') {
-            navigate('/');
-        }
     };
 
     return (
         <div>
-            {postStatus === 'post-loading' ? (
-                <Loader />
+            {postStatus === 'post-loading' && <Loader />}
+            <button
+                className="flex items-center text-blue-600 font-medium"
+                onClick={() => navigate(-1)}
+            >
+                <i className="bx bx-chevron-left text-2xl"></i> Back
+            </button>
+            {postStatus === 'Deleted' ? (
+                <div className="bg-white rounded p-8 mt-2">
+                    <p className="text-center text-gray-800">
+                        Post has been removed.
+                    </p>
+                </div>
             ) : (
                 singlePost && (
                     <div>
-                        <button
-                            className="flex items-center text-blue-600 font-medium"
-                            onClick={() => navigate(-1)}
-                        >
-                            <i className="bx bx-chevron-left text-2xl"></i> Back
-                        </button>
                         <PostCard post={singlePost} />
                         <div className="bg-white shadow rounded-md p-4">
                             <textarea
