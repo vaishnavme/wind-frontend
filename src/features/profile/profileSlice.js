@@ -17,8 +17,10 @@ export const profileSlice = createSlice({
             state.profile = null;
             state.profileStatus = 'idle';
         },
-        updateUserProfile: (state, action) => {
+        updateLocalUserProfile: (state, action) => {
             const { profileUpdates } = action.payload;
+            console.log(profileUpdates);
+            console.log(state.profile);
             state.profile = {
                 ...state.profile,
                 profileUpdates
@@ -73,6 +75,7 @@ export const profileSlice = createSlice({
     }
 });
 
-export const { resetProfile, updatePostOnProfile } = profileSlice.actions;
+export const { resetProfile, updatePostOnProfile, updateLocalUserProfile } =
+    profileSlice.actions;
 
 export default profileSlice.reducer;
