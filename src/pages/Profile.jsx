@@ -1,7 +1,6 @@
 import { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import { resetProfile } from '../features/profile/profileSlice';
 import { getUserProfile } from '../features/profile/request';
 import { UserPostCard, ProfileHeader, Loader } from '../components';
 
