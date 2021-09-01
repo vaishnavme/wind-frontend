@@ -1,17 +1,16 @@
-import { useSelector } from "react-redux";
-import { NewPost, PostCard } from "../components";
+import { useSelector } from 'react-redux';
+import { Loader, NewPost, PostCard } from '../components';
 
 export default function Feed() {
-    const { feedPosts } = useSelector((state) => state.posts);
+    const { feedPosts, postStatus } = useSelector((state) => state.posts);
 
     return (
         <div>
-            <NewPost/>
-            {
-                feedPosts?.map((post) => (
-                    <PostCard key={post._id} post={post}/>
-                ))
-            }
+            <NewPost />
+            {postStatus === 'loading' && <Loader />}
+            {feedPosts?.map((post) => (
+                <PostCard key={post?._id} post={post} />
+            ))}
         </div>
-    )
+    );
 }
