@@ -111,7 +111,7 @@ export const PostCard = ({ post }) => {
                     </span>
                 </button>
                 <button
-                    onClick={() => navigate(`feed/${post._id}`)}
+                    onClick={() => navigate(`/feed/${post._id}`)}
                     className="flex items-center"
                     title="Comment"
                 >
