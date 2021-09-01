@@ -1,13 +1,13 @@
 import { Fragment } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser } from '../features/auth/authSlice';
 import { resetFeed } from '../features/posts/postsSlice';
 import { resetProfile } from '../features/profile/profileSlice';
-import { Navlinks, InitialDP } from '.';
+import { Navlinks } from '.';
 
 export const Navbar = () => {
-    const { userId, user } = useSelector((state) => state.auth);
+    const { userId } = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
 
@@ -33,30 +33,6 @@ export const Navbar = () => {
 
             <nav className="md:flex justify-between flex-col fixed bottom-2 w-full md:w-72 md:top-0 md:mt-16 p-4">
                 <div>
-                    <Link to={`/profile/${userId}`}>
-                        <div className="hidden shadow md:flex items-center bg-white p-3 rounded-md mb-8">
-                            {user?.profilePhoto ? (
-                                <img
-                                    className="w-12 h-auto rounded-md"
-                                    src={user.profilePhoto}
-                                    alt={user?.name}
-                                />
-                            ) : (
-                                <InitialDP
-                                    name={user?.name}
-                                    size={14}
-                                    fontSize={'text-3xl'}
-                                />
-                            )}
-                            <div className="ml-3">
-                                <h4 className="font-medium">{user?.name}</h4>
-                                <span className="text-sm font-medium text-gray-500">
-                                    @{user?.username}
-                                </span>
-                            </div>
-                        </div>
-                    </Link>
-
                     <div className="bg-white shadow rounded-xl p-2">
                         <ul className="flex justify-around md:flex-col">
                             <li>
