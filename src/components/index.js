@@ -11,6 +11,6 @@ export { ProfileUpdate } from './ProfileUpdate';
 export { ProfileCard } from './ProfileCard';
 export { InitialDP } from './InitialsDP';
 export { getImageLink } from './getImageLink';
-export { alreadyExist, getTimeAgo } from './utility';
+export { isAlreadyLiked, alreadyExist, getTimeAgo } from './utility';
 export { Loader } from './Loader';
 export { axiosInstance } from './axiosInstance';

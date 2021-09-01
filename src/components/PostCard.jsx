@@ -7,14 +7,14 @@ import {
     deletePostOnProfile,
     updatePostOnProfile
 } from '../features/profile/profileSlice';
-import { InitialDP, alreadyExist, getTimeAgo } from '.';
+import { InitialDP, isAlreadyLiked, getTimeAgo } from '.';
 
 export const PostCard = ({ post }) => {
     const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isPostAlreadyLiked = alreadyExist(post.likes, user?._id);
+    const isPostAlreadyLiked = isAlreadyLiked(post.likes, user._id);
 
     const likePostOnFeed = async (userId) => {
         // create copy of post
