@@ -14,7 +14,7 @@ export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         feedPosts: [],
-        singlePost: {},
+        singlePost: null,
         post: null,
         postStatus: 'idle',
         error: null
