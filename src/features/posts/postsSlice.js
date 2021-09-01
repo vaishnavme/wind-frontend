@@ -32,6 +32,7 @@ export const postsSlice = createSlice({
             let indexOfPostInFeed = state.feedPosts.findIndex(
                 (post) => post._id === updatedPost._id
             );
+            console.log(indexOfPostInFeed);
             state.feedPosts[indexOfPostInFeed] = updatedPost;
         }
     },

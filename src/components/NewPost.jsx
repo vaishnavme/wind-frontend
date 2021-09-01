@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { InitialDP, getImageLink } from '.';
 import { createNewPost } from '../features/posts/request';
+import { addNewPostToProfile } from '../features/profile/profileSlice';
 
 export const NewPost = () => {
     const { user } = useSelector((state) => state.auth);
@@ -27,13 +28,16 @@ export const NewPost = () => {
         }
     };
 
-    const makePostHandler = () => {
+    const makePostHandler = async () => {
         if (content || postMedia) {
             let post = {
                 content: content,
                 postMedia: postMedia
             };
-            dispatch(createNewPost(post));
+            const response = await dispatch(createNewPost(post));
+            if (response) {
+                dispatch(addNewPostToProfile(response.payload.savedPost));
+            }
             setContent('');
             setPostMedia('');
         }
