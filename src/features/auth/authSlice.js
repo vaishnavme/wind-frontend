@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { 
-    loginUserWithCredentials, 
+import {
+    loginUserWithCredentials,
     signupUserWithCredentials,
     initializeAuthUser,
     followUser,
@@ -53,7 +53,7 @@ export const authSlice = createSlice({
             state.status = 'tokenReceived';
         },
         [loginUserWithCredentials.rejected]: (state, action) => {
-            state.error = action.payload
+            state.error = action.payload;
             state.status = 'error';
         },
         [signupUserWithCredentials.pending]: (state) => {
@@ -61,7 +61,6 @@ export const authSlice = createSlice({
         },
         [signupUserWithCredentials.fulfilled]: (state, action) => {
             const { token, user } = action.payload;
-            console.log(action.payload)
             state.userToken = token;
             state.userId = user._id;
             state.isAuthenticated = true;
@@ -71,7 +70,7 @@ export const authSlice = createSlice({
             state.status = 'tokenReceived';
         },
         [signupUserWithCredentials.rejected]: (state, action) => {
-            state.error = action.payload
+            state.error = action.payload;
             state.status = 'error';
         },
         [initializeAuthUser.pending]: (state) => {
@@ -83,33 +82,35 @@ export const authSlice = createSlice({
             state.status = 'profileLoaded';
         },
         [initializeAuthUser.rejected]: (state, action) => {
-            state.error = action.payload
+            state.error = action.payload;
             state.status = 'error';
         },
 
         [followUser.pending]: (state) => {
-            state.status = "loadinguser";
+            state.status = 'loadinguser';
         },
         [followUser.fulfilled]: (state, action) => {
-            const { followedId } = action.payload
+            const { followedId } = action.payload;
             state.user.following.push(followedId);
             state.status = 'Fulfilled';
         },
         [followUser.rejected]: (state, action) => {
-            state.error = action.payload
+            state.error = action.payload;
             state.status = 'rejected';
         },
         [unFollowUser.pending]: (state) => {
-            state.status = "loadinguser";
+            state.status = 'loadinguser';
         },
         [unFollowUser.fulfilled]: (state, action) => {
-            const { unfollowedId } = action.payload
+            const { unfollowedId } = action.payload;
             state.user.following.splice(
-                state.user.following.indexOf(unfollowedId),1);
+                state.user.following.indexOf(unfollowedId),
+                1
+            );
             state.status = 'Fulfilled';
         },
         [unFollowUser.rejected]: (state, action) => {
-            state.error = action.payload
+            state.error = action.payload;
             state.status = 'rejected';
         }
     }

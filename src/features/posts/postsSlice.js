@@ -20,6 +20,13 @@ export const postsSlice = createSlice({
         error: null
     },
     reducers: {
+        resetFeed: (state) => {
+            state.feedPosts = [];
+            state.singlePost = null;
+            state.post = null;
+            state.postStatus = 'idle';
+            state.error = null;
+        },
         updatePostOnFeed: (state, action) => {
             const updatedPost = action.payload;
             let indexOfPostInFeed = state.feedPosts.findIndex(
@@ -139,6 +146,6 @@ export const postsSlice = createSlice({
     }
 });
 
-export const { updatePostOnFeed } = postsSlice.actions;
+export const { resetFeed, updatePostOnFeed } = postsSlice.actions;
 
 export default postsSlice.reducer;
