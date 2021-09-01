@@ -135,9 +135,14 @@ export default function SignUp() {
                             }}
                             className={`block text-center text-white bg-gray-800 p-3 duration-300 rounded "hover:bg-black" w-full`}
                         >
-                            {status === 'loading'
-                                ? 'Creating account...'
-                                : 'Signup'}
+                            {status === 'loading' ? (
+                                <span>
+                                    Creating account{' '}
+                                    <i className="bx bx-loader-alt animate-spin"></i>
+                                </span>
+                            ) : (
+                                'Signup'
+                            )}
                         </button>
                         {errorMessage !== '' && (
                             <div className="bg-red-50 p-2 mt-4 rounded">

@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logOutUser } from '../features/auth/authSlice';
+import { resetFeed } from '../features/posts/postsSlice';
+import { resetProfile } from '../features/profile/profileSlice';
 import { followUser, unFollowUser } from '../features/auth/request';
 import { InitialDP, alreadyExist } from '.';
 
@@ -10,6 +12,12 @@ export const ProfileHeader = ({ profile }) => {
     const dispatch = useDispatch();
 
     const isFollowing = alreadyExist(user?.following, profile._id);
+
+    const logOutHandler = () => {
+        dispatch(logOutUser());
+        dispatch(resetFeed());
+        dispatch(resetProfile());
+    };
 
     return (
         <div className="rounded-md bg-white py-2 px-4 text-center sm:text-left">
@@ -74,7 +82,7 @@ export const ProfileHeader = ({ profile }) => {
                                 Edit
                             </button>
                             <button
-                                onClick={() => dispatch(logOutUser())}
+                                onClick={() => logOutHandler()}
                                 className="border-2 border-red-600 text-red-700 hover:bg-red-500 hover:text-white text-white px-2 py-1 my-1 mx-2 w-24 rounded"
                             >
                                 Log Out

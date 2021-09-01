@@ -10,7 +10,7 @@ export const PostCard = ({ post }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isPostAlreadyLiked = alreadyExist(post.likes, user._id);
+    const isPostAlreadyLiked = alreadyExist(post.likes, user?._id);
 
     const likePostOnFeed = (userId) => {
         // create copy of post
@@ -22,11 +22,11 @@ export const PostCard = ({ post }) => {
             );
             clonedPost.likes = updatedLikes;
             // update in db
-            dispatch(unLikePost(post._id));
+            dispatch(unLikePost(post?._id));
         } else {
             clonedPost.likes.push(userId);
             // update in db
-            dispatch(likePost(post._id));
+            dispatch(likePost(post?._id));
         }
         // update in localState
 

@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router';
 import { updatePostOnFeed } from '../features/posts/postsSlice';
 import { updatePostOnProfile } from '../features/profile/profileSlice';
+import { PostCard, InitialDP, Loader, getTimeAgo } from '../components';
 import {
     getSinglePost,
     postComment,
     deleteComment
 } from '../features/posts/request';
-import { PostCard, InitialDP, Loader, getTimeAgo } from '../components';
 
 export default function PostDetails() {
     const { status, user } = useSelector((state) => state.auth);
@@ -62,6 +62,12 @@ export default function PostDetails() {
             ) : (
                 singlePost && (
                     <div>
+                        <button
+                            className="flex items-center text-blue-600 font-medium"
+                            onClick={() => navigate(-1)}
+                        >
+                            <i className="bx bx-chevron-left text-2xl"></i> Back
+                        </button>
                         <PostCard post={singlePost} />
                         <div className="bg-white shadow rounded-md p-4">
                             <textarea

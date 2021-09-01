@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser } from '../features/auth/authSlice';
+import { resetFeed } from '../features/posts/postsSlice';
+import { resetProfile } from '../features/profile/profileSlice';
 import { Navlinks, InitialDP } from '.';
 
 export const Navbar = () => {
@@ -11,6 +13,8 @@ export const Navbar = () => {
 
     const logOutHandler = () => {
         dispatch(logOutUser());
+        dispatch(resetFeed());
+        dispatch(resetProfile());
     };
 
     return (
