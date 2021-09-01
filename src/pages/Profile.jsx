@@ -15,7 +15,7 @@ export default function Profile() {
         if (profileId !== profile?._id && status === 'profileLoaded') {
             dispatch(getUserProfile(profileId));
         }
-        return () => resetProfile();
+
         // eslint-disable-next-line
     }, [status, profileId]);
 
