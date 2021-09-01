@@ -20,7 +20,7 @@ export const profileSlice = createSlice({
             state.profileStatus = 'idle';
         },
         addNewPostToProfile: (state, action) => {
-            state.profilePosts.push(action.payload);
+            state.profilePosts.unshift(action.payload);
         },
         updateLocalUserProfile: (state, action) => {
             const { profileUpdates } = action.payload;
@@ -37,8 +37,10 @@ export const profileSlice = createSlice({
             state.profilePosts[indexOfPostInProfile] = updatedPost;
         },
         deletePostOnProfile: (state, action) => {
-            const { postId } = action.payload;
-            state.profilePosts.filter((post) => post._id !== postId);
+            const postId = action.payload;
+            state.profilePosts = state.profilePosts.filter(
+                (post) => post._id !== postId
+            );
         }
     },
     extraReducers: {

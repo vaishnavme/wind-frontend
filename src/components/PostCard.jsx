@@ -37,8 +37,11 @@ export const PostCard = ({ post }) => {
         dispatch(updatePostOnProfile(clonedPost));
     };
 
-    const deleteHandler = (postId) => {
-        dispatch(deletePost(postId));
+    const deleteHandler = async (postId) => {
+        const response = dispatch(deletePost(postId));
+        if (response) {
+            dispatch(deletePostOnProfile(postId));
+        }
     };
 
     return (
