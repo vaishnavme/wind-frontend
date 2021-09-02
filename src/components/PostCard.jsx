@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { likePost, unLikePost, deletePost } from '../features/posts/request';
 import { updatePostOnFeed } from '../features/posts/postsSlice';
+import { InitialDP, isAlreadyLiked, getTimeAgo } from '.';
 import {
-    deletePostOnProfile,
+    removePostOnProfile,
     updatePostOnProfile
 } from '../features/profile/profileSlice';
-import { InitialDP, isAlreadyLiked, getTimeAgo } from '.';
 
 export const PostCard = ({ post }) => {
     const { user } = useSelector((state) => state.auth);
@@ -16,7 +16,7 @@ export const PostCard = ({ post }) => {
 
     const isPostAlreadyLiked = isAlreadyLiked(post.likes, user._id);
 
-    const likePostOnFeed = async (userId) => {
+    const likePostOnFeed = (userId) => {
         // create copy of post
         let clonedPost = JSON.parse(JSON.stringify(post));
 
@@ -37,11 +37,10 @@ export const PostCard = ({ post }) => {
         dispatch(updatePostOnProfile(clonedPost));
     };
 
-    const deleteHandler = async (postId) => {
-        const response = dispatch(deletePost(postId));
-        if (response) {
-            dispatch(deletePostOnProfile(postId));
-        }
+    const deleteHandler = () => {
+        let postId = post._id;
+        dispatch(deletePost(postId));
+        dispatch(removePostOnProfile(postId));
     };
 
     return (
@@ -122,7 +121,7 @@ export const PostCard = ({ post }) => {
                 </button>
                 {user?._id === post.creator._id && (
                     <button
-                        onClick={() => deleteHandler(post._id)}
+                        onClick={deleteHandler}
                         className="flex items-center"
                         title="Delete"
                     >

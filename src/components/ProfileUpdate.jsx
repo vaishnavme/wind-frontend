@@ -6,20 +6,32 @@ import { resetProfile } from '../features/profile/profileSlice';
 
 export const ProfileUpdate = ({ profile, profileStatus }) => {
     const dispatch = useDispatch();
-    const [name, setName] = useState('' || profile?.name);
-    const [username, setUsername] = useState('' || profile?.username);
-    const [bio, setBio] = useState('' || profile?.bio);
+
+    const [profileData, setProfileData] = useState({
+        name: profile?.name || '',
+        username: profile?.username || '',
+        bio: profile?.bio || '',
+        profilePhoto: profile?.profilePhoto || ''
+    });
     const [image, setImage] = useState('');
-    const [profilePhoto, setProfilePhoto] = useState(
-        '' || profile?.profilePhoto
-    );
     const [loading, setLoading] = useState(false);
+
+    const profileUpdatesInput = (e) => {
+        const value = e.target.value;
+        setProfileData({
+            ...profileData,
+            [e.target.name]: value
+        });
+    };
 
     const uploadImage = async () => {
         try {
             setLoading(true);
             const link = await getImageLink(image);
-            setProfilePhoto(link);
+            setProfileData({
+                ...profileData,
+                profilePhoto: link
+            });
             setLoading(false);
         } catch (err) {
             console.log(err);
@@ -28,14 +40,8 @@ export const ProfileUpdate = ({ profile, profileStatus }) => {
         }
     };
 
-    const updateProfile = async () => {
-        let profileUpdates = {
-            name: name,
-            username: username,
-            bio: bio,
-            profilePhoto: profilePhoto
-        };
-        const response = await dispatch(updateUserProfile(profileUpdates));
+    const updateProfile = () => {
+        const response = dispatch(updateUserProfile(profileData));
         if (response) {
             dispatch(resetProfile());
         }
@@ -45,15 +51,15 @@ export const ProfileUpdate = ({ profile, profileStatus }) => {
         <div className="bg-white rounded-md p-4">
             <h1 className="text-2xl mt-3">Profile</h1>
             <div className="flex items-center flex-col">
-                {profile?.profilePhoto || profilePhoto ? (
+                {profileData?.profilePhoto ? (
                     <img
                         className="w-36 h-auto rounded-md"
-                        src={profile?.profilePhoto || profilePhoto}
-                        alt={profile?.name}
+                        src={profileData?.profilePhoto}
+                        alt={profileData?.name}
                     />
                 ) : (
                     <InitialDP
-                        name={profile?.name}
+                        name={profileData?.name}
                         size={36}
                         fontSize={'text-7xl'}
                     />
@@ -91,8 +97,8 @@ export const ProfileUpdate = ({ profile, profileStatus }) => {
                         id="name"
                         type="text"
                         name="name"
-                        defaultValue={profile?.name}
-                        onChange={(e) => setName(e.target.value)}
+                        defaultValue={profileData?.name}
+                        onChange={(e) => profileUpdatesInput(e)}
                         className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full"
                         placeholder="Name"
                     />
@@ -105,8 +111,8 @@ export const ProfileUpdate = ({ profile, profileStatus }) => {
                         id="username"
                         type="text"
                         name="username"
-                        defaultValue={profile?.username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        defaultValue={profileData?.username}
+                        onChange={(e) => profileUpdatesInput(e)}
                         className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full"
                         placeholder="Username"
                     />
@@ -119,7 +125,7 @@ export const ProfileUpdate = ({ profile, profileStatus }) => {
                     type="text"
                     name="bio"
                     defaultValue={profile?.bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    onChange={(e) => profileUpdatesInput(e)}
                     className="rounded font-normal px-4 py-2 mt-1 focus:outline-none bg-gray-100 w-full"
                     placeholder="Bio"
                 />

@@ -21,15 +21,17 @@ export default function Profile() {
         if (profileId === profile?._id && status === 'idle') {
             dispatch(getUserProfile(profileId));
         }
-        // eslint-disable-next-line
-    }, [status, profileId]);
+    }, [dispatch, status, profileId, profile?._id]);
 
     return (
         <Fragment>
             {profileStatus === 'loading' && <Loader />}
             {profileStatus === 'dataReceived' && profile && (
                 <div>
-                    <ProfileHeader profile={profile} />
+                    <ProfileHeader
+                        profile={profile}
+                        profilePosts={profilePosts}
+                    />
                     {profilePosts?.length === 0 && (
                         <div className="text-center mt-5">No posts.</div>
                     )}

@@ -1,8 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { likePost, unLikePost, deletePost } from '../features/posts/request';
-import { updatePostOnProfile } from '../features/profile/profileSlice';
+import {
+    removePostOnProfile,
+    updatePostOnProfile
+} from '../features/profile/profileSlice';
 import { InitialDP, alreadyExist, getTimeAgo } from '.';
+import { updatePostOnFeed } from '../features/posts/postsSlice';
 
 export const UserPostCard = ({ post }) => {
     const { user } = useSelector((state) => state.auth);
@@ -28,7 +32,14 @@ export const UserPostCard = ({ post }) => {
             dispatch(likePost(post._id));
         }
         // update in localState
+        dispatch(updatePostOnFeed(clonedPost));
         dispatch(updatePostOnProfile(clonedPost));
+    };
+
+    const deleteHandler = () => {
+        let postId = post._id;
+        dispatch(deletePost(postId));
+        dispatch(removePostOnProfile(postId));
     };
 
     return (
@@ -100,7 +111,7 @@ export const UserPostCard = ({ post }) => {
                 </button>
                 {user?._id === post.creator._id && (
                     <button
-                        onClick={() => dispatch(deletePost(post._id))}
+                        onClick={deleteHandler}
                         className="flex items-center"
                     >
                         <i className="text-lg bx bx-trash"></i>

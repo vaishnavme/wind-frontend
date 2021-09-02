@@ -16,14 +16,13 @@ export const profileSlice = createSlice({
     reducers: {
         resetProfile: (state) => {
             state.profile = {};
-            state.profilePosts = [];
             state.profileStatus = 'idle';
         },
         addNewPostToProfile: (state, action) => {
             state.profilePosts.unshift(action.payload);
         },
         updateLocalUserProfile: (state, action) => {
-            const { profileUpdates } = action.payload;
+            const profileUpdates = action.payload;
             state.profile = {
                 ...state.profile,
                 profileUpdates
@@ -36,7 +35,7 @@ export const profileSlice = createSlice({
             );
             state.profilePosts[indexOfPostInProfile] = updatedPost;
         },
-        deletePostOnProfile: (state, action) => {
+        removePostOnProfile: (state, action) => {
             const postId = action.payload;
             state.profilePosts = state.profilePosts.filter(
                 (post) => post._id !== postId
@@ -90,7 +89,7 @@ export const {
     addNewPostToProfile,
     updatePostOnProfile,
     updateLocalUserProfile,
-    deletePostOnProfile
+    removePostOnProfile
 } = profileSlice.actions;
 
 export default profileSlice.reducer;
