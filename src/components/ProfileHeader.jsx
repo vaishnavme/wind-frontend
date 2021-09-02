@@ -6,7 +6,7 @@ import { resetProfile } from '../features/profile/profileSlice';
 import { followUser, unFollowUser } from '../features/auth/request';
 import { InitialDP, alreadyExist } from '.';
 
-export const ProfileHeader = ({ profile }) => {
+export const ProfileHeader = ({ profile, profilePosts }) => {
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ export const ProfileHeader = ({ profile }) => {
 
                         <div className="flex my-2">
                             <div className="font-semibold">
-                                {profile?.posts?.length || 0}
+                                {profilePosts?.length || 0}
                                 <span className="text-gray-400 text-sm ml-1">
                                     posts
                                 </span>

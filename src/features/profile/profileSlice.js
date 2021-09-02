@@ -16,14 +16,13 @@ export const profileSlice = createSlice({
     reducers: {
         resetProfile: (state) => {
             state.profile = {};
-            state.profilePosts = [];
             state.profileStatus = 'idle';
         },
         addNewPostToProfile: (state, action) => {
             state.profilePosts.unshift(action.payload);
         },
         updateLocalUserProfile: (state, action) => {
-            const { profileUpdates } = action.payload;
+            const profileUpdates = action.payload;
             state.profile = {
                 ...state.profile,
                 profileUpdates
