@@ -36,7 +36,7 @@ export const profileSlice = createSlice({
             );
             state.profilePosts[indexOfPostInProfile] = updatedPost;
         },
-        deletePostOnProfile: (state, action) => {
+        removePostOnProfile: (state, action) => {
             const postId = action.payload;
             state.profilePosts = state.profilePosts.filter(
                 (post) => post._id !== postId
@@ -90,7 +90,7 @@ export const {
     addNewPostToProfile,
     updatePostOnProfile,
     updateLocalUserProfile,
-    deletePostOnProfile
+    removePostOnProfile
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

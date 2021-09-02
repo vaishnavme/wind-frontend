@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authUserReducer from "../features/auth/authSlice";
+import authUserReducer from '../features/auth/authSlice';
 import postsReducers from '../features/posts/postsSlice';
-import profileReducer from "../features/profile/profileSlice";
-import exploreReducer from "../features/expolre/exploreSlice";
-import notifyReducer from "../features/Notifications/notifySlice";
+import profileReducer from '../features/profile/profileSlice';
+import exploreReducer from '../features/expolre/exploreSlice';
+import notifyReducer from '../features/Notifications/notifySlice';
 
 export const store = configureStore({
-  reducer: {
-    auth: authUserReducer,
-    posts: postsReducers,
-    explore: exploreReducer,
-    profile: profileReducer,
-    notify: notifyReducer
-  },
+    reducer: {
+        profile: profileReducer,
+        auth: authUserReducer,
+        posts: postsReducers,
+        explore: exploreReducer,
+        notify: notifyReducer
+    }
 });
